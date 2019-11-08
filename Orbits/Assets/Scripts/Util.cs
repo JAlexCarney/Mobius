@@ -19,4 +19,9 @@ public class Util
             canvas.transform.GetChild(i).gameObject.SetActive(true);
         }
     }
+
+    public static int Mod(int x, int m)
+    {
+        return (x % m + m) % m;
+    }
 }
