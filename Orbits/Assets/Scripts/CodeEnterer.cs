@@ -28,7 +28,6 @@ public class CodeEnterer : MonoBehaviour
         GameObject symbol = transform.Find("Slot" + index).gameObject;
         symbol.GetComponent<Image>().sprite = symbols[currentSymbolIndex];
         code[index] = currentSymbolIndex;
-        CheckCode();
     }
 
     public void PreviousSymbol(int index)
@@ -37,18 +36,19 @@ public class CodeEnterer : MonoBehaviour
         GameObject symbol = transform.Find("Slot" + index).gameObject;
         symbol.GetComponent<Image>().sprite = symbols[currentSymbolIndex];
         code[index] = currentSymbolIndex;
-        CheckCode();
     }
 
-    private bool CheckCode() {
+    public void CheckCode(string name) {
         for (int i = 0; i < codeLength; i++)
         {
             if (code[i] != correctCode[i])
             {
-                return false;
+                return;
             }
         }
         Debug.Log("Correct!");
-        return true;
+        ObjectInspect inspector = GameObject.Find("ObjectInspect").GetComponent<ObjectInspect>();
+        inspector.HideObject(gameObject.name);
+        inspector.InspectObject(name);
     }
 }

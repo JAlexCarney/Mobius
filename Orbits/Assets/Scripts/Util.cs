@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class Util
 {
@@ -20,8 +22,44 @@ public class Util
         }
     }
 
+    public static List<string> Split(string string_, char seperator)
+    {
+        List<string> split = new List<string>();
+        string temp = "";
+        foreach (char c in string_)
+        {
+            if (c == seperator)
+            {
+                split.Add(temp);
+                temp = "";
+            }
+            else
+            {
+                temp += c;
+            }
+        }
+        split.Add(temp);
+        return split;
+    }
+
     public static int Mod(int x, int m)
     {
         return (x % m + m) % m;
+    }
+
+    public static void ObjectSwap(string objectToReplaceName, string objectToShowName)
+    {
+        GameObject objectToReplaceButton = GameObject.Find(objectToReplaceName);
+        GameObject objectToShowButton = GameObject.Find(objectToShowName);
+        try
+        {
+            objectToReplaceButton.GetComponent<Image>().enabled = false;
+            objectToShowButton.GetComponent<Image>().enabled = true;
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Object Not Found");
+            Debug.Log("Exception: " + e);
+        }
     }
 }
