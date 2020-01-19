@@ -9,6 +9,8 @@ public class InventoryHandler : MonoBehaviour
     private int numItems = 0;
     private int selectedSlot = -1;
     private string[] items;
+    private GameObject openButton = null;
+    private GameObject openedInventory = null;
 
     public void Start()
     {
@@ -17,6 +19,20 @@ public class InventoryHandler : MonoBehaviour
         {
             items[i] = "";
         }
+        openButton = transform.Find("Open").gameObject;
+        openedInventory = transform.Find("Opened").gameObject;
+    }
+
+    public void Open()
+    {
+        Util.ActivateChildren(openedInventory);
+        openButton.SetActive(false);
+    }
+
+    public void Close()
+    {
+        Util.DeactivateChildren(openedInventory);
+        openButton.SetActive(true);
     }
 
     public void Collect(string name)
