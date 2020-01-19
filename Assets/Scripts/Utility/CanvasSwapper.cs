@@ -5,23 +5,35 @@ using UnityEngine;
 public class CanvasSwapper : MonoBehaviour
 {
     public GameObject currentCanvas;
+    public GameObject prevCanvas;
     public GameObject inventory;
+    public GameObject map;
 
-    public void SwitchCanvasNoInventory(string newCanvas)
+    public void SwitchCanvasNoUI(string newCanvas)
     {
         GameObject canvasToActivate = GameObject.Find(newCanvas);
         Util.ActivateChildren(canvasToActivate);
         Util.DeactivateChildren(currentCanvas);
+        prevCanvas = currentCanvas;
         currentCanvas = canvasToActivate;
         inventory.SetActive(false);
+        map.SetActive(false);
     }
 
-    public void SwitchCanvasKeepInventory(string newCanvas)
+    public void SwitchCanvasMaintainUI(string newCanvas)
     {
         GameObject canvasToActivate = GameObject.Find(newCanvas);
         Util.ActivateChildren(canvasToActivate);
         Util.DeactivateChildren(currentCanvas);
         inventory.SetActive(true);
+        map.SetActive(true);
+        prevCanvas = currentCanvas;
         currentCanvas = canvasToActivate;
+    }
+
+    public void ReturnToPreviousCanvas()
+    {
+      string backUp = prevCanvas.transform.name;
+      SwitchCanvasMaintainUI(backUp);
     }
 }
