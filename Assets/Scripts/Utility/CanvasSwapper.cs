@@ -14,9 +14,9 @@ public class CanvasSwapper : MonoBehaviour
         GameObject canvasToActivate = GameObject.Find(newCanvas);
         Util.ActivateChildren(canvasToActivate);
         Util.DeactivateChildren(currentCanvas);
+        Util.DeactivateChildren(inventory);
         prevCanvas = currentCanvas;
         currentCanvas = canvasToActivate;
-        inventory.SetActive(false);
         map.SetActive(false);
     }
 
@@ -25,7 +25,7 @@ public class CanvasSwapper : MonoBehaviour
         GameObject canvasToActivate = GameObject.Find(newCanvas);
         Util.ActivateChildren(canvasToActivate);
         Util.DeactivateChildren(currentCanvas);
-        inventory.SetActive(true);
+        Util.ActivateChildren(inventory);
         map.SetActive(true);
         prevCanvas = currentCanvas;
         currentCanvas = canvasToActivate;
