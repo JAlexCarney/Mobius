@@ -40,12 +40,13 @@ public class DensityLayers : MonoBehaviour
 
     }
 
-    private void EmptyTube()
+    public void EmptyTube()
     {
         for (int i = 0; i < currentSolution.Length; i++)
         {
             currentSolution[i] = "empty";
         }
+        currentIndex = 0;
         UpdateVisual();
     }
 
@@ -59,13 +60,16 @@ public class DensityLayers : MonoBehaviour
 
     public void PourLiquid(string liquid)
     {
-        currentSolution[currentIndex] = liquid;
-        
-        // check the solution
-        CheckSolution();
+        if (currentIndex < currentSolution.Length)
+        {
+            currentSolution[currentIndex] = liquid;
 
-        UpdateVisual();
+            // check the solution
+            CheckSolution();
 
-        currentIndex++;
+            UpdateVisual();
+
+            currentIndex++;
+        }
     }
 }
