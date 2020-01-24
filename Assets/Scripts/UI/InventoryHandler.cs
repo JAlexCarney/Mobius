@@ -11,6 +11,7 @@ public class InventoryHandler : MonoBehaviour
     private string[] items;
     private GameObject openButton = null;
     private GameObject openedInventory = null;
+    public GameObject[] slots;
 
     public void Start()
     {
@@ -40,9 +41,8 @@ public class InventoryHandler : MonoBehaviour
         Debug.Log(name);
         GameObject thing = GameObject.Find(name);
         items[numItems] = name;
-        GameObject slot = GameObject.Find("Slot" + numItems);
         numItems++;
-        GameObject item = slot.transform.Find("Item").gameObject;
+        GameObject item = slots[numItems-1].transform.Find("Item").gameObject;
         item.GetComponent<Image>().sprite = thing.GetComponent<Image>().sprite;
         item.GetComponent<Image>().color = new Color(255, 255, 255, 255);
         Destroy(thing);
@@ -57,7 +57,7 @@ public class InventoryHandler : MonoBehaviour
         if (items[slot] != "")
         {
             GameObject slotObject = GameObject.Find("Slot" + slot);
-            GameObject highlight = slotObject.transform.Find("Highlight").gameObject;
+            GameObject highlight = slots[slot].transform.Find("Highlight").gameObject;
             highlight.GetComponent<Image>().enabled = true;
             selectedSlot = slot;
         }
@@ -67,8 +67,7 @@ public class InventoryHandler : MonoBehaviour
     {
         if (items[slot] != "")
         {
-            GameObject slotObject = GameObject.Find("Slot" + slot);
-            GameObject highlight = slotObject.transform.Find("Highlight").gameObject;
+            GameObject highlight = slots[slot].transform.Find("Highlight").gameObject;
 
             highlight.GetComponent<Image>().enabled = false;
             selectedSlot = -1;
