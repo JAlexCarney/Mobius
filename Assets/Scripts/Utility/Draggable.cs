@@ -7,7 +7,9 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private bool isHeld = false;
     private Vector3 startPos;
-    static bool holding = false;
+    public string label;
+    static public bool holding = false;
+    static public string held = "";
 
     private void Start()
     {
@@ -46,6 +48,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             isHeld = true;
             holding = true;
+            held = label;
         }
     }
 
@@ -53,6 +56,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         isHeld = false;
         holding = false;
+        held = "";
         ReturnToStartPosition();
     }
 }

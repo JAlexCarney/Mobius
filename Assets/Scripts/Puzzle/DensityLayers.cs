@@ -23,6 +23,7 @@ public class DensityLayers : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // inistialize sprites dictionary
         sprites.Add("milk", milk);
         sprites.Add("oil", oil);
         sprites.Add("honey", honey);
@@ -35,7 +36,9 @@ public class DensityLayers : MonoBehaviour
         EmptyTube();
     }
 
-    private void CheckSolution()
+    // compare corect solution array with current solution array
+    // sludges if incorrect (only layers that are wrong)
+    private void CheckSolution(string lastLiquid)
     {
 
     }
@@ -65,7 +68,7 @@ public class DensityLayers : MonoBehaviour
             currentSolution[currentIndex] = liquid;
 
             // check the solution
-            CheckSolution();
+            CheckSolution(liquid);
 
             UpdateVisual();
 
