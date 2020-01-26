@@ -6,7 +6,10 @@ using UnityEngine.EventSystems;
 public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private bool isHeld = false;
+    private bool isGoingBack = false;
+    private int counter = 0;
     private Vector3 startPos;
+    private Vector3 dropPos;
     public string label;
     static public bool holding = false;
     static public string held = "";
@@ -24,6 +27,19 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             transform.position = Input.mousePosition;
         }
+        else if (isGoingBack)
+        {
+            if (counter == 30)
+            {
+                counter = 0;
+                isGoingBack = false;
+            }
+            else
+            {
+                counter++;
+                transform.position = Vector3.Lerp(dropPos, startPos, (float)counter/30f);
+            }
+        }
     }
 
     private void ReturnToStartPosition()
@@ -40,7 +56,6 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData d)
     {
         //Debug.Log("released");
-        //Drop();
         Invoke("Drop", 0.1f);
     }
 
@@ -59,6 +74,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isHeld = false;
         holding = false;
         held = "";
-        ReturnToStartPosition();
+        dropPos = transform.position;
+        isGoingBack = true;
     }
 }
