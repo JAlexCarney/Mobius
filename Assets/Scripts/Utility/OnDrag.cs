@@ -4,27 +4,35 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class OnDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class OnDrag : MonoBehaviour
 {
-    public UnityEvent myEvent;
-    public string trigger;
-
-    public void OnPointerDown(PointerEventData d)
+    [System.Serializable]
+    public struct Event
     {
-
+        public string trigger;
+        public UnityEvent action;
     }
 
-    public void OnPointerUp(PointerEventData d)
+    public Event[] Events;
+
+    public void Update()
     {
-        Debug.Log("Up");
-        if (Draggable.holding)
+        // Check if the left mouse button was clicked
+        if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log("Holding");
-            if (Draggable.held == trigger)
+            // Check if the mouse was clicked over a UI element
+            if (EventSystem.current.IsPointerOverGameObject() && Draggable.holding)
             {
-                Debug.Log("triggered");
-                Debug.Log(trigger);
-                myEvent.Invoke();
+                Debug.Log("invoked");
+                foreach (Event e in Events)
+                {
+                    if (e.trigger == Draggable.held)
+                    {
+                        Debug.Log("invoked");
+                        Debug.Log(e.trigger);
+                        e.action.Invoke();
+                    }
+                }
             }
         }
     }

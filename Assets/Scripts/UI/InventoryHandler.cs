@@ -43,7 +43,7 @@ public class InventoryHandler : MonoBehaviour
         items[numItems] = name;
         numItems++;
         GameObject item = slots[numItems-1].transform.Find("Item").gameObject;
-        item.GetComponent<Draggable>().label = this.gameObject.name;
+        item.GetComponent<Draggable>().label = name;
         item.GetComponent<Image>().sprite = thing.GetComponent<Image>().sprite;
         item.GetComponent<Image>().color = new Color(255, 255, 255, 255);
         Destroy(thing);

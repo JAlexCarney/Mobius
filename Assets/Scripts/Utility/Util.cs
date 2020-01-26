@@ -62,4 +62,13 @@ public class Util
             Debug.Log("Exception: " + e);
         }
     }
+
+    public static bool ArrayContainsString(string[] array, string key)
+    {
+        foreach (string test in array)
+        {
+            if (test == key) { return true; }
+        }
+        return false;
+    }
 }

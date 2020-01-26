@@ -13,6 +13,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void Start()
     {
+        label = gameObject.name;
         startPos = transform.position;
     }
 
@@ -39,7 +40,8 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData d)
     {
         //Debug.Log("released");
-        Drop();
+        //Drop();
+        Invoke("Drop", 0.1f);
     }
 
     public void Hold()
