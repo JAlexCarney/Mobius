@@ -5168,6 +5168,7 @@ MonoBehaviour:
   gas: {fileID: 21300000, guid: 439c05f1d4df2bc49a4b9486aab90d24, type: 3}
   water: {fileID: 21300000, guid: 1f53618fe28ca384f841ceb83f48b228, type: 3}
   mapleSyrup: {fileID: 21300000, guid: e4e8cee6946a9ea4686047e89e4aed4a, type: 3}
+  sludge: {fileID: 21300000, guid: 62cde9617786641679bd5f581aaa0b65, type: 3}
   empty: {fileID: 21300000, guid: 8e7b0faa50de99b43b0a9ccf6cd837da, type: 3}
 --- !u!114 &1844110235
 MonoBehaviour:
@@ -5807,20 +5808,80 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Observatory
       objectReference: {fileID: 0}
+    - target: {fileID: 2528639829464150854, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 393794351}
+    - target: {fileID: 2528639829464150854, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchCanvasMaintainUI
+      objectReference: {fileID: 0}
     - target: {fileID: 2528639829586812355, guid: a6b8a2419cae341868b94e9908773ae2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Tinker
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528639829586812355, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 393794351}
+    - target: {fileID: 2528639829586812355, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchCanvasMaintainUI
       objectReference: {fileID: 0}
     - target: {fileID: 2528639830853366828, guid: a6b8a2419cae341868b94e9908773ae2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Lobby
       objectReference: {fileID: 0}
+    - target: {fileID: 2528639830853366828, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 393794351}
+    - target: {fileID: 2528639830853366828, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchCanvasMaintainUI
+      objectReference: {fileID: 0}
     - target: {fileID: 2528639831331939542, guid: a6b8a2419cae341868b94e9908773ae2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: ExHall
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528639831331939542, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 393794351}
+    - target: {fileID: 2528639831331939542, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchCanvasMaintainUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528639829985857690, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_Text
+      value: Tinker Hall
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528639830628866182, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_Text
+      value: Lobby
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528639830874590218, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_Text
+      value: Observatory
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528639830962734631, guid: a6b8a2419cae341868b94e9908773ae2,
+        type: 3}
+      propertyPath: m_Text
+      value: Exhibition Hall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6b8a2419cae341868b94e9908773ae2, type: 3}
