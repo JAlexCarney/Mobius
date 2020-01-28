@@ -61,11 +61,13 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void Hold()
     {
-        if (!holding)
+        if (!holding && !isGoingBack)
         {
             isHeld = true;
             holding = true;
             held = label;
+            this.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
+            this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 30.0f);
         }
     }
 
@@ -76,5 +78,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         held = "";
         dropPos = transform.position;
         isGoingBack = true;
+        this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
     }
 }
