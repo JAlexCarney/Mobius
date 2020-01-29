@@ -21,11 +21,10 @@ public class JournalHandler : MonoBehaviour
     void IndicateEntry()
     {
         // Instantiate(prefab)
-        // Destroy(prefab, 3sec)
     }
 
     // make journal invisible
-    void close()
+    void Close()
     {
 
     }
