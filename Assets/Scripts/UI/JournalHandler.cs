@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JournalHandler : MonoBehaviour
 {
     //List<List<string>>
     public GameObject IndicatorPrefab;
-    private GameObject leftText;
-    private GameObject rightText;
+    private Text leftText;
+    private Text rightText;
     private List<string> hints;
 
     private void Start()
     {
-        leftText = GameObject.Find("LeftText");
-        rightText = GameObject.Find("RightText");
+        leftText = transform.Find("LeftText").gameObject.GetComponent<Text>();
+        rightText = transform.Find("RightText").gameObject.GetComponent<Text>();
         hints = new List<string>();
     }
 
@@ -21,11 +22,17 @@ public class JournalHandler : MonoBehaviour
     void AddEntry(string entry)
     {
         hints.Add(entry);
+        Display();
     }
 
     void Display()
     {
-
+        leftText.text = "";
+        rightText.text = "";
+        foreach (string entry in hints)
+        {
+            leftText.text += " - " + entry + "\n";
+        }
     }
 
     // display indicator that an entry has been placed
@@ -39,20 +46,6 @@ public class JournalHandler : MonoBehaviour
             anim.Play();
             Destroy(indicator, anim.GetClip("JournalEntry").averageDuration);
             AddEntry(entry);
-            Debug.Log(anim.GetClip("JournalEntry").averageDuration);
-            Debug.Log(entry);
         }
-    }
-
-    // make journal invisible
-    void Close()
-    {
-
-    }
-
-    // make journal visible
-    void Open()
-    {
-        // Display
     }
 }

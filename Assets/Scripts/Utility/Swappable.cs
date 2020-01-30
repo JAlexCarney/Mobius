@@ -12,7 +12,7 @@ public class Swappable : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             // Check if the mouse was clicked over a UI element
-            if (CheckBounds())
+            if (CheckBounds() && Draggable.heldObj != gameObject)
             {
                 if (Draggable.holding)
                 {
