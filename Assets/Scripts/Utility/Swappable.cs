@@ -27,6 +27,7 @@ public class Swappable : MonoBehaviour
                         thisDrag.dropPos = transform.position;
                         thisDrag.isGoingBack = true;
                         heldDrag.isGoingBack = true;
+                        Debug.Log(Draggable.heldObj + " <-> " + gameObject);
                     }
                 }
             }

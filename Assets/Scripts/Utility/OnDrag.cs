@@ -29,7 +29,7 @@ public class OnDrag : MonoBehaviour
                     {
                         if (e.trigger == Draggable.held)
                         {
-                            Debug.Log(e.trigger);
+                            //Debug.Log(e.trigger);
                             e.action.Invoke();
                         }
                     }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class DensityLayers : MonoBehaviour
 {
@@ -17,11 +19,14 @@ public class DensityLayers : MonoBehaviour
     public Sprite mapleSyrup;
     public Sprite sludge;
     public Sprite empty;
+    public UnityEvent winEvent;
 
     private Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
-    private string[] currentSolution = new string[7];
+    private Dictionary<string, int> nameToLvl = new Dictionary<string, int>();
+    private string[] currentSolution;
     private int currentIndex = 0;
     private int solutionIndex = 0;
+    private bool canDrain = true;
 
     // Start is called before the first frame update
     void Start()
@@ -37,62 +42,108 @@ public class DensityLayers : MonoBehaviour
         sprites.Add("sludge", sludge);
         sprites.Add("empty", empty);
 
+        currentSolution = new string[correctSolution.Length];
+
+        for (int i = 0; i < correctSolution.Length; i++)
+        {
+            nameToLvl[correctSolution[i]] = i;
+        }
+
         EmptyTube();
     }
 
+    private void CheckSolutionV2(string lastLiquid)
+    {
+        // make sure tube isn't already sludged.
+        if (currentIndex != 0) { if (currentSolution[currentIndex - 1] == "sludge") { SludgeTube(); return; } }
+        //check if the liquid just pored is denser than any of the privious liquids.
+        for (int i = currentIndex - 1; i >= 0; i--) {
+            if (nameToLvl[lastLiquid] < nameToLvl[currentSolution[i]])
+            {
+                SludgeTube();
+                return;
+            }
+        }
+        //Debug.Log(currentIndex);
+    }
+    
     // compare corect solution array with current solution array
     // sludges if incorrect (only layers that are wrong)
     private void CheckSolution(string lastLiquid)
     {
-      print("User poured " + lastLiquid + ".");
+        //print("User poured " + lastLiquid + ".");
 
-      // If this is the first liquid poured into the tube.
-      if(currentIndex == 0)
-      {
+        // If this is the first liquid poured into the tube.
+        if(currentIndex == 0)
+        {
         // Set the index for the solution equal to the location of the poured liquid.
         solutionIndex = Array.IndexOf(correctSolution, lastLiquid);
-        print(solutionIndex);
+        //print(solutionIndex);
 
         if (solutionIndex == 6)
         {
-          solutionIndex = 0;
+            solutionIndex = 0;
         }
         return;
-      }
+        }
 
-      // Nothing goes on top of the last element.
-      if (solutionIndex == 6)
-      {
-        print("Incorrect");
-        SludgeTube();
-      }
+        // Nothing goes on top of the last element.
+        if (solutionIndex == 6)
+        {
+            //print("Incorrect");
+            SludgeTube();
+        }
 
-      string correctLiquid = correctSolution[solutionIndex+1];
-      string prevLiquid = currentSolution[solutionIndex];
-      string prevCorrect = correctSolution[solutionIndex];
-      print("The tube expected " + correctLiquid);
+        string correctLiquid = correctSolution[solutionIndex+1];
+        string prevLiquid = currentSolution[solutionIndex];
+        string prevCorrect = correctSolution[solutionIndex];
+        //print("The tube expected " + correctLiquid);
 
-      // If the values don't match, create sludge.
-      if (correctLiquid != lastLiquid && prevLiquid != prevCorrect)
-      {
-        print("Incorrect");
-        SludgeTube();
-      }
+        // If the values don't match, create sludge.
+        if (correctLiquid != lastLiquid && prevLiquid != prevCorrect)
+        {
+            //print("Incorrect");
+            SludgeTube();
+        }
 
-      // Otherwise increment the solution index to begin checking the next value.
-      solutionIndex++;
-      print("New Solution Index: " + solutionIndex);
+        // Otherwise increment the solution index to begin checking the next value.
+        solutionIndex++;
+        //print("New Solution Index: " + solutionIndex);
 
+    }
+
+   
+    void End()
+    {
+        print("Win");
+        winEvent.Invoke();
+    }
+
+    bool CompareSolution()
+    {
+        for (int i = 0; i < currentSolution.Length; i++)
+        {
+            if (correctSolution[i] != currentSolution[i])
+            {
+                //Debug.Log(currentSolution[i]);
+                //Debug.Log(correctSolution[i]);
+                return false;
+            }
+        }
+        return true;
     }
 
     public void EmptyTube()
     {
-        for (int i = 0; i < currentSolution.Length; i++)
+        if (canDrain)
         {
-            currentSolution[i] = "empty";
+            for (int i = 0; i < currentSolution.Length; i++)
+            {
+                currentSolution[i] = "empty";
+            }
+            currentIndex = 0;
+            UpdateVisual();
         }
-        currentIndex = 0;
-        UpdateVisual();
     }
 
     public void SludgeTube()
@@ -114,14 +165,21 @@ public class DensityLayers : MonoBehaviour
 
     public void PourLiquid(string liquid)
     {
-        if (currentIndex < currentSolution.Length)
+        if (currentIndex < currentSolution.Length && !Util.ArrayContainsString(currentSolution, liquid))
         {
             currentSolution[currentIndex] = liquid;
 
             // check the solution
-            CheckSolution(liquid);
+            //CheckSolution(liquid);
+            CheckSolutionV2(liquid);
 
             UpdateVisual();
+
+            if (CompareSolution())
+            {
+                canDrain = false;
+                End();
+            }
 
             currentIndex++;
         }
