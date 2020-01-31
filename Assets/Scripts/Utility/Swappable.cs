@@ -12,13 +12,13 @@ public class Swappable : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             // Check if the mouse was clicked over a UI element
-            if (CheckBounds() && Draggable.heldObj != gameObject)
+            if (CheckBounds() && Draggable.heldObj != gameObject && Draggable.heldObj.GetComponent<Swappable>())
             {
                 if (Draggable.holding)
                 {
                     Draggable heldDrag = Draggable.heldObj.GetComponent<Draggable>();
                     Draggable thisDrag = GetComponent<Draggable>();
-                    if (heldDrag.swapID == swapID)
+                    if (Draggable.heldObj.GetComponent<Swappable>().swapID == swapID)
                     {
                         Vector3 temp = heldDrag.startPos;
                         heldDrag.startPos = thisDrag.startPos;
