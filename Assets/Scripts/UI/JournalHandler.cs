@@ -36,60 +36,57 @@ public class JournalHandler : MonoBehaviour
     public void AddEntry(string entry)
     {
         hints.Add(entry);
-
-
-        //Canvas.ForceUpdateCanvases(); //force update for cachedtext to work IDK lol
-
-
     }
 
     void Display()
     {
-        leftText.text = "";
-
         int hintIndex = 0;
 
-        //add to LeftText canvas
+        //add hints to leftText
+        hintIndex = AddHintsToTextComponent(leftText, hintIndex);
+
+        //add leftover hints to rightText
+        AddHintsToTextComponent(rightText, hintIndex);
+    }
+
+    /// <summary>
+    /// This adds hints to the param TextComponent until there is no more room to display hints. 
+    /// </summary>
+    /// <param name="textComponent">leftText or rightText</param>
+    /// <param name="hintIndex">The index to start at in hints</param>
+    /// <returns>The index of the next hint to display after textComponent is filled.
+    /// Returns hints.length + 1 if the end of the hints list is reached.</returns>
+    int AddHintsToTextComponent(Text textComponent, int hintIndex)
+    {
+        textComponent.text = ""; 
+
         for (; hintIndex < hints.Count; hintIndex++)
         {
             string hint = hints[hintIndex];
 
             //add hint to text
-            leftText.text += hint;
+            textComponent.text += hint;
 
             //Update everything so things don't break below lol
             Canvas.ForceUpdateCanvases();
 
             //this helps u check what is currently being displayed (ty google)
-            TextGenerator t = leftText.cachedTextGenerator;
+            TextGenerator t = textComponent.cachedTextGenerator;
 
-
-            //if the hint isn't fully displayed, remove it and stop adding to LeftText
-            int textLength = leftText.text.Length;
+            //if the hint isn't fully displayed, remove it and stop adding to textComponent
+            int textLength = textComponent.text.Length;
             if (t.characterCountVisible < textLength)
             {
-                leftText.text = leftText.text.Remove(textLength - hint.Length);
-                break; 
+                textComponent.text = textComponent.text.Remove(textLength - hint.Length);
+                break;
             }
 
             //add new line
-            leftText.text += "\n";
+            textComponent.text += "\n";
 
         }
-
+        return hintIndex; 
     }
-    //Text textComp = GetComponent<Text>();
-    //TextGenerator t = textComp.cachedTextGenerator;
-    //string result = textComp.text.Substring(0, t.characterCountVisible);
-    //Debug.Log("Generated " + t.characterCountVisible + " characters");
-    //Debug.Log("Visible string is: ");
-    //Debug.Log(result);
-    // B A S I C A L L Y add entry 
-    //then check if left text all filled up
-    //if not, add /n + entry 
-    //else, add to right
-    //refresh?? idek 
-
 
     // display indicator that an entry has been placed
     public void IndicateEntry(string entry)
