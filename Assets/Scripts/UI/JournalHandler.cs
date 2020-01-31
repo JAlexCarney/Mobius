@@ -65,7 +65,7 @@ public class JournalHandler : MonoBehaviour
             string hint = hints[hintIndex];
 
             //add hint to text
-            textComponent.text += hint;
+            textComponent.text += " - " + hint;
 
             //Update everything so things don't break below lol
             Canvas.ForceUpdateCanvases();
