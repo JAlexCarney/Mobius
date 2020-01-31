@@ -40,22 +40,41 @@ public class JournalHandler : MonoBehaviour
 
         //Canvas.ForceUpdateCanvases(); //force update for cachedtext to work IDK lol
 
-        //TextGenerator t = leftText.cachedTextGenerator;
-        //Debug.Log("Generated " + t.characterCountVisible + " characters");
-
-        //string result = leftText.text.Substring(0, t.characterCountVisible);
-        //Debug.Log("Visible string is: ");
-        //Debug.Log(result);
 
     }
 
     void Display()
     {
         leftText.text = "";
-        //add to text canvas
-        foreach (string hint in hints)
+
+        int hintIndex = 0;
+
+        //add to LeftText canvas
+        for (; hintIndex < hints.Count; hintIndex++)
         {
-            leftText.text += hint + "\n";
+            string hint = hints[hintIndex];
+
+            //add hint to text
+            leftText.text += hint;
+
+            //Update everything so things don't break below lol
+            Canvas.ForceUpdateCanvases();
+
+            //this helps u check what is currently being displayed (ty google)
+            TextGenerator t = leftText.cachedTextGenerator;
+
+
+            //if the hint isn't fully displayed, remove it and stop adding to LeftText
+            int textLength = leftText.text.Length;
+            if (t.characterCountVisible < textLength)
+            {
+                leftText.text = leftText.text.Remove(textLength - hint.Length);
+                break; 
+            }
+
+            //add new line
+            leftText.text += "\n";
+
         }
 
     }
@@ -99,6 +118,7 @@ public class JournalHandler : MonoBehaviour
     {
         //use canvas swapper to open the journal
         GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().SwitchCanvasNoUI("JournalCanvas");
+
 
         //call Display
         Display();
