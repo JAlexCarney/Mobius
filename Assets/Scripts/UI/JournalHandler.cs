@@ -18,16 +18,16 @@ public class JournalHandler : MonoBehaviour
         Text[] ts = gameObject.GetComponentsInChildren<Text>(true);
         foreach (Text t in ts)
         {
-            Debug.Log(t.gameObject.name);
-            string name = t.gameObject.name; 
+            string name = t.gameObject.name;
             if (t != null && name.Equals("LeftText"))
+            {
                 leftText = t;
+            }
             else if (t != null && name.Equals("RightText"))
-                rightText = t; 
+            {
+                rightText = t;
+            }
         }
-
-        Debug.Log(leftText);
-        Debug.Log(rightText);
 
         hints = new List<string>();
     }
@@ -36,32 +36,41 @@ public class JournalHandler : MonoBehaviour
     public void AddEntry(string entry)
     {
         hints.Add(entry);
-        Debug.Log(leftText);
-        Text textComp = leftText.GetComponent<Text>();
-        
-        TextGenerator t = textComp.cachedTextGenerator;
-        string result = textComp.text.Substring(0, t.characterCountVisible);
-        Debug.Log("Generated " + t.characterCountVisible + " characters");
-        Debug.Log("Visible string is: ");
-        Debug.Log(result);
+
+
+        //Canvas.ForceUpdateCanvases(); //force update for cachedtext to work IDK lol
+
+        //TextGenerator t = leftText.cachedTextGenerator;
+        //Debug.Log("Generated " + t.characterCountVisible + " characters");
+
+        //string result = leftText.text.Substring(0, t.characterCountVisible);
+        //Debug.Log("Visible string is: ");
+        //Debug.Log(result);
 
     }
 
     void Display()
     {
-        Debug.Log("hahahahhaaha");
-        //Text textComp = GetComponent<Text>();
-        //TextGenerator t = textComp.cachedTextGenerator;
-        //string result = textComp.text.Substring(0, t.characterCountVisible);
-        //Debug.Log("Generated " + t.characterCountVisible + " characters");
-        //Debug.Log("Visible string is: ");
-        //Debug.Log(result);
-        // B A S I C A L L Y add entry 
-        //then check if left text all filled up
-        //if not, add /n + entry 
-        //else, add to right
-        //refresh?? idek 
+        leftText.text = "";
+        //add to text canvas
+        foreach (string hint in hints)
+        {
+            leftText.text += hint + "\n";
+        }
+
     }
+    //Text textComp = GetComponent<Text>();
+    //TextGenerator t = textComp.cachedTextGenerator;
+    //string result = textComp.text.Substring(0, t.characterCountVisible);
+    //Debug.Log("Generated " + t.characterCountVisible + " characters");
+    //Debug.Log("Visible string is: ");
+    //Debug.Log(result);
+    // B A S I C A L L Y add entry 
+    //then check if left text all filled up
+    //if not, add /n + entry 
+    //else, add to right
+    //refresh?? idek 
+
 
     // display indicator that an entry has been placed
     public void IndicateEntry(string entry)
@@ -86,8 +95,15 @@ public class JournalHandler : MonoBehaviour
     }
 
     // make journal visible
-    void Open()
+    public void Open()
     {
-        // Display
+        //use canvas swapper to open the journal
+        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().SwitchCanvasNoUI("JournalCanvas");
+
+        //call Display
+        Display();
+        //^I am doing this here since I haven't found a way to check if numHints > spaceAllocatedForText in an inactive canvas
+        //since inactive canvases don't update
+        //if there is an easier way please lmk i am n00b who desperately googles things
     }
 }
