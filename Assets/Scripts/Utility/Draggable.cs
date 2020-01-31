@@ -6,13 +6,15 @@ using UnityEngine.EventSystems;
 public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private bool isHeld = false;
-    private bool isGoingBack = false;
+    public bool isGoingBack = false;
     private int counter = 0;
-    private Vector3 startPos;
-    private Vector3 dropPos;
+    public Vector3 startPos;
+    public Vector3 dropPos;
     public string label;
+    public int swapID;
     static public bool holding = false;
     static public string held = "";
+    static public GameObject heldObj = null;
 
     private void Start()
     {
@@ -66,6 +68,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             isHeld = true;
             holding = true;
             held = label;
+            heldObj = gameObject;
             this.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
             this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 30.0f);
         }
@@ -76,6 +79,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isHeld = false;
         holding = false;
         held = "";
+        heldObj = null;
         dropPos = transform.position;
         isGoingBack = true;
         this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);

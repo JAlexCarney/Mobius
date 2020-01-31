@@ -28,7 +28,6 @@ public class JournalHandler : MonoBehaviour
                 rightText = t;
             }
         }
-
         hints = new List<string>();
     }
 
@@ -36,6 +35,7 @@ public class JournalHandler : MonoBehaviour
     public void AddEntry(string entry)
     {
         hints.Add(entry);
+        Display();
     }
 
     void Display()
@@ -99,8 +99,6 @@ public class JournalHandler : MonoBehaviour
             anim.Play();
             Destroy(indicator, anim.GetClip("JournalEntry").averageDuration);
             AddEntry(entry);
-            Debug.Log(anim.GetClip("JournalEntry").averageDuration);
-            Debug.Log(entry);
         }
     }
 
