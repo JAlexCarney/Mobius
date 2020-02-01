@@ -6,6 +6,7 @@ using System;
 
 public class Util
 {
+
     public static void DeactivateChildren(GameObject canvas)
     {
         for (int i = 0; i < canvas.transform.childCount; i++)

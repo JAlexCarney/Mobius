@@ -12,9 +12,24 @@ public class InventoryHandler : MonoBehaviour
     private GameObject openButton = null;
     private GameObject openedInventory = null;
     public GameObject[] slots;
+    private string collecting;
+
+    [System.Serializable]
+    public struct Pickupable {
+        public string label;
+        public Sprite invSprite;
+    }
+
+    public Pickupable[] pickupableObjs;
+    private Dictionary<string, Sprite> pickupDict = new Dictionary<string, Sprite>();
 
     public void Start()
     {
+        foreach(Pickupable pickupable in pickupableObjs)
+        {
+            pickupDict[pickupable.label] = pickupable.invSprite;
+        }
+
         items = new string[5];
         for (int i = 0; i < items.Length; i++)
         {
@@ -36,16 +51,40 @@ public class InventoryHandler : MonoBehaviour
         openButton.SetActive(true);
     }
 
-    public void Collect(string name)
+    public void Remove(string objToRemove)
     {
-        Debug.Log(name);
-        GameObject thing = GameObject.Find(name);
-        items[numItems] = name;
+        for (int i = 0; i < items.Length; i++)
+        {
+            //Debug.Log(items[i] + " == " + objToRemove);
+            if (items[i].ToLower() == objToRemove.ToLower())
+            {
+                items[i] = "";
+                GameObject item = slots[i].transform.Find("Item").gameObject;
+                item.GetComponent<Draggable>().label = "";
+                item.GetComponent<Image>().color = Color.clear;
+                //Debug.Log("Object Removed");
+            }
+        }
+    }
+
+    public void SetCollecting(string obj)
+    {
+        collecting = obj;
+    }
+
+    public void Collect(string label)
+    {
+        Debug.Log(label);
+        GameObject thing = GameObject.Find(collecting);
+        items[numItems] = label;
         numItems++;
         GameObject item = slots[numItems-1].transform.Find("Item").gameObject;
-        item.GetComponent<Draggable>().label = name;
-        item.GetComponent<Image>().sprite = thing.GetComponent<Image>().sprite;
-        item.GetComponent<Image>().color = new Color(255, 255, 255, 255);
+        item.GetComponent<Draggable>().label = label;
+        item.transform.position = thing.transform.position;
+        item.GetComponent<Draggable>().dropPos = thing.transform.position;
+        item.GetComponent<Draggable>().isGoingBack = true;
+        item.GetComponent<Image>().sprite = pickupDict[label];
+        item.GetComponent<Image>().color = Color.white;
         Destroy(thing);
     }
 
