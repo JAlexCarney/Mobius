@@ -34,7 +34,14 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
         if (isHeld)
         {
-            transform.position = touch.position;
+            if (Input.touchCount == 0)
+            {
+                transform.position = Input.mousePosition;
+            }
+            else
+            {
+                transform.position = touch.position;
+            }
         }
         else if (isGoingBack)
         {

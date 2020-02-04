@@ -2,16 +2,28 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - CanvasSwapper
-    - CodeEnterer
+    - DensityLayers
+    - Draggable
     - InventoryHandler
+    - JournalHandler
     - ObjectInspect
+    - OnDrag
+    - Placeable
     - SceneHandler
+    - Swappable
+    - XOrShow
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
     - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -24,7 +36,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Image
     - UnityEngine.UI.Text
   sceneClasses:
-    Assets/Scenes/Player1Room1.unity:
+    Assets/_Scenes/P1Scenes/P1Iteration1.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -37,6 +49,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 82
@@ -45,30 +59,44 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 111
+      Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 9670}
     - Class: 114
-      Script: {instanceID: 9832}
+      Script: {instanceID: 9834}
     - Class: 114
-      Script: {instanceID: 9872}
+      Script: {instanceID: 9874}
     - Class: 114
-      Script: {instanceID: 9970}
+      Script: {instanceID: 9972}
     - Class: 114
-      Script: {instanceID: 9994}
+      Script: {instanceID: 9996}
     - Class: 114
-      Script: {instanceID: 10274}
+      Script: {instanceID: 10276}
     - Class: 114
-      Script: {instanceID: 10448}
+      Script: {instanceID: 10406}
     - Class: 114
-      Script: {instanceID: 10518}
+      Script: {instanceID: 10452}
     - Class: 114
-      Script: {instanceID: 10644}
+      Script: {instanceID: 10648}
     - Class: 114
-      Script: {instanceID: 10936}
+      Script: {instanceID: 10690}
     - Class: 114
-      Script: {instanceID: 11120}
+      Script: {instanceID: 10942}
     - Class: 114
-      Script: {instanceID: 11490}
+      Script: {instanceID: 11126}
+    - Class: 114
+      Script: {instanceID: 11290}
+    - Class: 114
+      Script: {instanceID: 11334}
+    - Class: 114
+      Script: {instanceID: 11374}
+    - Class: 114
+      Script: {instanceID: 11446}
+    - Class: 114
+      Script: {instanceID: 11504}
+    - Class: 114
+      Script: {instanceID: 11552}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -83,7 +111,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
-    Assets/Scenes/Player2Room1.unity:
+    Assets/_Scenes/P2Scenes/P2Iteration1.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -96,6 +124,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 82
@@ -104,30 +134,44 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 111
+      Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 9670}
     - Class: 114
-      Script: {instanceID: 9832}
+      Script: {instanceID: 9834}
     - Class: 114
-      Script: {instanceID: 9872}
+      Script: {instanceID: 9874}
     - Class: 114
-      Script: {instanceID: 9970}
+      Script: {instanceID: 9972}
     - Class: 114
-      Script: {instanceID: 9994}
+      Script: {instanceID: 9996}
     - Class: 114
-      Script: {instanceID: 10274}
+      Script: {instanceID: 10276}
     - Class: 114
-      Script: {instanceID: 10448}
+      Script: {instanceID: 10406}
     - Class: 114
-      Script: {instanceID: 10518}
+      Script: {instanceID: 10452}
     - Class: 114
-      Script: {instanceID: 10644}
+      Script: {instanceID: 10648}
     - Class: 114
-      Script: {instanceID: 10936}
+      Script: {instanceID: 10690}
     - Class: 114
-      Script: {instanceID: 11120}
+      Script: {instanceID: 10942}
     - Class: 114
-      Script: {instanceID: 11490}
+      Script: {instanceID: 11126}
+    - Class: 114
+      Script: {instanceID: 11290}
+    - Class: 114
+      Script: {instanceID: 11334}
+    - Class: 114
+      Script: {instanceID: 11374}
+    - Class: 114
+      Script: {instanceID: 11446}
+    - Class: 114
+      Script: {instanceID: 11504}
+    - Class: 114
+      Script: {instanceID: 11552}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -142,7 +186,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
-    Assets/Scenes/StartMenu.unity:
+    Assets/_Scenes/StartMenu.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -162,19 +206,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9670}
     - Class: 114
-      Script: {instanceID: 9832}
+      Script: {instanceID: 9834}
     - Class: 114
-      Script: {instanceID: 9872}
+      Script: {instanceID: 9874}
     - Class: 114
-      Script: {instanceID: 9994}
+      Script: {instanceID: 9996}
     - Class: 114
-      Script: {instanceID: 10274}
+      Script: {instanceID: 10276}
     - Class: 114
-      Script: {instanceID: 10644}
+      Script: {instanceID: 10648}
     - Class: 114
-      Script: {instanceID: 11120}
+      Script: {instanceID: 11126}
     - Class: 114
-      Script: {instanceID: 11490}
+      Script: {instanceID: 11504}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -226,6 +270,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: GroupTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DestroyVisual
   - hash:
       serializedVersion: 2
       Hash: a5781dc71a671b1ad2b38de19f24b71f
@@ -390,13 +440,19 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
+      Hash: 4f4bf2faecac0823fd5438ec6a4e96b0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Placeable
+  - hash:
+      serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_Asset
   - hash:
       serializedVersion: 2
-      Hash: a7df3e4901f8aa892713fe23bae8e5ba
+      Hash: d21ed01d516a5aa71edb3d6cfc346f41
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CanvasSwapper
@@ -450,6 +506,12 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
+      Hash: 9c36eede2b1f2ab73cdda46dac763ed0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Swappable
+  - hash:
+      serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -498,7 +560,7 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 5f03f0bb0d331bd52172fab66035f88f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InventoryHandler
@@ -540,10 +602,28 @@ ScriptsOnlyBuild:
     className: MarkerTrack
   - hash:
       serializedVersion: 2
+      Hash: a052ecf501d38beb9654a969a2cb7f1d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: XOrShow
+  - hash:
+      serializedVersion: 2
       Hash: d791aa6007fa3640be1164ea75bb087d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_StyleSheet
+  - hash:
+      serializedVersion: 2
+      Hash: 34b59aa5d33abe78d587018f40d1f64c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DensityLayers
+  - hash:
+      serializedVersion: 2
+      Hash: db1031e5a20cd4322b0f347e9ddabae6
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: JournalHandler
   - hash:
       serializedVersion: 2
       Hash: df434544c9f7b33d1cc7e635b180d279
@@ -568,6 +648,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: BaseInput
+  - hash:
+      serializedVersion: 2
+      Hash: 4a71396704007c1fe5a0bbba2963548a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: OnDrag
   - hash:
       serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
@@ -624,6 +710,12 @@ ScriptsOnlyBuild:
     className: Slider
   - hash:
       serializedVersion: 2
+      Hash: 25e5f9a0e5e2b378a5d3f25ebc586f8c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Draggable
+  - hash:
+      serializedVersion: 2
       Hash: 0fd6822f6177297bd0eb4d83cc7a9030
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -636,7 +728,7 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   platform: 5
   scenePathNames:
-  - Assets/Scenes/StartMenu.unity
-  - Assets/Scenes/Player2Room1.unity
-  - Assets/Scenes/Player1Room1.unity
-  playerPath: C:/Users/Jalex/OneDrive/Desktop/Oroborus AlphaV1.0/Orbits.exe
+  - Assets/_Scenes/StartMenu.unity
+  - Assets/_Scenes/P2Scenes/P2Iteration1.unity
+  - Assets/_Scenes/P1Scenes/P1Iteration1.unity
+  playerPath: C:/Users/Jalex/OneDrive/Desktop/MobiusAlphaV1.3/Orbits.exe
