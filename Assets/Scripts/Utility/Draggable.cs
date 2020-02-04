@@ -11,10 +11,13 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public Vector3 startPos;
     public Vector3 dropPos;
     public string label;
+    public static bool justReleased = false;
     public int swapID;
     static public bool holding = false;
     static public string held = "";
     static public GameObject heldObj = null;
+
+    private Touch touch;
 
     private void Start()
     {
@@ -25,9 +28,13 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Update is called once per frame
     void Update()
     {
+        if (Input.touchCount > 0)
+        {
+            touch = Input.GetTouch(0);
+        }
         if (isHeld)
         {
-            transform.position = Input.mousePosition;
+            transform.position = touch.position;
         }
         else if (isGoingBack)
         {
@@ -58,6 +65,8 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData d)
     {
         //Debug.Log("released");
+        dropPos = transform.position;
+        justReleased = true;
         Invoke("Drop", 0.1f);
     }
 
@@ -80,9 +89,9 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         holding = false;
         held = "";
         heldObj = null;
-        dropPos = transform.position;
         isGoingBack = true;
         this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+        justReleased = false;
     }
 }

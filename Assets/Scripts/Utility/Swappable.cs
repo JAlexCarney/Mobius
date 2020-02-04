@@ -9,11 +9,12 @@ public class Swappable : MonoBehaviour
     public void Update()
     {
         // Check if the left mouse button was raised
-        if (Input.GetMouseButtonUp(0))
+        if (Draggable.justReleased)
         {
             // Check if the mouse was clicked over a UI element
-            if (CheckBounds() && Draggable.heldObj != gameObject && Draggable.heldObj.GetComponent<Swappable>())
+            if (CheckBounds(Draggable.heldObj.GetComponent<Draggable>().dropPos) && Draggable.heldObj != gameObject && Draggable.heldObj.GetComponent<Swappable>())
             {
+                Draggable.justReleased = false;
                 if (Draggable.holding)
                 {
                     Draggable heldDrag = Draggable.heldObj.GetComponent<Draggable>();
@@ -34,11 +35,10 @@ public class Swappable : MonoBehaviour
         }
     }
 
-    public bool CheckBounds()
+    public bool CheckBounds(Vector3 touchPos)
     {
         Vector3 pos = transform.position;
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 delta = mousePos - pos;
+        Vector3 delta = touchPos - pos;
         float width = GetComponent<RectTransform>().rect.width;
         float height = GetComponent<RectTransform>().rect.height;
         if (delta.x < width / 2 && delta.x > -width / 2 &&

@@ -17,7 +17,7 @@ public class SceneHandler : MonoBehaviour
 
     public void LoadRoom(int player, int room)
     {
-        string sceneName = "Player" + player + "Room" + room;
+        string sceneName = "P" + player + "Iteration" + room;
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
