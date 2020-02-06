@@ -11,12 +11,13 @@ public class Swappable : MonoBehaviour
         // Check if the left mouse button was raised
         if (Draggable.justReleased)
         {
-            // Check if the mouse was clicked over a UI element
-            if (CheckBounds(Draggable.heldObj.GetComponent<Draggable>().dropPos) && Draggable.heldObj != gameObject && Draggable.heldObj.GetComponent<Swappable>())
+            if (Draggable.holding)
             {
-                Draggable.justReleased = false;
-                if (Draggable.holding)
+                // Check if the mouse was clicked over a UI element
+                if (CheckBounds(Draggable.heldObj.GetComponent<Draggable>().dropPos) && Draggable.heldObj != gameObject && Draggable.heldObj.GetComponent<Swappable>())
                 {
+                    Draggable.justReleased = false;
+                
                     Draggable heldDrag = Draggable.heldObj.GetComponent<Draggable>();
                     Draggable thisDrag = GetComponent<Draggable>();
                     if (Draggable.heldObj.GetComponent<Swappable>().swapID == swapID)

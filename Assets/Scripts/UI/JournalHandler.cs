@@ -7,46 +7,65 @@ public class JournalHandler : MonoBehaviour
 {
     //List<List<string>>
     public GameObject IndicatorPrefab;
-    private Text leftText;
-    private Text rightText;
+    //private Text leftText;
+    //private Text rightText;
     private List<string> hints;
+
+    public GameObject journalNodePrefab = null;  
+    private GameObject[][] JournalNodes = null;
 
     private void Start()
     {
-        //get text children of the journal canvas
-        //unity can't find inactive children using Find() :(
-        Text[] ts = gameObject.GetComponentsInChildren<Text>(true);
-        foreach (Text t in ts)
+        GameObject nodes = transform.Find("Nodes").gameObject;
+        JournalNodes = new GameObject[4][];
+        for (int i = 0; i < JournalNodes.Length; i++)
         {
-            string name = t.gameObject.name;
-            if (t != null && name.Equals("LeftText"))
-            {
-                leftText = t;
-            }
-            else if (t != null && name.Equals("RightText"))
-            {
-                rightText = t;
-            }
+            JournalNodes[i] = new GameObject[8];
         }
-        hints = new List<string>();
+        float nodeWidth = nodes.GetComponent<RectTransform>().sizeDelta.x/ JournalNodes.Length;
+        float nodeHeight = nodes.GetComponent<RectTransform>().sizeDelta.y/ JournalNodes[0].Length;
+        float x = nodeWidth/2 + nodes.GetComponent<RectTransform>().anchoredPosition.x - nodes.GetComponent<RectTransform>().sizeDelta.x / 2;
+        // create journal entry nodes
+        for (int i = 0; i < JournalNodes.Length; i++)
+        {
+            float y = nodeHeight/2 + nodes.GetComponent<RectTransform>().anchoredPosition.y + nodes.GetComponent<RectTransform>().sizeDelta.y/2;
+            for (int j = 0; j < JournalNodes[i].Length; j++)
+            {
+                GameObject tmp = Instantiate(journalNodePrefab);
+                
+                y -= nodeHeight;
+
+
+
+
+                tmp.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
+                
+                tmp.GetComponent<RectTransform>().sizeDelta = new Vector2(nodeWidth, nodeHeight);
+                tmp.transform.parent = nodes.transform;
+                tmp.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                //tmp.GetComponent<RectTransform>().rect.Set(x, y, nodeSize, nodeSize);
+                
+                JournalNodes[i][j] = tmp;
+            }
+            x += nodeWidth;
+        }
+        /*
+        GameObject tmp = Instantiate(journalNodePrefab);
+        tmp.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        tmp.GetComponent<RectTransform>().sizeDelta = new Vector2(nodeWidth, nodeHeight);
+        tmp.transform.parent = transform;
+        */
     }
 
     // fill up that dang list list
     public void AddEntry(string entry)
     {
-        hints.Add(entry);
-        Display();
+        
     }
 
     void Display()
     {
-        int hintIndex = 0;
-
-        //add hints to leftText
-        hintIndex = AddHintsToTextComponent(leftText, hintIndex);
-
-        //add leftover hints to rightText
-        AddHintsToTextComponent(rightText, hintIndex);
+        
     }
 
     /// <summary>
