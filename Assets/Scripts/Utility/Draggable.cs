@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -28,7 +29,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount == 1)
         {
             touch = Input.GetTouch(0);
         }
@@ -87,6 +88,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             heldObj = gameObject;
             this.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
             this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 30.0f);
+            //GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
         }
     }
 
@@ -99,6 +101,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isGoingBack = true;
         this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+        //GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
         justReleased = false;
     }
 }
