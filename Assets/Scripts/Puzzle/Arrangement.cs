@@ -14,7 +14,7 @@ public class Arrangement : MonoBehaviour
         arrangables = new Arrangable[width][];
         for (int i = 0; i < width; i++)
         {
-            arrragables = 
+            arrangables[i] = new Arrangable[height];
         }
     }
 
