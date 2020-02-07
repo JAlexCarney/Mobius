@@ -16,36 +16,50 @@ public class JournalHandler : MonoBehaviour
 
     private void Start()
     {
+        // get parent folder for node objects
         GameObject nodes = transform.Find("Nodes").gameObject;
-        JournalNodes = new GameObject[4][];
+
+        // initialize nodes array
+        JournalNodes = new GameObject[6][];
         for (int i = 0; i < JournalNodes.Length; i++)
         {
-            JournalNodes[i] = new GameObject[8];
+            JournalNodes[i] = new GameObject[7];
         }
+
+        // initialize constants
         float nodeWidth = nodes.GetComponent<RectTransform>().sizeDelta.x/ JournalNodes.Length;
         float nodeHeight = nodes.GetComponent<RectTransform>().sizeDelta.y/ JournalNodes[0].Length;
-        float x = nodeWidth/2 + nodes.GetComponent<RectTransform>().anchoredPosition.x - nodes.GetComponent<RectTransform>().sizeDelta.x / 2;
+
+        // reset x to left of canvas
+        float x =  0;
+        
         // create journal entry nodes
         for (int i = 0; i < JournalNodes.Length; i++)
         {
-            float y = nodeHeight/2 + nodes.GetComponent<RectTransform>().anchoredPosition.y + nodes.GetComponent<RectTransform>().sizeDelta.y/2;
+            // reset y value to top of canvas
+            float y = 0;
             for (int j = 0; j < JournalNodes[i].Length; j++)
             {
+                // create a temporary prefab node
                 GameObject tmp = Instantiate(journalNodePrefab);
-                
-                y -= nodeHeight;
 
+                // Get the rectTransform object
+                RectTransform rectT = tmp.GetComponent<RectTransform>();
 
-
-
-                tmp.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
-                
-                tmp.GetComponent<RectTransform>().sizeDelta = new Vector2(nodeWidth, nodeHeight);
+                // set the parent canvas of the node
                 tmp.transform.parent = nodes.transform;
-                tmp.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-                //tmp.GetComponent<RectTransform>().rect.Set(x, y, nodeSize, nodeSize);
+
+                // Set the created nodes position
+                rectT.anchoredPosition = new Vector2(x, y);
+
+                // return to original scale
+                rectT.localScale = new Vector3(1f, 1f, 1f);
+
+                // Set the size of the nodes
+                rectT.sizeDelta = new Vector2(nodeWidth, nodeHeight);
                 
                 JournalNodes[i][j] = tmp;
+                y -= nodeHeight;
             }
             x += nodeWidth;
         }
