@@ -536,6 +536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103102016}
   - component: {fileID: 103102017}
+  - component: {fileID: 103102018}
   m_Layer: 5
   m_Name: Interactables
   m_TagString: Untagged
@@ -586,6 +587,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103102015}
   m_CullTransparentMesh: 0
+--- !u!114 &103102018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103102015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9fd1001b417f614696e2ccd4e4c18bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 4
+  height: 4
 --- !u!1 &123541856
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,7 +1819,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &445833541
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4249,12 +4264,12 @@ GameObject:
   - component: {fileID: 926209240}
   - component: {fileID: 926209241}
   m_Layer: 5
-  m_Name: VMNotInteractable
+  m_Name: VendingMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &926209240
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4382,7 +4397,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &963593355
 GameObject:
