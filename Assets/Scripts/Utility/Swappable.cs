@@ -5,6 +5,12 @@ using UnityEngine;
 public class Swappable : MonoBehaviour
 {
     public int swapID;
+    private TopVisualFolllow movingVisual = null;
+
+    public void Start()
+    {
+        movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
+    }
 
     public void Update()
     {
@@ -29,6 +35,7 @@ public class Swappable : MonoBehaviour
                         thisDrag.dropPos = transform.position;
                         thisDrag.isGoingBack = true;
                         heldDrag.isGoingBack = true;
+
                         Debug.Log(Draggable.heldObj + " <-> " + gameObject);
                     }
                 }
