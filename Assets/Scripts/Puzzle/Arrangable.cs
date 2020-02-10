@@ -23,6 +23,7 @@ public class Arrangable : MonoBehaviour, IPointerDownHandler
             if (counter == swapDelay)
             {
                 counter = 0;
+
                 swapping = false;
             }
             else

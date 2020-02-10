@@ -18,12 +18,17 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     static public string held = "";
     static public GameObject heldObj = null;
 
+    private TopVisualFolllow movingVisual;
+    private Transform parent;
+
     private Touch touch;
 
     private void Start()
     {
         label = gameObject.name;
         startPos = transform.position;
+        movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
+        parent = transform.parent;
     }
 
     // Update is called once per frame
@@ -50,6 +55,8 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             {
                 counter = 0;
                 isGoingBack = false;
+                //movingVisual.StopTracking(gameObject);
+                transform.parent = parent;
             }
             else
             {
@@ -89,6 +96,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             this.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
             this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 30.0f);
             //GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
+            transform.parent = movingVisual.gameObject.transform;
         }
     }
 

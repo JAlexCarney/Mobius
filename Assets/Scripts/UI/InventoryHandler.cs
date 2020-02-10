@@ -8,10 +8,14 @@ public class InventoryHandler : MonoBehaviour
 {
     private int numItems = 0;
     private int selectedSlot = -1;
-    private string[] items;
     private GameObject openButton = null;
     private GameObject openedInventory = null;
-    public GameObject[] slots;
+
+    public int numSlots;
+    private string[] items;
+    private GameObject[] slots;
+    private GameObject[] itemObjs;
+
     private string collecting;
 
     [System.Serializable]
@@ -30,10 +34,15 @@ public class InventoryHandler : MonoBehaviour
             pickupDict[pickupable.label] = pickupable.invSprite;
         }
 
-        items = new string[5];
+
+        slots = new GameObject[numSlots];
+        itemObjs = new GameObject[numSlots];
+        items = new string[numSlots];
         for (int i = 0; i < items.Length; i++)
         {
             items[i] = "";
+            slots[i] = transform.Find("Opened").Find("Slot" + i).gameObject;
+            itemObjs[i] = slots[i].transform.Find("Item").gameObject;
         }
         openButton = transform.Find("Open").gameObject;
         openedInventory = transform.Find("Opened").gameObject;
@@ -59,9 +68,8 @@ public class InventoryHandler : MonoBehaviour
             if (items[i].ToLower() == objToRemove.ToLower())
             {
                 items[i] = "";
-                GameObject item = slots[i].transform.Find("Item").gameObject;
-                item.GetComponent<Draggable>().label = "";
-                item.GetComponent<Image>().color = Color.clear;
+                itemObjs[i].GetComponent<Draggable>().label = "";
+                itemObjs[i].GetComponent<Image>().color = Color.clear;
                 //Debug.Log("Object Removed");
             }
         }
@@ -78,16 +86,19 @@ public class InventoryHandler : MonoBehaviour
         GameObject thing = GameObject.Find(collecting);
         items[numItems] = label;
         numItems++;
-        GameObject item = slots[numItems-1].transform.Find("Item").gameObject;
+        GameObject item = itemObjs[numItems - 1];
         item.GetComponent<Draggable>().label = label;
         item.transform.position = thing.transform.position;
         item.GetComponent<Draggable>().dropPos = thing.transform.position;
         item.GetComponent<Draggable>().isGoingBack = true;
+
         item.GetComponent<Image>().sprite = pickupDict[label];
         item.GetComponent<Image>().color = Color.white;
         Destroy(thing);
     }
 
+    // Deprecated functions
+    /*
     public void SelectItem(int slot)
     {
         if (selectedSlot != -1)
@@ -133,5 +144,5 @@ public class InventoryHandler : MonoBehaviour
                 Util.ObjectSwap(objectToReplaceName, objectToShowName);
             }
         }
-    }
+    }*/
 }
