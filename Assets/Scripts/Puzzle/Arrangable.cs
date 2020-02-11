@@ -75,7 +75,7 @@ public class Arrangable : MonoBehaviour, IPointerDownHandler
     private void Select()
     {
         selected = this.gameObject;
-        selected.GetComponent<Image>().color = Color.blue;
+        selected.GetComponent<Image>().color = new Color(0.5f, 0.5f, 1f);
     }
 
     private void Deselect()
