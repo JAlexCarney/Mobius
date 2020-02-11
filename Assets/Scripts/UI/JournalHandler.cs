@@ -55,6 +55,9 @@ public class JournalHandler : MonoBehaviour
                 // return to original scale
                 rectT.localScale = new Vector3(1f, 1f, 1f);
 
+                // make clear
+                tmp.GetComponent<Image>().color = Color.clear;
+
                 // Set the size of the nodes
                 rectT.sizeDelta = new Vector2(nodeWidth, nodeHeight);
                 
