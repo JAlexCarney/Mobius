@@ -10,6 +10,7 @@ public class JournalHandler : MonoBehaviour
     private Text leftPage;
     private RectTransform rightPage;
     private List<string> hints;
+    private List<GameObject> imageHints; 
 
     private void Start()
     {
@@ -21,12 +22,18 @@ public class JournalHandler : MonoBehaviour
             leftPage = ts;
         }
 
-        RectTransform rt = gameObject.GetComponentInChildren<RectTransform>(true);
-        if (rt != null && rt.gameObject.name.Equals("RightPage"))
+        //get right page (rect transform bc it holds images)
+        RectTransform[] rt = gameObject.GetComponentsInChildren<RectTransform>(true);
+        foreach (RectTransform rtChild in rt)
         {
-            rightPage = rt;
+            if (rtChild != null && rtChild.gameObject.name.Equals("RightPage"))
+            {
+                rightPage = rtChild;
+            }
+
         }
         hints = new List<string>();
+        imageHints = new List<GameObject>();
     }
 
     // fill up that dang list list & display indicator
@@ -41,9 +48,15 @@ public class JournalHandler : MonoBehaviour
    
     }
 
-    public void AddImage(string image)
+    //add image to the list
+    public void AddImage(GameObject image)
     {
-
+        if (!imageHints.Contains(image))
+        {
+            imageHints.Add(image);
+            IndicateEntry();
+            Instantiate(image, rightPage.GetComponent<Transform>());
+        }
     }
 
     void Display()
