@@ -8,25 +8,23 @@ public class JournalHandler : MonoBehaviour
     //List<List<string>>
     public GameObject IndicatorPrefab;
     private Text leftPage;
-    private Text rightPage;
+    private RectTransform rightPage;
     private List<string> hints;
 
     private void Start()
     {
         //get text children of the journal canvas
         //unity can't find inactive children using Find() :(
-        Text[] ts = gameObject.GetComponentsInChildren<Text>(true);
-        foreach (Text t in ts)
+        Text ts = gameObject.GetComponentInChildren<Text>(true);
+        if (ts != null && ts.gameObject.name.Equals("LeftPage"))
         {
-            string name = t.gameObject.name;
-            if (t != null && name.Equals("LeftPage"))
-            {
-                leftPage = t;
-            }
-            else if (t != null && name.Equals("RightPage"))
-            {
-                rightPage = t;
-            }
+            leftPage = ts;
+        }
+
+        RectTransform rt = gameObject.GetComponentInChildren<RectTransform>(true);
+        if (rt != null && rt.gameObject.name.Equals("RightPage"))
+        {
+            rightPage = rt;
         }
         hints = new List<string>();
     }
@@ -43,6 +41,11 @@ public class JournalHandler : MonoBehaviour
    
     }
 
+    public void AddImage(string image)
+    {
+
+    }
+
     void Display()
     {
         int hintIndex = 0;
@@ -51,7 +54,7 @@ public class JournalHandler : MonoBehaviour
         hintIndex = AddHintsToTextComponent(leftPage, hintIndex);
 
         //add leftover hints to rightText
-        AddHintsToTextComponent(rightPage, hintIndex);
+        //AddHintsToTextComponent(rightPage, hintIndex);
     }
 
     /// <summary>
