@@ -80,21 +80,27 @@ public class InventoryHandler : MonoBehaviour
         collecting = obj;
     }
 
-    public void Collect(string label)
+    public void Collect(string labelAndObj)
     {
+        // parse input
+        List<string> input = Util.Split(labelAndObj, '+');
+        string label = input[0];
+        collecting = input[1];
+
         Debug.Log(label);
-        GameObject thing = GameObject.Find(collecting);
+        GameObject tmp = GameObject.Find(collecting);
+        Debug.Log(tmp);
         items[numItems] = label;
         numItems++;
         GameObject item = itemObjs[numItems - 1];
         item.GetComponent<Draggable>().label = label;
-        item.transform.position = thing.transform.position;
-        item.GetComponent<Draggable>().dropPos = thing.transform.position;
+        item.transform.position = tmp.transform.position;
+        item.GetComponent<Draggable>().dropPos = tmp.transform.position;
         item.GetComponent<Draggable>().isGoingBack = true;
 
         item.GetComponent<Image>().sprite = pickupDict[label];
         item.GetComponent<Image>().color = Color.white;
-        Destroy(thing);
+        Destroy(tmp);
     }
 
     // Deprecated functions

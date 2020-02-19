@@ -774,6 +774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 2, y: 1}
   currentPos: {x: 2, y: 1}
+  locked: 0
 --- !u!114 &94113243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,7 +825,7 @@ GameObject:
   - component: {fileID: 172820867}
   - component: {fileID: 172820866}
   m_Layer: 0
-  m_Name: Water
+  m_Name: Milk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -877,7 +878,7 @@ MonoBehaviour:
   isGoingBack: 0
   startPos: {x: 0, y: 0, z: 0}
   dropPos: {x: 0, y: 0, z: 0}
-  label: 
+  label: milk
   swapID: 0
 --- !u!114 &172820868
 MonoBehaviour:
@@ -897,7 +898,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c4edfdc831f37d74781fa7c5f3d521b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce77be40655a9804faa6e99eee429170, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2053,6 +2054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 1, y: 3}
   currentPos: {x: 1, y: 3}
+  locked: 0
 --- !u!114 &268033032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2071,8 +2073,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7806613912558497171, guid: cb8d280b9b2d0484bb027ff687209dd7,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf722dcf538236b419dda2cbb9f2df70, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2142,6 +2143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 2, y: 0}
   currentPos: {x: 2, y: 0}
+  locked: 0
 --- !u!114 &269143901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2359,6 +2361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 1, y: 0}
   currentPos: {x: 1, y: 0}
+  locked: 0
 --- !u!114 &329939703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2448,6 +2451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 0, y: 3}
   currentPos: {x: 0, y: 3}
+  locked: 0
 --- !u!114 &356264102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2940,6 +2944,166 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &447893548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 447893549}
+  - component: {fileID: 447893553}
+  - component: {fileID: 447893552}
+  - component: {fileID: 447893550}
+  - component: {fileID: 447893551}
+  - component: {fileID: 447893554}
+  m_Layer: 5
+  m_Name: WaterPickUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &447893549
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447893548}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1201216958}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1054, y: 161}
+  m_SizeDelta: {x: 100, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &447893550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447893548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 447893552}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1823192205}
+        m_MethodName: Collect
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: water+WaterPickUp
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &447893551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447893548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936df61610bd81542a85e7627e10218d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inv: {fileID: 1823192205}
+--- !u!114 &447893552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447893548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c4edfdc831f37d74781fa7c5f3d521b6, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &447893553
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447893548}
+  m_CullTransparentMesh: 0
+--- !u!114 &447893554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447893548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145b64af3d63c914cb611cd5aaf4ba62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGoingBack: 0
+  startPos: {x: 0, y: 0, z: 0}
+  dropPos: {x: 0, y: 0, z: 0}
+  label: WaterPickUp
+  swapID: 0
 --- !u!1 &450339370
 GameObject:
   m_ObjectHideFlags: 0
@@ -3817,7 +3981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &670872873
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3834,7 +3998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1421.9, y: 1018.9}
+  m_AnchoredPosition: {x: 114, y: 1018.9}
   m_SizeDelta: {x: 142.2, y: 136.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &670872874
@@ -4599,7 +4763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &766696432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4883,6 +5047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 3, y: 3}
   currentPos: {x: 3, y: 3}
+  locked: 0
 --- !u!114 &827181897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5961,6 +6126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 1, y: 2}
   currentPos: {x: 1, y: 2}
+  locked: 0
 --- !u!114 &985037160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6365,6 +6531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 0, y: 2}
   currentPos: {x: 0, y: 2}
+  locked: 0
 --- !u!114 &1025240347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6908,7 +7075,7 @@ GameObject:
   - component: {fileID: 1152300567}
   - component: {fileID: 1152300566}
   m_Layer: 0
-  m_Name: Milk
+  m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6975,7 +7142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ce77be40655a9804faa6e99eee429170, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4edfdc831f37d74781fa7c5f3d521b6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7122,6 +7289,8 @@ RectTransform:
   - {fileID: 1494658732}
   - {fileID: 766696432}
   - {fileID: 670872873}
+  - {fileID: 1916148946}
+  - {fileID: 447893549}
   m_Father: {fileID: 1479260216}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7188,7 +7357,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &1213256742
 GameObject:
@@ -7316,17 +7485,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1823192205}
-        m_MethodName: SetCollecting
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MilkPickUp
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1823192205}
         m_MethodName: Collect
         m_Mode: 5
         m_Arguments:
@@ -7334,7 +7492,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: milk
+          m_StringArgument: milk+MilkPickUp
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1823192205}
@@ -7563,6 +7721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 3, y: 1}
   currentPos: {x: 3, y: 1}
+  locked: 0
 --- !u!114 &1275044908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7792,6 +7951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 2, y: 3}
   currentPos: {x: 2, y: 3}
+  locked: 0
 --- !u!114 &1337060193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7881,6 +8041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 0, y: 1}
   currentPos: {x: 0, y: 1}
+  locked: 0
 --- !u!114 &1357640652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8438,6 +8599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 3, y: 0}
   currentPos: {x: 3, y: 0}
+  locked: 0
 --- !u!114 &1469084045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8912,7 +9074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1494658732
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9788,6 +9950,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 4
   height: 4
+  onWin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 447893551}
+        m_MethodName: Place
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PlaceWaterHere
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 672510656}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1673832924
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9848,6 +10035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 1, y: 1}
   currentPos: {x: 1, y: 1}
+  locked: 0
 --- !u!114 &1718586738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9994,7 +10182,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - trigger: milk
+  - trigger: water
     action:
       m_PersistentCalls:
         m_Calls:
@@ -10221,7 +10409,7 @@ PrefabInstance:
     - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
       propertyPath: pickupableObjs.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
@@ -10260,6 +10448,17 @@ PrefabInstance:
       propertyPath: slots.Array.data[2]
       value: 
       objectReference: {fileID: 1823192202}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[2].label
+      value: water
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[2].invSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4edfdc831f37d74781fa7c5f3d521b6,
+        type: 3}
     - target: {fileID: 573287309127938681, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11042,6 +11241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 3, y: 2}
   currentPos: {x: 3, y: 2}
+  locked: 0
 --- !u!114 &1905299344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11078,6 +11278,79 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905299341}
+  m_CullTransparentMesh: 0
+--- !u!1 &1916148945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916148946}
+  - component: {fileID: 1916148948}
+  - component: {fileID: 1916148947}
+  m_Layer: 5
+  m_Name: PlaceWaterHere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1916148946
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916148945}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1201216958}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -109, y: -318}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1916148947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916148945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1916148948
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916148945}
   m_CullTransparentMesh: 0
 --- !u!1 &1919734144
 GameObject:
@@ -11131,6 +11404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 2, y: 2}
   currentPos: {x: 2, y: 2}
+  locked: 0
 --- !u!114 &1919734147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11989,6 +12263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 0, y: 0}
   currentPos: {x: 0, y: 0}
+  locked: 0
 --- !u!114 &2101312342
 MonoBehaviour:
   m_ObjectHideFlags: 0
