@@ -9,6 +9,7 @@ public class CanvasSwapper : MonoBehaviour
     public GameObject prevCanvas;
     public GameObject inventory;
     public GameObject map;
+    public GameObject movement;
     public GameObject fade;
 
     private Image fadeImage;
@@ -59,6 +60,7 @@ public class CanvasSwapper : MonoBehaviour
         prevCanvas = currentCanvas;
         currentCanvas = canvasToActivate;
         map.SetActive(false);
+        movement.SetActive(false);
     }
 
     public void SwitchCanvasMaintainUI(string newCanvas)
@@ -68,6 +70,7 @@ public class CanvasSwapper : MonoBehaviour
         Util.DeactivateChildren(currentCanvas);
         Util.ActivateChildren(inventory);
         map.SetActive(true);
+        movement.SetActive(true);
         prevCanvas = currentCanvas;
         currentCanvas = canvasToActivate;
     }
@@ -82,6 +85,7 @@ public class CanvasSwapper : MonoBehaviour
     public void ReturnToPreviousCanvas()
     {
         string backUp = prevCanvas.transform.name;
+        prevCanvas = currentCanvas;
         SwitchCanvasMaintainUI(backUp);
     }
 }
