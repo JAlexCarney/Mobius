@@ -21,6 +21,7 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
     private TopVisualFolllow movingVisual;
     private TopVisualFolllow movingVisualInverse;
     private Transform parent;
+    private Vector3 offset;
 
     private Touch touch;
 
@@ -31,6 +32,7 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
         movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
         movingVisualInverse = GameObject.Find("MovingVisualCanvasInverse").GetComponent<TopVisualFolllow>();
         parent = transform.parent;
+        offset = new Vector3(-100f, 100f, 0f);
     }
 
     // Update is called once per frame
@@ -44,13 +46,13 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
         {
             if (Input.touchCount == 0)
             {
-                transform.position = Input.mousePosition;
-                inverse.transform.position = Input.mousePosition;
+                transform.position = Input.mousePosition + offset;
+                inverse.transform.position = Input.mousePosition + offset;
             }
             else
             {
-                transform.position = touch.position;
-                inverse.transform.position = touch.position;
+                transform.position = touch.position + (Vector2)offset;
+                inverse.transform.position = touch.position + (Vector2)offset;
             }
         }
         else if (isGoingBack)
