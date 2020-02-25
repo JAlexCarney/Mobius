@@ -82,6 +82,8 @@ public class InventoryHandler : MonoBehaviour
 
     public void Collect(string labelAndObj)
     {
+        Open();
+        
         // parse input
         List<string> input = Util.Split(labelAndObj, '+');
         string label = input[0];
