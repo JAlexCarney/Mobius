@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Arrangement : MonoBehaviour
 {
     public int width;
     public int height;
+    public UnityEvent onWin;
     private Arrangable[][] arrangables;
 
     // Start is called before the first frame update
@@ -26,13 +28,19 @@ public class Arrangement : MonoBehaviour
         Scramble(100);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Lock()
     {
-        
+        foreach (Arrangable[] arr in arrangables)
+        {
+            foreach (Arrangable a in arr)
+            {
+                a.locked = true;
+                a.Deselect();
+            }
+        }
     }
 
-    public bool Check()
+    public void Check()
     {
         for (int i = 0; i < width; i++)
         {
@@ -41,11 +49,19 @@ public class Arrangement : MonoBehaviour
                 if (arrangables[i][j].currentPos.x != arrangables[i][j].correctPos.x ||
                     arrangables[i][j].currentPos.y != arrangables[i][j].correctPos.y)
                 {
-                    return false;
+                    Debug.Log("Incorrect");
+                    return;
                 }
             }
         }
-        return true;
+        Debug.Log("Correct");
+        Lock();
+        Invoke("Win", 1);
+    }
+
+    public void Win()
+    {
+        onWin.Invoke();
     }
 
     void Scramble(int swaps)
