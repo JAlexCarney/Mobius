@@ -8,6 +8,7 @@ public class Arrangable : MonoBehaviour, IPointerDownHandler
 {
     public Vector2Int correctPos;
     public Vector2Int currentPos;
+    public bool locked = false;
     private static readonly float swapDelay = 90f;
     private static GameObject selected = null;
     private bool swapping = false;
@@ -37,7 +38,7 @@ public class Arrangable : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData d)
     {
-        if (!swapping)
+        if (!swapping && !locked)
         {
             if (selected != gameObject && selected != null)
             {
@@ -70,6 +71,8 @@ public class Arrangable : MonoBehaviour, IPointerDownHandler
         other.currentPos = tmp;
 
         other.Deselect();
+
+        transform.parent.gameObject.GetComponent<Arrangement>().Check();
     }
 
     private void Select()
@@ -78,9 +81,13 @@ public class Arrangable : MonoBehaviour, IPointerDownHandler
         selected.GetComponent<Image>().color = new Color(0.5f, 0.5f, 1f);
     }
 
-    private void Deselect()
+    public void Deselect()
     {
-        selected.GetComponent<Image>().color = Color.white;
-        selected = null;
+        // if there is a selected object, deselect it
+        if (selected != null)
+        {
+            selected.GetComponent<Image>().color = Color.white;
+            selected = null;
+        }
     }
 }

@@ -14,13 +14,13 @@ public class Placeable : MonoBehaviour
         Vector3 pos = obj.transform.position;
         if (!placed)
         {
-            inv.Remove(name);
             transform.position = pos;
             placed = true;
             Draggable drag = GetComponent<Draggable>();
             if (drag)
             {
                 drag.startPos = pos;
+                inv.Remove(name);
             }
         }
     }
