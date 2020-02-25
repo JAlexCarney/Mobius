@@ -16,7 +16,8 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     static public string held = "";
     static public GameObject heldObj = null;
 
-    private bool colliding;
+    private Transform bottomLeftCorner;
+    private Transform topRightCorner; 
 
     private Transform parent;
 
@@ -27,21 +28,37 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         label = gameObject.name;
         startPos = transform.position;
         parent = transform.parent;
+
+        //get text children of the journal canvas
+        //unity can't find inactive children using Find() :(
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            string name = child.gameObject.name;
+            if (child != null && name.Equals("TopRight"))
+            {
+                topRightCorner = child;
+            }
+            else if (child != null && name.Equals("BottomLeft"))
+            {
+                bottomLeftCorner = child;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
-    {
+        {   
         if (Input.touchCount == 1)
         {
             touch = Input.GetTouch(0);
         }
-        if (isHeld && !colliding)
+        if (isHeld)
         {
             if (Input.touchCount == 0)
             {
-                transform.position = new Vector2(Clamp(Input.mousePosition.x, 340, 588),
-                    Clamp(Input.mousePosition.y, 52, 421));
+                transform.position = new Vector2(Clamp(Input.mousePosition.x, bottomLeftCorner.position.x, topRightCorner.position.x),
+                    Clamp(Input.mousePosition.y, bottomLeftCorner.position.y, topRightCorner.position.y));
 
                 //code graveyard below, enter at ur own risk ooo00OOOOoooooooOOoo00000ooooo
 
