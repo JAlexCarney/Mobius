@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MovementManager : MonoBehaviour
 {
     public CanvasSwapper canvasSwapper;
+    public GameObject LeftButton;
+    public GameObject RightButton;
+    public GameObject BackButton;
+    public bool backIsDisabled = false;
+    public bool leftIsDisabled = false;
+    public bool rightIsDisabled = false;
+    public bool lookingEnabled = true;
     
     // 0 -> left
     // 1 -> center
@@ -18,21 +26,60 @@ public class MovementManager : MonoBehaviour
         curPos = 1;
     }
 
+    public void CenterAndEnableLooking()
+    {
+        EnableLeft();
+        EnableRight();
+        SetPosition(1);
+        lookingEnabled = true;
+    }
+
+    public void DisableLooking()
+    {
+        DisableLeft();
+        DisableRight();
+        SetPosition(1);
+        lookingEnabled = false;
+    }
+
     public void LookLeft()
     {
-        int pos = curPos - 1;
-        if (pos >= 0)
+        if (!leftIsDisabled && lookingEnabled)
         {
-            SetPosition(pos);
+            int pos = curPos - 1;
+            if (pos >= 0)
+            {
+                SetPosition(pos);
+                if (pos == 0)
+                {
+                    DisableLeft();
+                }
+                if (rightIsDisabled)
+                {
+                    EnableRight();
+                }
+            }
         }
     }
 
     public void LookRight()
     {
-        int pos = curPos + 1;
-        if (pos <= 2)
+        if (!rightIsDisabled && lookingEnabled)
         {
-            SetPosition(pos);
+            int pos = curPos + 1;
+            if (pos <= 2)
+            {
+                SetPosition(pos);
+                if (pos == 2)
+                {
+                    DisableRight();
+                }
+                Debug.Log(leftIsDisabled);
+                if (leftIsDisabled)
+                {
+                    EnableLeft();
+                }
+            }
         }
     }
 
@@ -59,5 +106,47 @@ public class MovementManager : MonoBehaviour
             background.GetComponent<RectTransform>().anchoredPosition = new Vector3(-400, 0, 0);
             curPos = pos;
         }
+    }
+
+    public void DisableBack()
+    {
+        backIsDisabled = true;
+        BackButton.GetComponent<Image>().color = Color.gray;
+        BackButton.GetComponent<Button>().interactable = false;
+    }
+
+    public void EnableBack()
+    {
+        backIsDisabled = false;
+        BackButton.GetComponent<Image>().color = Color.white;
+        BackButton.GetComponent<Button>().interactable = true;
+    }
+
+    private void EnableRight()
+    {
+        RightButton.GetComponent<Image>().color = Color.white;
+        rightIsDisabled = false;
+        RightButton.GetComponent<Button>().interactable = true;
+    }
+
+    private void DisableRight()
+    {
+        RightButton.GetComponent<Image>().color = Color.gray;
+        rightIsDisabled = true;
+        RightButton.GetComponent<Button>().interactable = false;
+    }
+
+    private void EnableLeft()
+    {
+        LeftButton.GetComponent<Image>().color = Color.white;
+        leftIsDisabled = false;
+        LeftButton.GetComponent<Button>().interactable = true;
+    }
+
+    private void DisableLeft()
+    {
+        LeftButton.GetComponent<Image>().color = Color.gray;
+        LeftButton.GetComponent<Button>().interactable = false;
+        leftIsDisabled = true;
     }
 }
