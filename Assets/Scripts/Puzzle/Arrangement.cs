@@ -61,6 +61,17 @@ public class Arrangement : MonoBehaviour
 
     public void Win()
     {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                Flipable flip = arrangables[i][j].gameObject.GetComponent<Flipable>();
+                if (flip)
+                {
+                    flip.Flip();
+                }
+            }
+        }
         onWin.Invoke();
     }
 
@@ -75,6 +86,30 @@ public class Arrangement : MonoBehaviour
             Vector2Int tmppos = one.correctPos;
             one.correctPos = two.correctPos;
             two.correctPos = tmppos;
+
+
+            // Swap backSides
+            Flipable flip1 = one.gameObject.GetComponent<Flipable>(); 
+            Flipable flip2 = two.gameObject.GetComponent<Flipable>();
+
+            if (flip1 && !flip2)
+            {
+                two.gameObject.AddComponent<Flipable>();
+                two.gameObject.GetComponent<Flipable>().backSide = flip1.backSide;
+                Destroy(flip1);
+            }
+            else if (!flip1 && flip2)
+            {
+                one.gameObject.AddComponent<Flipable>();
+                one.gameObject.GetComponent<Flipable>().backSide = flip2.backSide;
+                Destroy(flip2);
+            }
+            else if (flip1 && flip2)
+            {
+                Sprite tmp = flip1.backSide;
+                flip1.backSide = flip2.backSide;
+                flip2.backSide = tmp; 
+            }
 
             // swap visuals
             Sprite tmpsprite = one.gameObject.GetComponent<Image>().sprite;

@@ -179,6 +179,10 @@ public class DensityLayers : MonoBehaviour
                 mobiusPiece.transform.position = liquidLayersVisual[0].transform.position;
             }
         }
+        else
+        {
+            mobiusPiece.transform.position = liquidLayersVisual[0].transform.position;
+        }
     }
 
     public void PourLiquid(string liquid)
