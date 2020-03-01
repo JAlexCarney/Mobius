@@ -63,33 +63,6 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             {
                 transform.position = new Vector2(Clamp(Input.mousePosition.x, bottomLeftCorner.position.x, topRightCorner.position.x),
                     Clamp(Input.mousePosition.y, bottomLeftCorner.position.y, topRightCorner.position.y));
-
-                //code graveyard below, enter at ur own risk ooo00OOOOoooooooOOoo00000ooooo
-
-                //    Input.mousePosition;
-
-                //Vector2 pageSize = parent.GetComponent<RectTransform>().sizeDelta;
-                //float width = pageSize.x;
-                //float height = pageSize.y;
-
-                //float leftBound = parent.position.x;
-                //if (transform.position.x < -(width/2))
-                //    transform.position = new Vector2(-width/2, transform.position.y);
-
-                //float upperBound = parent.position.y + (height / 2); 
-                //if (transform.position.y > ( parent.position.y + height/2))
-                //{
-                //    transform.position = new Vector2(transform.position.x, parent.position.y);
-                //    Debug.Log("AAAAAAAAAAAAAAAAAAA");
-                //}
-                //Debug.Log(-width/2 + " JDFIOEJFIOE " + parent.position.y+" " + height/2 + " almond: " + transform.position.x + "," + transform.position.y);
-
-                //float rightBounds = parent.position.x + parent.GetComponent<RectTransform>().sizeDelta.x;
-                //if (transform.position.x > rightBounds)
-                //    transform.position = new Vector2(rightBounds, transform.position.y);
-                //float lowerBounds = parent.position.y - parent.GetComponent<RectTransform>().sizeDelta.y; 
-                //if (transform.position.y < lowerBounds)
-                //    transform.position = new Vector2(transform.position.x, lowerBounds);
             }
             else
             {
