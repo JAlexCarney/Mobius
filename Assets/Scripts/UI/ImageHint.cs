@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    //drag stuff
     private bool isHeld = false;
     public Vector3 startPos;
     public Vector3 dropPos;
@@ -15,13 +16,16 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     static public bool holding = false;
     static public string held = "";
     static public GameObject heldObj = null;
+    private Touch touch;
 
+    //page boundaries
     private Transform bottomLeftCorner;
     private Transform topRightCorner; 
 
     private Transform parent;
 
-    private Touch touch;
+    [Header("Page # the sketch will be in")]
+    public int pageNumber = 1; 
 
     private void Start()
     {

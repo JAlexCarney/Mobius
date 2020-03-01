@@ -9,8 +9,12 @@ public class JournalHandler : MonoBehaviour
     public GameObject IndicatorPrefab;
     private Text leftPage;
     private RectTransform rightPage;
-    private List<string> hints;
+    private Dictionary<int, List<string>> entryDict = new Dictionary<int, List<string>>();
+    private Dictionary<int, List<GameObject>> sketchesDict = new Dictionary<int, List<GameObject>>();
     private List<GameObject> imageHints; 
+
+    private int currentPage;
+    private int lastPage = 4; 
 
     private void Start()
     {
@@ -32,43 +36,142 @@ public class JournalHandler : MonoBehaviour
             }
 
         }
-        hints = new List<string>();
-        imageHints = new List<GameObject>();
+
+        //set current page
+        currentPage = 1;
     }
 
     // fill up that dang list list & display indicator
     public void AddEntry(string entry)
     {
-        if (!hints.Contains(entry))
+        //get page number
+        List<string> pageNumberAndEntry = Util.Split(entry, '+');
+        int pageNumber = System.Int32.Parse(pageNumberAndEntry[0]);
+
+        Debug.Log(pageNumber);
+
+        //if page doesn't exist yet, add it
+        if (!entryDict.ContainsKey(pageNumber))
         {
-            hints.Add(entry);
-            IndicateEntry();
-            Display();
+            entryDict.Add(pageNumber, new List<string>());
+            sketchesDict.Add(pageNumber, new List<GameObject>());
         }
-   
+
+        //get list of entries inpage
+        List<string> pageEntries = entryDict[pageNumber];
+
+        //add entry to page if it is not a duplicate
+        if (!pageEntries.Contains(entry))
+        {
+            pageEntries.Add(pageNumberAndEntry[1]);
+            IndicateEntry();
+            RefreshJournal();
+        }
     }
 
     //add image to the list
     public void AddImage(GameObject image)
     {
-        if (!imageHints.Contains(image))
+        //get page number
+        int pageNumber = image.GetComponent<ImageHint>().pageNumber;
+
+        //if page doesn't exist yet, add it
+        if (!entryDict.ContainsKey(pageNumber))
         {
-            imageHints.Add(image);
+            entryDict.Add(pageNumber, new List<string>());
+            sketchesDict.Add(pageNumber, new List<GameObject>());
+        }
+
+        //get list of images in that page
+        List<GameObject> pageSketches = sketchesDict[pageNumber];
+
+        //add image to page if it is not a duplicate
+        if (!pageSketches.Contains(image))
+        {
+            //!!important!! instatiate in rightPage!!!!
+            GameObject instantiatedImage = Instantiate(image, rightPage.transform);
+            
+            pageSketches.Add(instantiatedImage);
+
             IndicateEntry();
-            Instantiate(image, rightPage.GetComponent<Transform>());
+            RefreshJournal();
         }
     }
 
-    void Display()
+    public void FlipLeft(GameObject leftButton)
     {
-        int hintIndex = 0;
+        //get left page
+        currentPage--;
+        Debug.Log("hahahha");
+        RefreshJournal();
 
-        //add hints to leftText
-        hintIndex = AddHintsToTextComponent(leftPage, hintIndex);
+        //grey out / disable left button if at end
 
-        //add leftover hints to rightText
-        //AddHintsToTextComponent(rightPage, hintIndex);
     }
+
+    public void FlipRight(GameObject rightButton)
+    {
+        currentPage++;
+
+        Debug.Log("HAHAHAH");
+        RefreshJournal();
+
+        //grey out / disable right button if at end 
+
+    }
+
+    //update the journal to display the current page
+    public void RefreshJournal()
+    {
+        //empty left text
+        leftPage.text = "";
+
+        //deactivate the open page of images (GetComponents only gets active children!)
+        ImageHint[] images = rightPage.GetComponentsInChildren<ImageHint>();
+        foreach (ImageHint child in images)
+        {
+            Debug.Log(child.name);
+            child.gameObject.SetActive(false);
+        }
+
+        //get gameObjects and String of left/right page
+        List<string> refreshedText = entryDict[currentPage];
+        List<GameObject> refreshedImages = sketchesDict[currentPage];
+
+        //add refreshed text to left page
+        foreach (string text in refreshedText)
+        {
+            Debug.Log(text);
+
+            //add hint to text
+            leftPage.text += text;
+
+            //Canvas.ForceUpdateCanvases();
+
+            //add new line
+            leftPage.text += "\n";
+
+            Debug.Log(leftPage.text);
+        }
+
+        //activate images
+        foreach (GameObject image in refreshedImages)
+        {
+            Debug.Log(image.name);
+            image.SetActive(true);
+        }
+    }
+
+    //void Display()
+    //{
+    //    int hintIndex = 0;
+
+    //    add hints to leftText
+    //    hintIndex = AddHintsToTextComponent(leftPage, hintIndex);
+
+    //    add leftover hints to rightText
+    //    AddHintsToTextComponent(rightPage, hintIndex);
+    //}
 
     /// <summary>
     /// This adds hints to the param TextComponent until there is no more room to display hints. 
@@ -81,31 +184,31 @@ public class JournalHandler : MonoBehaviour
     {
         textComponent.text = "";
 
-        for (; hintIndex < hints.Count; hintIndex++)
-        {
-            string hint = hints[hintIndex];
+        //for (; hintIndex < hints.Count; hintIndex++)
+        //{
+        //    string hint = hints[hintIndex];
 
-            //add hint to text
-            textComponent.text += hint;
+        //    //add hint to text
+        //    textComponent.text += hint;
 
-            //Update everything so things don't break below lol
-            Canvas.ForceUpdateCanvases();
+        //    //Update everything so things don't break below lol
+        //    Canvas.ForceUpdateCanvases();
 
-            //this helps u check what is currently being displayed (ty google)
-            TextGenerator t = textComponent.cachedTextGenerator;
+        //    //this helps u check what is currently being displayed (ty google)
+        //    TextGenerator t = textComponent.cachedTextGenerator;
 
-            //if the hint isn't fully displayed, remove it and stop adding to textComponent
-            int textLength = textComponent.text.Length;
-            if (t.characterCountVisible < textLength)
-            {
-                textComponent.text = textComponent.text.Remove(textLength - hint.Length);
-                break;
-            }
+        //    //if the hint isn't fully displayed, remove it and stop adding to textComponent
+        //    int textLength = textComponent.text.Length;
+        //    if (t.characterCountVisible < textLength)
+        //    {
+        //        textComponent.text = textComponent.text.Remove(textLength - hint.Length);
+        //        break;
+        //    }
 
-            //add new line
-            textComponent.text += "\n";
+        //    //add new line
+        //    textComponent.text += "\n";
 
-        }
+        //}
         return hintIndex;
     }
 
@@ -133,7 +236,7 @@ public class JournalHandler : MonoBehaviour
 
 
         //call Display
-        Display();
+        //Display();
         //^I am doing this here since I haven't found a way to check if numHints > spaceAllocatedForText in an inactive canvas
         //since inactive canvases don't update
         //if there is an easier way please lmk i am n00b who desperately googles things
