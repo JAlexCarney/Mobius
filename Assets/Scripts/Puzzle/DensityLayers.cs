@@ -11,11 +11,10 @@ public class DensityLayers : MonoBehaviour
     public string[] correctSolution = new string[7];
     public GameObject[] liquidLayersVisual;
     public GameObject mobiusPiece;
-    public Sprite milk;
-    public Sprite oil;
+    public Sprite saturn;
+    public Sprite starMatter;
     public Sprite honey;
-    public Sprite soap;
-    public Sprite gas;
+    public Sprite mercury;
     public Sprite water;
     public Sprite mapleSyrup;
     public Sprite sludge;
@@ -33,11 +32,10 @@ public class DensityLayers : MonoBehaviour
     void Start()
     {
         // inistialize sprites dictionary
-        sprites.Add("milk", milk);
-        sprites.Add("oil", oil);
+        sprites.Add("saturn", saturn);
+        sprites.Add("starMatter", starMatter);
         sprites.Add("honey", honey);
-        sprites.Add("soap", soap);
-        sprites.Add("gas", gas);
+        sprites.Add("mercury", mercury);
         sprites.Add("water", water);
         sprites.Add("mapleSyrup", mapleSyrup);
         sprites.Add("sludge", sludge);
