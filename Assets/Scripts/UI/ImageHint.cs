@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    //drag stuff
     private bool isHeld = false;
     public Vector3 startPos;
     public Vector3 dropPos;
@@ -16,17 +15,13 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     static public bool holding = false;
     static public string held = "";
     static public GameObject heldObj = null;
-    private Touch touch;
 
-    //page boundaries
     private Transform bottomLeftCorner;
     private Transform topRightCorner; 
 
     private Transform parent;
 
-    [Header("Page # the sketch will be in")]
-    public int pageNumber = 1;
-    public bool draggable = true; 
+    private Touch touch;
 
     private void Start()
     {
@@ -53,26 +48,48 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     // Update is called once per frame
     void Update()
-    {
-        if (draggable)
+        {   
+        if (Input.touchCount == 1)
         {
-            if (Input.touchCount == 1)
+            touch = Input.GetTouch(0);
+        }
+        if (isHeld)
+        {
+            if (Input.touchCount == 0)
             {
-                touch = Input.GetTouch(0);
+                transform.position = new Vector2(Clamp(Input.mousePosition.x, bottomLeftCorner.position.x, topRightCorner.position.x),
+                    Clamp(Input.mousePosition.y, bottomLeftCorner.position.y, topRightCorner.position.y));
+
+                //code graveyard below, enter at ur own risk ooo00OOOOoooooooOOoo00000ooooo
+
+                //    Input.mousePosition;
+
+                //Vector2 pageSize = parent.GetComponent<RectTransform>().sizeDelta;
+                //float width = pageSize.x;
+                //float height = pageSize.y;
+
+                //float leftBound = parent.position.x;
+                //if (transform.position.x < -(width/2))
+                //    transform.position = new Vector2(-width/2, transform.position.y);
+
+                //float upperBound = parent.position.y + (height / 2); 
+                //if (transform.position.y > ( parent.position.y + height/2))
+                //{
+                //    transform.position = new Vector2(transform.position.x, parent.position.y);
+                //    Debug.Log("AAAAAAAAAAAAAAAAAAA");
+                //}
+                //Debug.Log(-width/2 + " JDFIOEJFIOE " + parent.position.y+" " + height/2 + " almond: " + transform.position.x + "," + transform.position.y);
+
+                //float rightBounds = parent.position.x + parent.GetComponent<RectTransform>().sizeDelta.x;
+                //if (transform.position.x > rightBounds)
+                //    transform.position = new Vector2(rightBounds, transform.position.y);
+                //float lowerBounds = parent.position.y - parent.GetComponent<RectTransform>().sizeDelta.y; 
+                //if (transform.position.y < lowerBounds)
+                //    transform.position = new Vector2(transform.position.x, lowerBounds);
             }
-            if (isHeld)
+            else
             {
-                if (Input.touchCount == 0)
-                {
-                    float maxX = topRightCorner.position.x;
-                    float maxY = topRightCorner.position.y;
-                    transform.position = new Vector2(Util.Clamp(Input.mousePosition.x, bottomLeftCorner.position.x, maxX),
-                        Util.Clamp(Input.mousePosition.y, bottomLeftCorner.position.y, maxY));
-                }
-                else
-                {
-                    transform.position = touch.position;
-                }
+                transform.position = touch.position;
             }
         }
     }
@@ -111,5 +128,10 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         justReleased = false;
     }
 
-    
+    //ty https://stackoverflow.com/questions/3176602/how-to-force-a-number-to-be-in-a-range-in-c/3176617
+    public static float Clamp(float value, float min, float max)
+    {
+        return (value < min) ? min : (value > max) ? max : value;
+    }
+
 }

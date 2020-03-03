@@ -49,29 +49,18 @@ public class Arrangement : MonoBehaviour
                 if (arrangables[i][j].currentPos.x != arrangables[i][j].correctPos.x ||
                     arrangables[i][j].currentPos.y != arrangables[i][j].correctPos.y)
                 {
-                    //Debug.Log("Incorrect");
+                    Debug.Log("Incorrect");
                     return;
                 }
             }
         }
-        //Debug.Log("Correct");
+        Debug.Log("Correct");
         Lock();
-        Invoke("Win", 1.2f);
+        Invoke("Win", 1);
     }
 
     public void Win()
     {
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                Flipable flip = arrangables[i][j].gameObject.GetComponent<Flipable>();
-                if (flip)
-                {
-                    flip.Flip();
-                }
-            }
-        }
         onWin.Invoke();
     }
 
@@ -83,15 +72,14 @@ public class Arrangement : MonoBehaviour
             Arrangable two = arrangables[Random.Range(0, width)][Random.Range(0, height)];
 
 
-            Vector2Int tmppos = one.currentPos;
-            one.currentPos = two.currentPos;
-            two.currentPos = tmppos;
+            Vector2Int tmppos = one.correctPos;
+            one.correctPos = two.correctPos;
+            two.correctPos = tmppos;
 
-
-            // swap objects
-            Vector3 tmpposition = one.gameObject.transform.position;
-            one.gameObject.transform.position = two.gameObject.transform.position;
-            two.gameObject.transform.position = tmpposition;
+            // swap visuals
+            Sprite tmpsprite = one.gameObject.GetComponent<Image>().sprite;
+            one.gameObject.GetComponent<Image>().sprite = two.gameObject.GetComponent<Image>().sprite;
+            two.gameObject.GetComponent<Image>().sprite = tmpsprite;
         }
     }
 }
