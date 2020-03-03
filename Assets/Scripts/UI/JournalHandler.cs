@@ -56,11 +56,8 @@ public class JournalHandler : MonoBehaviour
         //add map & narrative intro to first page
         List<GameObject> firstPage = sketchesDict[currentPage];
 
-        GameObject instantiatedImage = Instantiate(intro, rightPage.transform); //intro on right page
-        GameObject instantiatedMap = Instantiate(map, leftPage.transform); //map on left page
-        
-        firstPage.Add(instantiatedImage);
-        firstPage.Add(instantiatedMap);
+        firstPage.Add(intro);
+        firstPage.Add(map);
 
         Debug.Log("intro added");
     }
@@ -264,6 +261,6 @@ public class JournalHandler : MonoBehaviour
     {
         RefreshJournal();
         //use canvas swapper to open the journal
-        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().SwitchCanvasNoUIWithoutLooking("JournalCanvas");
+        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().OpenJournal();
     }
 }
