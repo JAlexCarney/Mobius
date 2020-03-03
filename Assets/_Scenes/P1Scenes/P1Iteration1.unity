@@ -489,7 +489,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 0, y: 1}
   currentPos: {x: 0, y: 1}
-  locked: 0
 --- !u!114 &84376378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,9 +601,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 4
   height: 4
-  onWin:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &123541856
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,7 +908,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 0, y: 3}
   currentPos: {x: 0, y: 3}
-  locked: 0
 --- !u!114 &137373374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -984,7 +979,6 @@ RectTransform:
   - {fileID: 1721101803}
   - {fileID: 1064010539}
   - {fileID: 1718140041}
-  - {fileID: 1836295291}
   m_Father: {fileID: 1525387397}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1402,7 +1396,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 3, y: 2}
   currentPos: {x: 3, y: 2}
-  locked: 0
 --- !u!114 &314723025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2413,7 +2406,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 2, y: 3}
   currentPos: {x: 2, y: 3}
-  locked: 0
 --- !u!114 &509644621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2952,7 +2944,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 1, y: 0}
   currentPos: {x: 1, y: 0}
-  locked: 0
 --- !u!114 &654596502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4090,7 +4081,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 1, y: 1}
   currentPos: {x: 1, y: 1}
-  locked: 0
 --- !u!114 &870178985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4668,7 +4658,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 2, y: 2}
   currentPos: {x: 2, y: 2}
-  locked: 0
 --- !u!114 &1005957190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6285,7 +6274,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 2, y: 1}
   currentPos: {x: 2, y: 1}
-  locked: 0
 --- !u!114 &1284682634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6565,7 +6553,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 1, y: 3}
   currentPos: {x: 1, y: 3}
-  locked: 0
 --- !u!114 &1309864121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6728,7 +6715,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 3, y: 1}
   currentPos: {x: 3, y: 1}
-  locked: 0
 --- !u!114 &1342656978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7186,7 +7172,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 2, y: 0}
   currentPos: {x: 2, y: 0}
-  locked: 0
 --- !u!114 &1383359795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7551,7 +7536,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 3, y: 0}
   currentPos: {x: 3, y: 0}
-  locked: 0
 --- !u!114 &1401800323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7824,7 +7808,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 1, y: 2}
   currentPos: {x: 1, y: 2}
-  locked: 0
 --- !u!114 &1448093824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8156,7 +8139,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 3, y: 3}
   currentPos: {x: 3, y: 3}
-  locked: 0
 --- !u!114 &1568199997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9910,7 +9892,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 0, y: 0}
   currentPos: {x: 0, y: 0}
-  locked: 0
 --- !u!114 &1754348718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10518,11 +10499,11 @@ MonoBehaviour:
   - {fileID: 1730212397}
   - {fileID: 1307219074}
   - {fileID: 579065048}
-  mobiusPiece: {fileID: 0}
-  saturn: {fileID: 0}
-  starMatter: {fileID: 0}
+  milk: {fileID: 21300000, guid: f7ad0afd30f00594aa814cc8e4d04eb1, type: 3}
+  oil: {fileID: 21300000, guid: b431fe0d501cb9a4192b07d3c022e9b8, type: 3}
   honey: {fileID: 21300000, guid: 439c05f1d4df2bc49a4b9486aab90d24, type: 3}
-  mercury: {fileID: 0}
+  soap: {fileID: 21300000, guid: 2b011d1781966f2458e912bd49b54670, type: 3}
+  gas: {fileID: 21300000, guid: 439c05f1d4df2bc49a4b9486aab90d24, type: 3}
   water: {fileID: 21300000, guid: 1f53618fe28ca384f841ceb83f48b228, type: 3}
   mapleSyrup: {fileID: 21300000, guid: e4e8cee6946a9ea4686047e89e4aed4a, type: 3}
   sludge: {fileID: 21300000, guid: 62cde9617786641679bd5f581aaa0b65, type: 3}
@@ -11127,7 +11108,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 0, y: 2}
   currentPos: {x: 0, y: 2}
-  locked: 0
 --- !u!114 &2045310076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12144,6 +12124,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: JournalCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3939584324141824116, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727353090922366924, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: IndicatorPrefab
+      value: 
+      objectReference: {fileID: 1655057924356329591, guid: d23fdcd987d55d1499318dc91901078c,
+        type: 3}
+    - target: {fileID: 1727353090922366924, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: journalNodePrefab
+      value: 
+      objectReference: {fileID: 2529387581605977710, guid: 75b68e3ef70583c4bbd44b61612e4dac,
+        type: 3}
     - target: {fileID: 3939584324141824112, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12249,11 +12246,101 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3939584324141824112, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939584324141824112, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939584324141824112, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465617117804336705, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465617117804336705, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465617117804336705, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7465617117804336705, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 393794351}
+    - target: {fileID: 7465617117804336705, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReturnToPreviousCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465617117804336705, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195876722898070831, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 201510526121553969, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904754073598615562, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6964311055574550811, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 680315257634609316, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630707813222824671, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706770699273975030, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587207973685559301, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00012207031
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587207973685559301, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.002319336
+      objectReference: {fileID: 0}
+    - target: {fileID: 4487127928295055802, guid: 7af63b8a6e9d7cf4baa2d2d824498131,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7af63b8a6e9d7cf4baa2d2d824498131, type: 3}
 --- !u!1001 &9109492722230286683

@@ -10,11 +10,11 @@ public class DensityLayers : MonoBehaviour
 {
     public string[] correctSolution = new string[7];
     public GameObject[] liquidLayersVisual;
-    public GameObject mobiusPiece;
-    public Sprite saturn;
-    public Sprite starMatter;
+    public Sprite milk;
+    public Sprite oil;
     public Sprite honey;
-    public Sprite mercury;
+    public Sprite soap;
+    public Sprite gas;
     public Sprite water;
     public Sprite mapleSyrup;
     public Sprite sludge;
@@ -32,10 +32,11 @@ public class DensityLayers : MonoBehaviour
     void Start()
     {
         // inistialize sprites dictionary
-        sprites.Add("saturn", saturn);
-        sprites.Add("starMatter", starMatter);
+        sprites.Add("milk", milk);
+        sprites.Add("oil", oil);
         sprites.Add("honey", honey);
-        sprites.Add("mercury", mercury);
+        sprites.Add("soap", soap);
+        sprites.Add("gas", gas);
         sprites.Add("water", water);
         sprites.Add("mapleSyrup", mapleSyrup);
         sprites.Add("sludge", sludge);
@@ -56,8 +57,7 @@ public class DensityLayers : MonoBehaviour
         // make sure tube isn't already sludged.
         if (currentIndex != 0) { if (currentSolution[currentIndex - 1] == "sludge") { SludgeTube(); return; } }
         //check if the liquid just pored is denser than any of the privious liquids.
-        for (int i = currentIndex - 1; i >= 0; i--)
-        {
+        for (int i = currentIndex - 1; i >= 0; i--) {
             if (nameToLvl[lastLiquid] < nameToLvl[currentSolution[i]])
             {
                 SludgeTube();
@@ -66,7 +66,7 @@ public class DensityLayers : MonoBehaviour
         }
         //Debug.Log(currentIndex);
     }
-
+    
     // compare corect solution array with current solution array
     // sludges if incorrect (only layers that are wrong)
     private void CheckSolution(string lastLiquid)
@@ -74,17 +74,17 @@ public class DensityLayers : MonoBehaviour
         //print("User poured " + lastLiquid + ".");
 
         // If this is the first liquid poured into the tube.
-        if (currentIndex == 0)
+        if(currentIndex == 0)
         {
-            // Set the index for the solution equal to the location of the poured liquid.
-            solutionIndex = Array.IndexOf(correctSolution, lastLiquid);
-            //print(solutionIndex);
+        // Set the index for the solution equal to the location of the poured liquid.
+        solutionIndex = Array.IndexOf(correctSolution, lastLiquid);
+        //print(solutionIndex);
 
-            if (solutionIndex == 6)
-            {
-                solutionIndex = 0;
-            }
-            return;
+        if (solutionIndex == 6)
+        {
+            solutionIndex = 0;
+        }
+        return;
         }
 
         // Nothing goes on top of the last element.
@@ -94,7 +94,7 @@ public class DensityLayers : MonoBehaviour
             SludgeTube();
         }
 
-        string correctLiquid = correctSolution[solutionIndex + 1];
+        string correctLiquid = correctSolution[solutionIndex+1];
         string prevLiquid = currentSolution[solutionIndex];
         string prevCorrect = correctSolution[solutionIndex];
         //print("The tube expected " + correctLiquid);
@@ -112,7 +112,7 @@ public class DensityLayers : MonoBehaviour
 
     }
 
-
+   
     void End()
     {
         print("Win");
@@ -157,29 +157,9 @@ public class DensityLayers : MonoBehaviour
 
     private void UpdateVisual()
     {
-        int topIndex = 0;
-        for (int i = 0; i < currentSolution.Length; i++)
+        for(int i = 0; i < currentSolution.Length; i++)
         {
             liquidLayersVisual[i].GetComponent<Image>().sprite = sprites[currentSolution[i]];
-            if (currentSolution[i] != "empty")
-            {
-                topIndex++;
-            }
-        }
-        if (topIndex != 0)
-        {
-            if (currentSolution[topIndex - 1] != "sludge")
-            {
-                mobiusPiece.transform.position = liquidLayersVisual[topIndex].transform.position;
-            }
-            else
-            {
-                mobiusPiece.transform.position = liquidLayersVisual[0].transform.position;
-            }
-        }
-        else
-        {
-            mobiusPiece.transform.position = liquidLayersVisual[0].transform.position;
         }
     }
 
