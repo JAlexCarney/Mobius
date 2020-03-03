@@ -25,7 +25,8 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private Transform parent;
 
     [Header("Page # the sketch will be in")]
-    public int pageNumber = 1; 
+    public int pageNumber = 1;
+    public bool draggable = true; 
 
     private void Start()
     {
@@ -52,21 +53,26 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     // Update is called once per frame
     void Update()
-        {   
-        if (Input.touchCount == 1)
+    {
+        if (draggable)
         {
-            touch = Input.GetTouch(0);
-        }
-        if (isHeld)
-        {
-            if (Input.touchCount == 0)
+            if (Input.touchCount == 1)
             {
-                transform.position = new Vector2(Clamp(Input.mousePosition.x, bottomLeftCorner.position.x, topRightCorner.position.x),
-                    Clamp(Input.mousePosition.y, bottomLeftCorner.position.y, topRightCorner.position.y));
+                touch = Input.GetTouch(0);
             }
-            else
+            if (isHeld)
             {
-                transform.position = touch.position;
+                if (Input.touchCount == 0)
+                {
+                    float maxX = topRightCorner.position.x;
+                    float maxY = topRightCorner.position.y;
+                    transform.position = new Vector2(Util.Clamp(Input.mousePosition.x, bottomLeftCorner.position.x, maxX),
+                        Util.Clamp(Input.mousePosition.y, bottomLeftCorner.position.y, maxY));
+                }
+                else
+                {
+                    transform.position = touch.position;
+                }
             }
         }
     }
@@ -105,10 +111,5 @@ public class ImageHint : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         justReleased = false;
     }
 
-    //ty https://stackoverflow.com/questions/3176602/how-to-force-a-number-to-be-in-a-range-in-c/3176617
-    public static float Clamp(float value, float min, float max)
-    {
-        return (value < min) ? min : (value > max) ? max : value;
-    }
-
+    
 }
