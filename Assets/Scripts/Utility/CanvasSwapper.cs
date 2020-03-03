@@ -128,30 +128,6 @@ public class CanvasSwapper : MonoBehaviour
         movementManager.DisableLooking();
     }
 
-    public void OpenJournal()
-    {
-        GameObject canvasToActivate = GameObject.Find("JournalCanvas");
-        Util.DeactivateChildren(inventory);
-        Util.DeactivateChildren(currentCanvas);
-        Util.ActivateChildren(movement);
-        movement.transform.Find("RightArrow").gameObject.SetActive(false);
-        movement.transform.Find("leftArrow").gameObject.SetActive(false);
-        Util.ActivateChildren(canvasToActivate);
-        
-        // push to backStack
-        movementManager.EnableBack();
-        BackCanvas bc = new BackCanvas
-        {
-            obj = currentCanvas,
-            lookingEnabled = movementManager.lookingEnabled
-        };
-        backStack.Push(bc);
-        currentCanvas = canvasToActivate;
-
-        // set looking
-        movementManager.DisableLooking();
-    }
-
     // depricated!!
     public void SwitchCanvasMaintainUI(string newCanvas)
     {
