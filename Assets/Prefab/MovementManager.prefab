@@ -64,7 +64,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d54932ccece93344aa6afcc98747f841, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d44189a8920fac642a32b21f090e50fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -232,6 +232,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasSwapper: {fileID: 0}
+  LeftButton: {fileID: 4259088197280673373}
+  RightButton: {fileID: 4259088197350400322}
+  BackButton: {fileID: 4259088197090725292}
+  backIsDisabled: 0
+  leftIsDisabled: 0
+  rightIsDisabled: 0
+  lookingEnabled: 1
 --- !u!1 &4259088197280673373
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7dfe5edf696a61f4dbfe832d89aac6cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 18d2672028fe47948b1ef97b164404bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -424,7 +431,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b5af62b738db72e4aa6b81daf3dd38e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a32483651c2d663449029507caa05a50, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

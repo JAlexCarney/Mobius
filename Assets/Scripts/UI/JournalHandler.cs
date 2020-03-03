@@ -264,6 +264,6 @@ public class JournalHandler : MonoBehaviour
     {
         RefreshJournal();
         //use canvas swapper to open the journal
-        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().SwitchCanvasNoUI("JournalCanvas");
+        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().SwitchCanvasNoUIWithoutLooking("JournalCanvas");
     }
 }

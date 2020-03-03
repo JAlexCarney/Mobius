@@ -20,17 +20,23 @@ public class OnDrag : MonoBehaviour
         // Check if the left mouse button was raised
         if (Draggable.justReleased)
         {
+            //Debug.Log("Just Released");
             if (Draggable.holding)
             {
+                //Debug.Log("Holding");
+                Debug.Log(Draggable.heldObj.GetComponent<Draggable>().dropPos);
                 // Check if the mouse was clicked over a UI element
                 if (CheckBounds(Draggable.heldObj.GetComponent<Draggable>().dropPos))
                 {
+                    //Debug.Log("Inside Bounds");
                     Draggable.justReleased = false;
                 
                     foreach (Event e in Events)
                     {
+                        //Debug.Log(Draggable.held);
                         if (e.trigger == Draggable.held)
                         {
+                            Debug.Log("Triggered");
                             //Debug.Log(e.trigger);
                             e.action.Invoke();
                         }

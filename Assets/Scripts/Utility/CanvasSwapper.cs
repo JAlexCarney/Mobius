@@ -6,23 +6,32 @@ using UnityEngine.UI;
 public class CanvasSwapper : MonoBehaviour
 {
     public GameObject currentCanvas;
-    public GameObject prevCanvas;
+    struct BackCanvas {
+        public GameObject obj;
+        public bool lookingEnabled;
+    }
+
+    private Stack<BackCanvas> backStack;
     public GameObject inventory;
-    //public GameObject map;
     public GameObject movement;
     public GameObject fade;
+
+    private MovementManager movementManager;
 
     private Image fadeImage;
     private void Start()
     {
         fadeImage = fade.GetComponent<Image>();
+        movementManager = movement.GetComponent<MovementManager>();
+        backStack = new Stack<BackCanvas>();
     }
 
-    private readonly int delay = 15;
+    private readonly int delay = 25;
     private int count = 0;
     private bool fadingOut = false;
     private bool fadingIn = false;
     private string goingTo = "";
+    private bool lookingEnabledAfterFade = false;
     void Update()
     {
         if (fadingOut)
@@ -33,7 +42,14 @@ public class CanvasSwapper : MonoBehaviour
             {
                 fadingOut = false;
                 fadingIn = true;
-                SwitchCanvasMaintainUI(goingTo);
+                if (lookingEnabledAfterFade)
+                {
+                    SwitchCanvasMaintainUIWithLooking(goingTo);
+                }
+                else
+                {
+                    SwitchCanvasMaintainUIWithoutLooking(goingTo);
+                }
                 count = 0;
             }
         }
@@ -51,33 +67,120 @@ public class CanvasSwapper : MonoBehaviour
         }
     }
 
-    public void SetReturnCanvas(string canvas)
+    public void ClearBackStack()
     {
-        prevCanvas = GameObject.Find(canvas);
+        backStack.Clear();
+        movementManager.DisableBack();
     }
 
+    // depricated!!
     public void SwitchCanvasNoUI(string newCanvas)
     {
         GameObject canvasToActivate = GameObject.Find(newCanvas);
         Util.ActivateChildren(canvasToActivate);
         Util.DeactivateChildren(currentCanvas);
         Util.DeactivateChildren(inventory);
-        prevCanvas = currentCanvas;
+        Util.DeactivateChildren(movement);
         currentCanvas = canvasToActivate;
-        //map.SetActive(false);
-        movement.SetActive(false);
     }
 
+    public void SwitchCanvasNoUIWithLooking(string newCanvas)
+    {
+        GameObject canvasToActivate = GameObject.Find(newCanvas);
+        Util.ActivateChildren(canvasToActivate);
+        Util.DeactivateChildren(currentCanvas);
+        Util.DeactivateChildren(movement);
+        Util.DeactivateChildren(inventory);
+
+        // push to backStack
+        movementManager.EnableBack();
+        BackCanvas bc = new BackCanvas
+        {
+            obj = currentCanvas,
+            lookingEnabled = movementManager.lookingEnabled
+        };
+        backStack.Push(bc);
+        currentCanvas = canvasToActivate;
+
+        // set looking
+        movementManager.CenterAndEnableLooking();
+    }
+
+    public void SwitchCanvasNoUIWithoutLooking(string newCanvas)
+    {
+        GameObject canvasToActivate = GameObject.Find(newCanvas);
+        Util.ActivateChildren(canvasToActivate);
+        Util.DeactivateChildren(currentCanvas);
+        Util.DeactivateChildren(inventory);
+        Util.DeactivateChildren(movement);
+
+        // push to backStack
+        movementManager.EnableBack();
+        BackCanvas bc = new BackCanvas
+        {
+            obj = currentCanvas,
+            lookingEnabled = movementManager.lookingEnabled
+        };
+        backStack.Push(bc);
+        currentCanvas = canvasToActivate;
+
+        // set looking
+        movementManager.DisableLooking();
+    }
+
+    // depricated!!
     public void SwitchCanvasMaintainUI(string newCanvas)
     {
         GameObject canvasToActivate = GameObject.Find(newCanvas);
         Util.ActivateChildren(canvasToActivate);
         Util.DeactivateChildren(currentCanvas);
         Util.ActivateChildren(inventory);
-        //map.SetActive(true);
-        movement.SetActive(true);
-        prevCanvas = currentCanvas;
+        Util.ActivateChildren(movement);
         currentCanvas = canvasToActivate;
+    }
+
+    public void SwitchCanvasMaintainUIWithLooking(string newCanvas)
+    {
+        GameObject canvasToActivate = GameObject.Find(newCanvas);
+        Util.ActivateChildren(canvasToActivate);
+        Util.DeactivateChildren(currentCanvas);
+        Util.ActivateChildren(inventory);
+        Util.ActivateChildren(movement);
+
+        // push to backStack
+        movementManager.EnableBack();
+        BackCanvas bc = new BackCanvas
+        {
+            obj = currentCanvas,
+            lookingEnabled = movementManager.lookingEnabled
+        };
+        backStack.Push(bc);
+        currentCanvas = canvasToActivate;
+
+        // set looking
+        movementManager.CenterAndEnableLooking();
+    }
+
+    public void SwitchCanvasMaintainUIWithoutLooking(string newCanvas)
+    {
+        GameObject canvasToActivate = GameObject.Find(newCanvas);
+        Util.ActivateChildren(canvasToActivate);
+        Util.DeactivateChildren(currentCanvas);
+        Util.ActivateChildren(inventory);
+        Util.ActivateChildren(movement);
+
+        // push to backStack
+        movementManager.EnableBack();
+        BackCanvas bc = new BackCanvas
+        {
+            obj = currentCanvas,
+            lookingEnabled = movementManager.lookingEnabled
+        };
+        backStack.Push(bc);
+        currentCanvas = canvasToActivate;
+
+        // set looking
+        movementManager.DisableLooking();
     }
 
     public void SwitchCanvasMaintainUIAndFade(string newCanvas)
@@ -87,15 +190,48 @@ public class CanvasSwapper : MonoBehaviour
         fade.SetActive(true);
     }
 
+    public void SwitchCanvasMaintainUIAndFadeWithLooking(string newCanvas)
+    {
+        fadingOut = true;
+        goingTo = newCanvas;
+        fade.SetActive(true);
+        lookingEnabledAfterFade = true;
+    }
+
+    public void SwitchCanvasMaintainUIAndFadeWithoutLooking(string newCanvas)
+    {
+        fadingOut = true;
+        goingTo = newCanvas;
+        fade.SetActive(true);
+        lookingEnabledAfterFade = false;
+    }
+
     public void ReturnToPreviousCanvas()
     {
-        //prevCanvas = currentCanvas;
-        GameObject canvasToActivate = prevCanvas;
-        Util.DeactivateChildren(currentCanvas);
-        Util.ActivateChildren(canvasToActivate);
-        Util.ActivateChildren(inventory);
-        //map.SetActive(true);
-        movement.SetActive(true);
-        currentCanvas = canvasToActivate;
+        if (!movementManager.backIsDisabled)
+        {
+            BackCanvas backCanvas = backStack.Pop();
+            GameObject canvasToActivate = backCanvas.obj;
+            if (backCanvas.lookingEnabled)
+            {
+                movementManager.CenterAndEnableLooking();
+            }
+            else
+            {
+                movementManager.DisableLooking();
+            }
+
+            Util.DeactivateChildren(currentCanvas);
+            Util.ActivateChildren(canvasToActivate);
+            Util.ActivateChildren(inventory);
+            Util.ActivateChildren(movement);
+
+            currentCanvas = canvasToActivate;
+
+            if (backStack.Count == 0)
+            {
+                movementManager.DisableBack();
+            }
+        }
     }
 }
