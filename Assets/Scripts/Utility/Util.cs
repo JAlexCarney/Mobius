@@ -72,4 +72,11 @@ public class Util
         }
         return false;
     }
+
+    //ty https://stackoverflow.com/questions/3176602/how-to-force-a-number-to-be-in-a-range-in-c/3176617
+    public static float Clamp(float value, float min, float max)
+    {
+        return (value < min) ? min : (value > max) ? max : value;
+    }
+
 }
