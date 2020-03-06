@@ -8175,7 +8175,7 @@ MonoBehaviour:
   mapleSyrup: {fileID: 526944668662921401, guid: fc3ef97e52d54e94d8e5386e48cdc168,
     type: 3}
   sludge: {fileID: 5986831109943176452, guid: fc3ef97e52d54e94d8e5386e48cdc168, type: 3}
-  empty: {fileID: 21300000, guid: 8e7b0faa50de99b43b0a9ccf6cd837da, type: 3}
+  empty: {fileID: 8495789176213082397, guid: fc3ef97e52d54e94d8e5386e48cdc168, type: 3}
   winEvent:
     m_PersistentCalls:
       m_Calls:
@@ -8766,16 +8766,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 34314832}
     m_Modifications:
-    - target: {fileID: 9109492722622925430, guid: 3db0d8ee10164f246b29a2b2401f6453,
-        type: 3}
-      propertyPath: m_Name
-      value: CanvasSwapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 9109492722622925430, guid: 3db0d8ee10164f246b29a2b2401f6453,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
         type: 3}
       propertyPath: currentCanvas
@@ -8801,6 +8791,16 @@ PrefabInstance:
       propertyPath: movement
       value: 
       objectReference: {fileID: 926101348}
+    - target: {fileID: 9109492722622925430, guid: 3db0d8ee10164f246b29a2b2401f6453,
+        type: 3}
+      propertyPath: m_Name
+      value: CanvasSwapper
+      objectReference: {fileID: 0}
+    - target: {fileID: 9109492722622925430, guid: 3db0d8ee10164f246b29a2b2401f6453,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9109492722622925429, guid: 3db0d8ee10164f246b29a2b2401f6453,
         type: 3}
       propertyPath: m_LocalPosition.x
