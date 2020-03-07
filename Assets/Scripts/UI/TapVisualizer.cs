@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class TapVisualizer : MonoBehaviour
 {
@@ -40,6 +38,9 @@ public class TapVisualizer : MonoBehaviour
     {
         GameObject tapObj = Instantiate(tapPrefab, transform);
         tapObj.transform.position = placeTapped;
-        Destroy(tapObj, 0.5f);
+        Vector3 v = Random.insideUnitSphere.normalized;
+        tapObj.transform.eulerAngles = new Vector3(0f,0f,Random.Range(0, 360));
+        tapObj.GetComponent<Image>().color = new Color(v.x, v.y, v.z, 0.1f);
+        Destroy(tapObj, 0.25f);
     }
 }
