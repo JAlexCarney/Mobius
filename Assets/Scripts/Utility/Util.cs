@@ -6,6 +6,19 @@ using System;
 
 public class Util
 {
+    public static bool CheckBounds(GameObject obj, Vector3 touchPos)
+    {
+        Vector3 pos = obj.transform.position;
+        Vector3 delta = touchPos - pos;
+        float width = obj.GetComponent<RectTransform>().rect.width;
+        float height = obj.GetComponent<RectTransform>().rect.height;
+        if (delta.x < width / 2 && delta.x > -width / 2 &&
+            delta.y < height / 2 && delta.y > -height / 2)
+        {
+            return true;
+        }
+        return false;
+    }
 
     public static void DeactivateChildren(GameObject canvas)
     {

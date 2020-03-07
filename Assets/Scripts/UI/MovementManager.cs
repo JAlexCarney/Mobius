@@ -19,6 +19,28 @@ public class MovementManager : MonoBehaviour
     // 2 -> right
     private int curPos;
 
+    private bool isPanning = false;
+    private int panningTime = 25; // one second
+    private int count = 0;
+    private RectTransform bgRect = null;
+    private Vector3 from;
+    private Vector3 to;
+
+    // called 50 times a second regardless of frameRate
+    private void FixedUpdate()
+    {
+        if (isPanning)
+        {
+            count++;
+            bgRect.anchoredPosition = Vector3.Lerp(from, to, (float)count / panningTime);
+            if (count == panningTime)
+            {
+                count = 0;
+                isPanning = false;
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +52,7 @@ public class MovementManager : MonoBehaviour
     {
         EnableLeft();
         EnableRight();
+        curPos = -1;
         SetPosition(1);
         lookingEnabled = true;
     }
@@ -38,6 +61,7 @@ public class MovementManager : MonoBehaviour
     {
         DisableLeft();
         DisableRight();
+        curPos = -1;
         SetPosition(1);
         lookingEnabled = false;
     }
@@ -85,25 +109,30 @@ public class MovementManager : MonoBehaviour
 
     public void SetPosition(int pos)
     {
-        // set room left
-        if (pos == 0)
+        
+        GameObject background = canvasSwapper.currentCanvas.transform.GetChild(0).gameObject;
+        bgRect = background.GetComponent<RectTransform>();
+
+        from = bgRect.anchoredPosition;
+
+        if (pos != curPos)
         {
-            GameObject background = canvasSwapper.currentCanvas.transform.GetChild(0).gameObject;
-            background.GetComponent<RectTransform>().anchoredPosition = new Vector3(400, 0, 0);
-            curPos = pos;
-        }
-        // set room center
-        else if (pos == 1)
-        {
-            GameObject background = canvasSwapper.currentCanvas.transform.GetChild(0).gameObject;
-            background.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-            curPos = pos;
-        }
-        // set room right
-        else if (pos == 2)
-        {
-            GameObject background = canvasSwapper.currentCanvas.transform.GetChild(0).gameObject;
-            background.GetComponent<RectTransform>().anchoredPosition = new Vector3(-400, 0, 0);
+            // set room left
+            if (pos == 0)
+            {
+                to = new Vector3((bgRect.rect.width - 1600) / 2, 0, 0);
+            }
+            // set room center
+            else if (pos == 1)
+            {
+                to = new Vector3(0, 0, 0);
+            }
+            // set room right
+            else if (pos == 2)
+            {
+                to = new Vector3(-(bgRect.rect.width - 1600) / 2, 0, 0);
+            }
+            isPanning = true;
             curPos = pos;
         }
     }
@@ -131,7 +160,7 @@ public class MovementManager : MonoBehaviour
 
     private void DisableRight()
     {
-        RightButton.GetComponent<Image>().color = Color.gray;
+        RightButton.GetComponent<Image>().color = Color.clear;
         rightIsDisabled = true;
         RightButton.GetComponent<Button>().interactable = false;
     }
@@ -145,7 +174,7 @@ public class MovementManager : MonoBehaviour
 
     private void DisableLeft()
     {
-        LeftButton.GetComponent<Image>().color = Color.gray;
+        LeftButton.GetComponent<Image>().color = Color.clear;
         LeftButton.GetComponent<Button>().interactable = false;
         leftIsDisabled = true;
     }
