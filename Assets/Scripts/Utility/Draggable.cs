@@ -31,8 +31,8 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         parent = transform.parent;
     }
 
-    // Update is called once per frame
-    void Update()
+    // FixedUpdate is called once per each 1/50th of a second
+    void FixedUpdate()
     {
         if (Input.touchCount == 1)
         {

@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
 {
-    // time of transition in frames (60fps)
-    private int sceneTransitionDelay = 60;
+    // time of transition in frames (50fps)
+    private int sceneTransitionDelay = 50;
     private int count = 0;
     private bool transitioning = false;
     private int playerBeingTransitioned = -1;
@@ -16,10 +16,10 @@ public class SceneHandler : MonoBehaviour
 
     public void Start()
     {
-        transitionObj.GetComponent<Animation>().Stop();
+        transitionObj.GetComponent<Animator>().enabled = false;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (transitioning)
         {
@@ -93,6 +93,6 @@ public class SceneHandler : MonoBehaviour
     {
         count = 0;
         transitioning = true;
-        transitionObj.GetComponent<Animation>().Play();
+        transitionObj.GetComponent<Animator>().enabled = true;
     }
 }

@@ -13,6 +13,7 @@ public class InventoryHandler : MonoBehaviour
     private string[] items;
     private GameObject[] slots;
     private GameObject[] itemObjs;
+    private bool open = false;
 
     private string collecting;
 
@@ -48,14 +49,21 @@ public class InventoryHandler : MonoBehaviour
 
     public void Open()
     {
-        Util.ActivateChildren(openedInventory);
-        openButton.SetActive(false);
+        if (!open)
+        {
+            Util.ActivateChildren(openedInventory);
+            open = true;
+        }
+        else
+        {
+            Close();
+        }
     }
 
     public void Close()
     {
         Util.DeactivateChildren(openedInventory);
-        openButton.SetActive(true);
+        open = false;
     }
 
     public void Remove(string objToRemove)
@@ -69,8 +77,21 @@ public class InventoryHandler : MonoBehaviour
                 itemObjs[i].GetComponent<Image>().color = Color.clear;
             }
         }
+        if (Empty())
+        {
+            Close();
+        }
     }
-    
+
+    public bool Empty()
+    {
+        foreach(string item in items)
+        {
+            if (item != "") { return false; }
+        }
+        return true;
+    }
+
     public void Collect(string labelAndObj)
     {
         // make sure inventory is opened
