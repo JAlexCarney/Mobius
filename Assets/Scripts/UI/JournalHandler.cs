@@ -12,7 +12,12 @@ public class JournalHandler : MonoBehaviour
     private RectTransform rightPage;
     private Dictionary<int, List<string>> entryDict = new Dictionary<int, List<string>>();
     private Dictionary<int, List<GameObject>> sketchesDict = new Dictionary<int, List<GameObject>>();
-    private List<GameObject> imageHints; 
+    private List<GameObject> imageHints;
+
+    // variables for journal indication
+    public Sprite journalButtonImg;
+    public Sprite journalButtonNewMsgImg;
+    private GameObject journalButton;
 
     private int currentPage;
     private int lastPage;
@@ -26,8 +31,20 @@ public class JournalHandler : MonoBehaviour
     public GameObject intro;
     public GameObject map;
 
+    // Alex's Variables
+    [System.Serializable]
+    public struct Entry
+    {
+        public string label;
+        public GameObject entryObj;
+    }
+    public Entry[] entriesArr;
+    private Dictionary<string, GameObject> entries = new Dictionary<string, GameObject>();
+
     private void Start()
     {
+        journalButton = GameObject.Find("InventoryManager").transform.GetChild(2).gameObject;
+
         //get text children of the journal canvas
         //unity can't find inactive children using Find() :(
         Text ts = gameObject.GetComponentInChildren<Text>(true);
@@ -134,30 +151,6 @@ public class JournalHandler : MonoBehaviour
                     break;
             }
 
-            //FUCK this shit!!!!!!!!!!!!!!!!!!!!!
-            //bool inGoodPosition = true; 
-            //for (float i = bottomLeftCornerRightPage.position.x; i < maxXPosition; i += 10)
-            //{
-            //    inGoodPosition = true; 
-            //    for (float j = topRightCornerRightPage.position.y; j > maxYPosition; j -= 10)
-            //    {
-            //        imageRT.transform.position = new Vector2(i, j);
-            //        foreach (GameObject children in pageSketches)
-            //        {
-            //            if (RectOverlaps(children.GetComponent<RectTransform>(), imageRT))
-            //            {
-            //                inGoodPosition = false; 
-            //            }
-            //        }
-            //        if (inGoodPosition)
-            //            break;
-            //    }
-            //    if (inGoodPosition)
-            //        break;
-            //}
-            //Debug.Log(imageRT.transform.position);
-
-
             //save instantiated GameObject to list
             pageSketches.Add(instantiatedImage);
 
@@ -165,6 +158,19 @@ public class JournalHandler : MonoBehaviour
         }
     }
 
+    public void Add(string name)
+    {
+        if (name.Contains("@"))
+        {
+            // This asset has an ordering
+        }
+        else
+        {
+            // This asset has an 
+            
+        }
+    }
+    
     //add a new page
     public void addPage(int pageNumber)
     {
@@ -265,12 +271,20 @@ public class JournalHandler : MonoBehaviour
         Animation anim = indicator.GetComponent<Animation>();
         anim.Play();
         Destroy(indicator, anim.GetClip("JournalEntry").averageDuration);
+
+        // update journal open button to reflect new information
+        journalButton.GetComponent<Image>().sprite = journalButtonNewMsgImg;
+        journalButton.GetComponent<Animation>().Play();
     }
 
     // make journal visible
     public void Open()
     {
         RefreshJournal();
+
+        // reset journal open button
+        journalButton.GetComponent<Image>().sprite = journalButtonImg;
+        journalButton.GetComponent<Animation>().Stop();
 
         // Return to first Page
         while (currentPage != lastPage)

@@ -17,12 +17,14 @@ public class CanvasSwapper : MonoBehaviour
     public GameObject fade;
 
     private MovementManager movementManager;
+    private HintManager hintManager;
 
     private Image fadeImage;
     private void Start()
     {
         fadeImage = fade.GetComponent<Image>();
         movementManager = movement.GetComponent<MovementManager>();
+        hintManager = GameObject.Find("HintManager").GetComponent<HintManager>();
         backStack = new Stack<BackCanvas>();
     }
 
@@ -73,39 +75,6 @@ public class CanvasSwapper : MonoBehaviour
         movementManager.DisableBack();
     }
 
-    // depricated!!
-    public void SwitchCanvasNoUI(string newCanvas)
-    {
-        GameObject canvasToActivate = GameObject.Find(newCanvas);
-        Util.ActivateChildren(canvasToActivate);
-        Util.DeactivateChildren(currentCanvas);
-        Util.DeactivateChildren(inventory);
-        Util.DeactivateChildren(movement);
-        currentCanvas = canvasToActivate;
-    }
-
-    public void SwitchCanvasNoUIWithLooking(string newCanvas)
-    {
-        GameObject canvasToActivate = GameObject.Find(newCanvas);
-        Util.ActivateChildren(canvasToActivate);
-        Util.DeactivateChildren(currentCanvas);
-        Util.DeactivateChildren(movement);
-        Util.DeactivateChildren(inventory);
-
-        // push to backStack
-        movementManager.EnableBack();
-        BackCanvas bc = new BackCanvas
-        {
-            obj = currentCanvas,
-            lookingEnabled = movementManager.lookingEnabled
-        };
-        backStack.Push(bc);
-        currentCanvas = canvasToActivate;
-
-        // set looking
-        movementManager.CenterAndEnableLooking();
-    }
-
     public void SwitchCanvasNoUIWithoutLooking(string newCanvas)
     {
         GameObject canvasToActivate = GameObject.Find(newCanvas);
@@ -113,6 +82,7 @@ public class CanvasSwapper : MonoBehaviour
         Util.DeactivateChildren(currentCanvas);
         Util.DeactivateChildren(inventory);
         Util.DeactivateChildren(movement);
+        Util.DeactivateChildren(hintManager.gameObject);
 
         // push to backStack
         movementManager.EnableBack();
@@ -137,7 +107,8 @@ public class CanvasSwapper : MonoBehaviour
         movement.transform.Find("RightArrow").gameObject.SetActive(false);
         movement.transform.Find("leftArrow").gameObject.SetActive(false);
         Util.ActivateChildren(canvasToActivate);
-        
+        Util.DeactivateChildren(hintManager.gameObject);
+
         // push to backStack
         movementManager.EnableBack();
         BackCanvas bc = new BackCanvas
@@ -161,6 +132,7 @@ public class CanvasSwapper : MonoBehaviour
         Util.ActivateChildren(inventory);
         Util.ActivateChildren(movement);
         currentCanvas = canvasToActivate;
+        hintManager.DisplayCheck();
     }
 
     public void SwitchCanvasMaintainUIWithLooking(string newCanvas)
@@ -170,6 +142,7 @@ public class CanvasSwapper : MonoBehaviour
         Util.DeactivateChildren(currentCanvas);
         Util.ActivateChildren(inventory);
         Util.ActivateChildren(movement);
+        
 
         // push to backStack
         movementManager.EnableBack();
@@ -180,6 +153,8 @@ public class CanvasSwapper : MonoBehaviour
         };
         backStack.Push(bc);
         currentCanvas = canvasToActivate;
+
+        hintManager.DisplayCheck();
 
         // set looking
         movementManager.CenterAndEnableLooking();
@@ -202,6 +177,8 @@ public class CanvasSwapper : MonoBehaviour
         };
         backStack.Push(bc);
         currentCanvas = canvasToActivate;
+
+        hintManager.DisplayCheck();
 
         // set looking
         movementManager.DisableLooking();
@@ -243,6 +220,8 @@ public class CanvasSwapper : MonoBehaviour
             Util.ActivateChildren(movement);
 
             currentCanvas = canvasToActivate;
+
+            hintManager.DisplayCheck();
 
             if (backCanvas.lookingEnabled)
             {
