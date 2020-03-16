@@ -163,6 +163,7 @@ public class JournalHandler : MonoBehaviour
         if (name.Contains("@"))
         {
             // This asset has an ordering
+
         }
         else
         {
