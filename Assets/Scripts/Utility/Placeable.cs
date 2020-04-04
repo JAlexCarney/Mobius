@@ -10,6 +10,8 @@ public class Placeable : MonoBehaviour
     public void Place(string objToPlaceOn)
     {
         Debug.Log("An attempt was made");
+        Debug.Log(objToPlaceOn);
+        Debug.Log(this.name);
         GameObject obj = GameObject.Find(objToPlaceOn);
         Vector3 pos = obj.transform.position;
         if (!placed)
@@ -22,6 +24,8 @@ public class Placeable : MonoBehaviour
                 drag.startPos = pos;
                 inv.Remove(name);
             }
+           // if (drag.caresAboutPlaceable) 
+                //set to true; enable dragging
         }
     }
 }

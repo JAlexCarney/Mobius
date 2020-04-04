@@ -17,15 +17,19 @@ public class Swappable : MonoBehaviour
         // Check if the left mouse button was raised
         if (Draggable.justReleased)
         {
+            Debug.Log("just released");
             if (Draggable.holding)
             {
+                Debug.Log("holding");
                 // Check if the mouse was clicked over a UI element
-                if (CheckBounds(Draggable.heldObj.GetComponent<Draggable>().dropPos) && Draggable.heldObj != gameObject && Draggable.heldObj.GetComponent<Swappable>())
+                if (CheckBounds(Draggable.heldObj) && Draggable.heldObj != gameObject && Draggable.heldObj.GetComponent<Swappable>())
                 {
                     Draggable.justReleased = false;
                 
                     Draggable heldDrag = Draggable.heldObj.GetComponent<Draggable>();
                     Draggable thisDrag = GetComponent<Draggable>();
+
+                    Debug.Log(Draggable.heldObj.GetComponent<Swappable>().swapID + " SAP ID " + swapID);
                     if (Draggable.heldObj.GetComponent<Swappable>().swapID == swapID)
                     {
                         Vector3 temp = heldDrag.startPos;
@@ -43,15 +47,19 @@ public class Swappable : MonoBehaviour
         }
     }
 
-    public bool CheckBounds(Vector3 touchPos)
+    //this is collision
+    public bool CheckBounds(GameObject heldObj)
     {
         Vector3 pos = transform.position;
-        Vector3 delta = touchPos - pos;
-        float width = GetComponent<RectTransform>().rect.width;
-        float height = GetComponent<RectTransform>().rect.height;
-        if (delta.x < width / 2 && delta.x > -width / 2 &&
-            delta.y < height / 2 && delta.y > -height / 2)
+        Vector3 heldObjPos = heldObj.transform.position;
+
+        //Vector3 delta = touchPos - pos;
+        float width = GetComponent<RectTransform>().sizeDelta.x;
+        float height = GetComponent<RectTransform>().sizeDelta.y;
+
+        if (Util.RectOverlaps(GetComponent<RectTransform>(), heldObj.GetComponent<RectTransform>()))
         {
+            Debug.Log("yaaas queen");
             return true;
         }
         return false;
