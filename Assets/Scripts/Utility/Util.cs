@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEditor;
 
 public class Util
 {
+    public static Rect arect1;
+    public static Rect arect2;
 
     public static void DeactivateChildren(GameObject canvas)
     {
@@ -82,11 +85,21 @@ public class Util
     //from https://stackoverflow.com/questions/42043017/check-if-ui-elements-recttransform-are-overlapping
     public static bool RectOverlaps(RectTransform rectTrans1, RectTransform rectTrans2)
     {
-        Rect rect1 = new Rect(rectTrans1.localPosition.x, rectTrans1.localPosition.y, rectTrans1.rect.width, rectTrans1.rect.height);
-        Rect rect2 = new Rect(rectTrans2.localPosition.x, rectTrans2.localPosition.y, rectTrans2.rect.width, rectTrans2.rect.height);
-        Debug.Log(rect1);
-        Debug.Log(rect2);
+        Rect rect1 = new Rect(rectTrans1.localPosition.x, -rectTrans1.localPosition.y, rectTrans1.rect.width, rectTrans1.rect.height);
+        Rect rect2 = new Rect(rectTrans2.localPosition.x, -rectTrans2.localPosition.y, rectTrans2.rect.width, rectTrans2.rect.height);
+        arect1 = rect1;
+        arect2 = rect2;
+
         return rect1.Overlaps(rect2);
+    }
+    public static bool RectOverlapsDraggable(RectTransform heldRectTrans, RectTransform staticRectTrans)
+    {
+        Rect heldRect = new Rect(heldRectTrans.localPosition.x, -heldRectTrans.localPosition.y + 130, heldRectTrans.rect.width + 50, heldRectTrans.rect.height + 25);
+        Rect staticRect = new Rect(staticRectTrans.localPosition.x, -staticRectTrans.localPosition.y, staticRectTrans.rect.width, staticRectTrans.rect.height);
+        arect1 = heldRect;
+        arect2 = staticRect;
+
+        return heldRect.Overlaps(staticRect);
     }
 
 }

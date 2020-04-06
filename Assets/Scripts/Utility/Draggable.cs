@@ -82,7 +82,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //Debug.Log("released");
         dropPos = transform.position;
         justReleased = true;
-        Invoke("Drop", 1f);
+        Invoke("Drop", .01f);
     }
 
     public void Hold()
