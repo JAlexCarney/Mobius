@@ -92,6 +92,10 @@ public class Util
 
         return rect1.Overlaps(rect2);
     }
+
+    //something about having drag affect the transform.position of the rect misaligns the rect with the actual image
+    //so this like, offsets the rect collision
+    //its kinda trial and error, no exact numbers, so might not function 100% correctly
     public static bool RectOverlapsDraggable(RectTransform heldRectTrans, RectTransform staticRectTrans)
     {
         Rect heldRect = new Rect(heldRectTrans.localPosition.x, -heldRectTrans.localPosition.y + 130, heldRectTrans.rect.width + 50, heldRectTrans.rect.height + 25);
