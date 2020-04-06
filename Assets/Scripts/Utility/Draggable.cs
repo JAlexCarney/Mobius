@@ -82,7 +82,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //Debug.Log("released");
         dropPos = transform.position;
         justReleased = true;
-        Invoke("Drop", 0.1f);
+        Invoke("Drop", .01f);
     }
 
     public void Hold()
@@ -93,8 +93,8 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             holding = true;
             held = label;
             heldObj = gameObject;
-            this.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
-            this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 30.0f);
+            //this.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
+            //this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 30.0f);
             //GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
             transform.parent = movingVisual.gameObject.transform;
         }
