@@ -41,7 +41,7 @@ public class HintManager : MonoBehaviour
 
     public void GetHint()
     {
-        journalHandler.AddEntry("2+" + sceneToPendingHints[canvasSwapper.currentCanvas.name].Dequeue());
+        //journalHandler.AddEntry("2+" + sceneToPendingHints[canvasSwapper.currentCanvas.name].Dequeue());
         if (sceneToPendingHints[canvasSwapper.currentCanvas.name].Count == 0)
         {
             sceneToPendingHints.Remove(canvasSwapper.currentCanvas.name);

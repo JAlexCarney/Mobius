@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class JournalHandler : MonoBehaviour
+public class JournalManager : MonoBehaviour
 {
     // variables for journal indication
     public Sprite journalButtonImg;
@@ -11,13 +11,10 @@ public class JournalHandler : MonoBehaviour
     private GameObject journalButton;
     public GameObject IndicatorPrefab;
     public SoundManager soundManager;
-    public GameObject leftButton;
-    public GameObject rightButton;
     private List<string> showing;
     private Dictionary<string, GameObject> entryObjs;
     private int currentSpread = 0;
-    private readonly int spreadCount = 3;
-    private bool[] spreadsToSee;
+    private readonly int spreadCount = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +22,8 @@ public class JournalHandler : MonoBehaviour
         journalButton = GameObject.Find("InventoryManager").transform.GetChild(2).gameObject;
         showing = new List<string>();
         entryObjs = new Dictionary<string, GameObject>();
-        spreadsToSee = new bool[spreadCount];
-        for (int i = 0; i < spreadsToSee.Length; i++)
-        {
-            spreadsToSee[i] = false;
-        }
+
+        //InitializeJournal();
     }
 
     // display indicator that an entry has been placed
@@ -47,45 +41,15 @@ public class JournalHandler : MonoBehaviour
         journalButton.GetComponent<Animation>().Play();
     }
 
-    public void Show(string names)
+    public void Show(string name)
     {
-        bool newEntry = false;
-        if (names.Contains("+"))
-        {
-            List<string> namesSplit = Util.Split(names, '+');
-            foreach (string name in namesSplit)
-            {
-                if (!showing.Contains(name))
-                {
-                    showing.Add(name);
-                    newEntry = true;
-                    FindNewEntry(name);
-                }
-            }
-            
-        }
-        else
-        {
-            if (!showing.Contains(names))
-            {
-                newEntry = true;
-                showing.Add(names);
-                FindNewEntry(name);
-            }
-        }
-
-        if (newEntry == true)
-        {
-            IndicateEntry();
-        }
-
+        showing.Add(name);
         RefreshJournal();
     }
 
     public void FlipLeft()
     {
         currentSpread--;
-        spreadsToSee[currentSpread] = false;
         RefreshJournal();
         soundManager.Play("pageTurn");
     }
@@ -93,12 +57,11 @@ public class JournalHandler : MonoBehaviour
     public void FlipRight()
     {
         currentSpread++;
-        spreadsToSee[currentSpread] = false;
         RefreshJournal();
         soundManager.Play("pageTurn");
     }
 
-    public void FindNewEntry(string name)
+    public void InitializeJournal()
     {
         for (int i = 0; i < spreadCount; i++)
         {
@@ -109,21 +72,13 @@ public class JournalHandler : MonoBehaviour
                 for (int k = 0; k < draggable.childCount; k++)
                 {
                     GameObject entry = draggable.transform.GetChild(k).gameObject;
-                    if (name == entry.name)
-                    {
-                        spreadsToSee[i] = true;
-                        return;
-                    }
+                    entryObjs.Add(entry.name, entry);
                 }
                 Transform nonDraggable = spread.transform.GetChild(1);
                 for (int k = 0; k < nonDraggable.childCount; k++)
                 {
                     GameObject entry = nonDraggable.transform.GetChild(k).gameObject;
-                    if (name == entry.name)
-                    {
-                        spreadsToSee[i] = true;
-                        return;
-                    }
+                    entryObjs.Add(entry.name, entry);
                 }
             }
             Util.DeactivateChildren(spread);
@@ -157,56 +112,5 @@ public class JournalHandler : MonoBehaviour
                 entry.SetActive(false);
             }
         }
-        if (currentSpread == 0)
-        {
-            leftButton.SetActive(false);
-            rightButton.SetActive(true);
-        }
-        else if (currentSpread == spreadCount - 1)
-        {
-            leftButton.SetActive(true);
-            rightButton.SetActive(false);
-        }
-        else
-        {
-            leftButton.SetActive(true);
-            rightButton.SetActive(true);
-        }
-
-        bool spreadToSee = false;
-        for (int i = 0; i < spreadsToSee.Length; i++)
-        {
-            if (spreadsToSee[i])
-            {
-                spreadToSee = true;
-            }
-        }
-        if (!spreadToSee)
-        {
-            journalButton.GetComponent<Image>().sprite = journalButtonImg;
-            journalButton.GetComponent<Animation>().Stop();
-        }
-        else
-        {
-            journalButton.GetComponent<Image>().sprite = journalButtonNewMsgImg;
-            journalButton.GetComponent<Animation>().Play();
-        }
-    }
-
-    // make journal visible
-    public void Open()
-    {
-        Debug.Log(showing);
-
-        spreadsToSee[currentSpread] = false;
-
-        RefreshJournal();
-
-        soundManager.Play("journalOpen");
-
-        //use canvas swapper to open the journal
-        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().OpenJournal();
-
-        RefreshJournal();
     }
 }
