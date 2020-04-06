@@ -98,8 +98,6 @@ public class Util
     {
         Rect rect1 = new Rect(rectTrans1.localPosition.x, -rectTrans1.localPosition.y, rectTrans1.rect.width, rectTrans1.rect.height);
         Rect rect2 = new Rect(rectTrans2.localPosition.x, -rectTrans2.localPosition.y, rectTrans2.rect.width, rectTrans2.rect.height);
-        arect1 = rect1;
-        arect2 = rect2;
 
         return rect1.Overlaps(rect2);
     }
