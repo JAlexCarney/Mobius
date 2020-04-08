@@ -98,7 +98,6 @@ public class MovementManager : MonoBehaviour
                 {
                     DisableRight();
                 }
-                Debug.Log(leftIsDisabled);
                 if (leftIsDisabled)
                 {
                     EnableLeft();

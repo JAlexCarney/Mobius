@@ -147,6 +147,10 @@ public class JournalHandler : MonoBehaviour
             {
                 entry.SetActive(false);
             }
+            else
+            {
+                entry.SetActive(true);
+            }
         }
         Transform nonDraggable = spread.transform.GetChild(1);
         for (int k = 0; k < nonDraggable.childCount; k++)
@@ -155,6 +159,10 @@ public class JournalHandler : MonoBehaviour
             if (!showing.Contains(entry.name))
             {
                 entry.SetActive(false);
+            }
+            else
+            {
+                entry.SetActive(true);
             }
         }
         if (currentSpread == 0)
@@ -196,7 +204,11 @@ public class JournalHandler : MonoBehaviour
     // make journal visible
     public void Open()
     {
-        Debug.Log(showing);
+        Debug.Log("Journal entries showing : ");
+        foreach (string shown in showing)
+        {
+            Debug.Log(shown);
+        }
 
         spreadsToSee[currentSpread] = false;
 
