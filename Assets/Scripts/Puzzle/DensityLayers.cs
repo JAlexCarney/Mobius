@@ -8,19 +8,21 @@ using UnityEngine.EventSystems;
 
 public class DensityLayers : MonoBehaviour
 {
-    public string[] correctSolution = new string[7];
     public GameObject[] liquidLayersVisual;
     public GameObject mobiusPiece;
     public Sprite saturn;
     public Sprite starMatter;
-    public Sprite honey;
     public Sprite mercury;
     public Sprite water;
-    public Sprite mapleSyrup;
     public Sprite sludge;
     public Sprite empty;
+    public Sprite tea;
+    public Sprite boneMarrow;
+    public Sprite milk;
     public UnityEvent winEvent;
 
+    private SoundManager soundManager;
+    private string[] correctSolution = new string[6];
     private Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
     private Dictionary<string, int> nameToLvl = new Dictionary<string, int>();
     private string[] currentSolution;
@@ -34,12 +36,13 @@ public class DensityLayers : MonoBehaviour
         // inistialize sprites dictionary
         sprites.Add("saturn", saturn);
         sprites.Add("starMatter", starMatter);
-        sprites.Add("honey", honey);
         sprites.Add("mercury", mercury);
         sprites.Add("water", water);
-        sprites.Add("mapleSyrup", mapleSyrup);
         sprites.Add("sludge", sludge);
         sprites.Add("empty", empty);
+        sprites.Add("milk", milk);
+        sprites.Add("boneMarrow", boneMarrow);
+        sprites.Add("tea", tea);
 
         currentSolution = new string[correctSolution.Length];
 
@@ -49,6 +52,11 @@ public class DensityLayers : MonoBehaviour
         }
 
         EmptyTube();
+
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+
+        // initailize correct solution
+        
     }
 
     private void CheckSolutionV2(string lastLiquid)
