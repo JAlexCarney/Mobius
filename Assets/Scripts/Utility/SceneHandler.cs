@@ -39,6 +39,7 @@ public class SceneHandler : MonoBehaviour
     {
         playerBeingTransitioned = 1;
         loopBeingEntered = 1;
+        Util.player = 1;
         LoadRoom();
     }
 
@@ -47,6 +48,7 @@ public class SceneHandler : MonoBehaviour
 
         playerBeingTransitioned = 2;
         loopBeingEntered = 1;
+        Util.player = 2;
         LoadRoom();
     }
 
