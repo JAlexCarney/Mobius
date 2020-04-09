@@ -585,7 +585,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1037767125}
-        m_MethodName: SwitchCanvasNoUI
+        m_MethodName: SwitchCanvasNoUIWithoutLooking
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2776,70 +2776,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: pickupableObjs.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: pickupableObjs.Array.data[0].label
-      value: gas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: pickupableObjs.Array.data[1].label
-      value: milk
-      objectReference: {fileID: 0}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: pickupableObjs.Array.data[0].invSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 0dd2a08026f4ae342bbbee242f785d55,
-        type: 3}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: pickupableObjs.Array.data[1].invSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 87f8aa34c64e6c8438782ddf9006aa29,
-        type: 3}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: slots.Array.data[0]
-      value: 
-      objectReference: {fileID: 1185584732}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: slots.Array.data[1]
-      value: 
-      objectReference: {fileID: 1185584731}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: slots.Array.data[2]
-      value: 
-      objectReference: {fileID: 1185584730}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: pickupableObjs.Array.data[2].label
-      value: water
-      objectReference: {fileID: 0}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: pickupableObjs.Array.data[2].invSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: c4edfdc831f37d74781fa7c5f3d521b6,
-        type: 3}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: pickupableObjs.Array.data[3].label
-      value: mobiusPiece
-      objectReference: {fileID: 0}
-    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: pickupableObjs.Array.data[3].invSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: a8a1fcbcdbe9cfa429e7c5c05bc5830c,
-        type: 3}
     - target: {fileID: 573287309127938681, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2945,21 +2881,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7261216047153768438, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1647594228546070851, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3710761096213338303, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5727220169298026824, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3000,21 +2921,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 8820583252098847587, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2226538661569719386, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8423993590613448678, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -8.800049
-      objectReference: {fileID: 0}
     - target: {fileID: 4097800480632336659, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3050,6 +2956,80 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: JournalCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3990077776066698079, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[0].label
+      value: gas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[1].label
+      value: milk
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[0].invSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0dd2a08026f4ae342bbbee242f785d55,
+        type: 3}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[1].invSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 87f8aa34c64e6c8438782ddf9006aa29,
+        type: 3}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: slots.Array.data[0]
+      value: 
+      objectReference: {fileID: 1185584732}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: slots.Array.data[1]
+      value: 
+      objectReference: {fileID: 1185584731}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: slots.Array.data[2]
+      value: 
+      objectReference: {fileID: 1185584730}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[2].label
+      value: water
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[2].invSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4edfdc831f37d74781fa7c5f3d521b6,
+        type: 3}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[3].label
+      value: mobiusPiece
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389265938694743973, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: pickupableObjs.Array.data[3].invSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8a1fcbcdbe9cfa429e7c5c05bc5830c,
+        type: 3}
+    - target: {fileID: 8423993590613448678, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.800049
+      objectReference: {fileID: 0}
     - target: {fileID: 6394312160748509639, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -3060,7 +3040,27 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 150
       objectReference: {fileID: 0}
-    - target: {fileID: 3990077776066698079, guid: 9e3fe135db461aa43b281852c9c31bde,
+    - target: {fileID: 7261216047153768438, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647594228546070851, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820583252098847587, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3710761096213338303, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2226538661569719386, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3355,7 +3355,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1037767125}
-        m_MethodName: SwitchCanvasNoUI
+        m_MethodName: SwitchCanvasNoUIWithoutLooking
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3696,7 +3696,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1037767125}
-        m_MethodName: SwitchCanvasNoUI
+        m_MethodName: SwitchCanvasNoUIWithoutLooking
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4124,7 +4124,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1037767125}
-        m_MethodName: SwitchCanvasNoUI
+        m_MethodName: SwitchCanvasNoUIWithoutLooking
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
