@@ -6,6 +6,9 @@ using System;
 
 public class Util
 {
+
+    public static int player = -1;
+
     public static bool CheckBounds(GameObject obj, Vector3 touchPos)
     {
         Vector3 pos = obj.transform.position;
