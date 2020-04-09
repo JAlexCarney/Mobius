@@ -6,69 +6,77 @@ using UnityEngine;
 public class Swappable : MonoBehaviour
 {
     public int swapID;
+    private Animator anim;
     private TopVisualFolllow movingVisual = null;
 
     public void Start()
     {
         movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
+        anim = GetComponentInChildren<Animator>();
+        Debug.Log(anim.name);
     }
 
     public void Update()
     {
         
-            if (Draggable.holding)
+        if (Draggable.holding)
+        {
+            // Check if the mouse was clicked over a UI element
+            if (Util.CheckBounds(this.gameObject, Draggable.heldObj.transform.position) && Draggable.heldObj != gameObject && Draggable.heldObj.GetComponent<Swappable>())
             {
-                // Check if the mouse was clicked over a UI element
-                if (CheckBounds(Draggable.heldObj) && Draggable.heldObj != gameObject && Draggable.heldObj.GetComponent<Swappable>())
+
+                Draggable heldDrag = Draggable.heldObj.GetComponent<Draggable>();
+                Draggable thisDrag = GetComponent<Draggable>();
+
+                if (Draggable.heldObj.GetComponent<Swappable>().swapID == swapID && Draggable.justReleased)
                 {
+                    Draggable.justReleased = false;
 
-                    Draggable heldDrag = Draggable.heldObj.GetComponent<Draggable>();
-                    Draggable thisDrag = GetComponent<Draggable>();
-
-                    if (Draggable.heldObj.GetComponent<Swappable>().swapID == swapID && Draggable.justReleased)
-                    {
-                        Draggable.justReleased = false;
-
-                        Vector3 temp = heldDrag.startPos;
-                        heldDrag.startPos = thisDrag.startPos;
-                        thisDrag.startPos = temp;
-                        heldDrag.dropPos = Draggable.heldObj.transform.position;
-                        thisDrag.dropPos = transform.position;
-                        thisDrag.isGoingBack = true;
-                        heldDrag.isGoingBack = true;
-                    }
-
-                    else
-                    {
-                        Debug.Log("shake");
-                    }
+                    Vector3 temp = heldDrag.startPos;
+                    heldDrag.startPos = thisDrag.startPos;
+                    thisDrag.startPos = temp;
+                    heldDrag.dropPos = Draggable.heldObj.transform.position;
+                    thisDrag.dropPos = transform.position;
+                    thisDrag.isGoingBack = true;
+                    heldDrag.isGoingBack = true;
                 }
 
-
+                else
+                {
+                    anim.SetBool("Clicked", true);
+                    Invoke("setClickedFalse", 1f);
+                }
             }
-    }
-
-    //this is collision
-    //THIS ALWAYS RETURNS TRUE!
-    public bool CheckBounds(GameObject heldObj)
-    {
-        Vector3 pos = transform.position;
-        Vector3 heldObjPos = heldObj.transform.position;
-
-        //Vector3 delta = touchPos - pos;
-        float width = GetComponent<RectTransform>().sizeDelta.x;
-        float height = GetComponent<RectTransform>().sizeDelta.y;
-
-        //this ALWAYS RETURSN TRUE bc both inputs can be same obj
-        //RECT OVERLAPS IS INCORRECT !!!!
-        //TO DO: how to zoom out game screen ? to see all of the rectangles
-        //how to position rects correctly in game space (they are all in top left corner)
-        if (Util.RectOverlapsDraggable(heldObj.GetComponent<RectTransform>(), GetComponent<RectTransform>()))
-        {
-            return true;
         }
-        return false;
     }
+
+    public void setClickedFalse()
+    {
+        anim.SetBool("Clicked", false);
+    }
+
+
+    ////this is collision
+    ////THIS ALWAYS RETURNS TRUE!
+    //public bool CheckBounds(GameObject heldObj)
+    //{
+    //    Vector3 pos = transform.position;
+    //    Vector3 heldObjPos = heldObj.transform.position;
+
+    //    //Vector3 delta = touchPos - pos;
+    //    float width = GetComponent<RectTransform>().sizeDelta.x;
+    //    float height = GetComponent<RectTransform>().sizeDelta.y;
+
+    //    //this ALWAYS RETURSN TRUE bc both inputs can be same obj
+    //    //RECT OVERLAPS IS INCORRECT !!!!
+    //    //TO DO: how to zoom out game screen ? to see all of the rectangles
+    //    //how to position rects correctly in game space (they are all in top left corner)
+    //    if (Util.RectOverlapsDraggable(heldObj.GetComponent<RectTransform>(), GetComponent<RectTransform>()))
+    //    {
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     //void OnGUI()
     //{
