@@ -18,7 +18,7 @@ public class Swappable : MonoBehaviour
 
     public void Update()
     {
-        
+
         if (Draggable.holding)
         {
             // Check if the mouse was clicked over a UI element
@@ -41,50 +41,22 @@ public class Swappable : MonoBehaviour
                     heldDrag.isGoingBack = true;
                 }
 
+                //telegraph SHAKE SHAKE
                 else
                 {
                     anim.SetBool("Clicked", true);
-                    Invoke("setClickedFalse", 1f);
+                    Invoke("SetClickedFalse", 1f);
                 }
+            }
+            else //if its shaking, STOP IT
+            {
+                anim.SetBool("Clicked", false);
             }
         }
     }
 
-    public void setClickedFalse()
+    public void SetClickedFalse()
     {
         anim.SetBool("Clicked", false);
     }
-
-
-    ////this is collision
-    ////THIS ALWAYS RETURNS TRUE!
-    //public bool CheckBounds(GameObject heldObj)
-    //{
-    //    Vector3 pos = transform.position;
-    //    Vector3 heldObjPos = heldObj.transform.position;
-
-    //    //Vector3 delta = touchPos - pos;
-    //    float width = GetComponent<RectTransform>().sizeDelta.x;
-    //    float height = GetComponent<RectTransform>().sizeDelta.y;
-
-    //    //this ALWAYS RETURSN TRUE bc both inputs can be same obj
-    //    //RECT OVERLAPS IS INCORRECT !!!!
-    //    //TO DO: how to zoom out game screen ? to see all of the rectangles
-    //    //how to position rects correctly in game space (they are all in top left corner)
-    //    if (Util.RectOverlapsDraggable(heldObj.GetComponent<RectTransform>(), GetComponent<RectTransform>()))
-    //    {
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
-    //void OnGUI()
-    //{
-    //    RectTransform rectTrans1 = this.GetComponent<RectTransform>();
-    //    GUI.Box(new Rect(rectTrans1.localPosition.x + 725, -rectTrans1.localPosition.y + 350, rectTrans1.rect.width, rectTrans1.rect.height), this.name);
-    //    Debug.Log(this.name + " " + rectTrans1.localPosition.y + 350 + " " + rectTrans1.transform.position);
-    //    GUI.Box(new Rect(0, 0, rectTrans1.rect.width, rectTrans1.rect.height), "ORIGIN POINT");
-    //    GUI.Box(new Rect(0, 100, rectTrans1.rect.width, rectTrans1.rect.height), "PLUS 100 Y");
-    //}
-
 }
