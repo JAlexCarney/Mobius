@@ -19,6 +19,8 @@ public class DensityLayers : MonoBehaviour
     public Sprite tea;
     public Sprite boneMarrow;
     public Sprite milk;
+    public Sprite gold;
+    public Sprite tomato;
     public UnityEvent winEvent;
 
     private SoundManager soundManager;
@@ -43,6 +45,8 @@ public class DensityLayers : MonoBehaviour
         sprites.Add("milk", milk);
         sprites.Add("boneMarrow", boneMarrow);
         sprites.Add("tea", tea);
+        sprites.Add("gold", gold);
+        sprites.Add("tomato", tomato);
 
         currentSolution = new string[correctSolution.Length];
 
@@ -51,12 +55,29 @@ public class DensityLayers : MonoBehaviour
             nameToLvl[correctSolution[i]] = i;
         }
 
-        EmptyTube();
-
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         // initailize correct solution
-        
+        if (Util.player == 1)
+        {
+            correctSolution[0] = "mercury";
+            correctSolution[1] = "boneMarrow";
+            correctSolution[2] = "starMatter";
+            correctSolution[3] = "milk";
+            correctSolution[4] = "water";
+            correctSolution[5] = "saturn";
+        }
+        else
+        {
+            correctSolution[0] = "gold";
+            correctSolution[1] = "mercury";
+            correctSolution[2] = "star";
+            correctSolution[3] = "tomato";
+            correctSolution[4] = "tea";
+            correctSolution[5] = "saturn";
+        }
+
+        EmptyTube();
     }
 
     private void CheckSolutionV2(string lastLiquid)
@@ -198,10 +219,11 @@ public class DensityLayers : MonoBehaviour
             currentSolution[currentIndex] = liquid;
 
             // check the solution
-            //CheckSolution(liquid);
             CheckSolutionV2(liquid);
 
             UpdateVisual();
+
+            soundManager.Play("pour");
 
             if (CompareSolution())
             {
