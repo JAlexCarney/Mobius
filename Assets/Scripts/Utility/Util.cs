@@ -116,4 +116,14 @@ public class Util
         return heldRect.Overlaps(staticRect);
     }
 
+    public static GameObject DrawLine(Vector2 pos1, Vector2 pos2)
+    {
+        // Spawn an image object as a little square with 2 screen positions
+        // Take one screen postions and subtract it component wise from the other, x-x y-y
+        // Get length and angle of vector
+        // Place object at midpoint and rotate at angle of new vector and stretch between the points.
+
+        return new GameObject();
+    }
+
 }
