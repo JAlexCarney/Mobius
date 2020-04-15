@@ -14,6 +14,7 @@ public class InventoryHandler : MonoBehaviour
     private GameObject[] slots;
     private GameObject[] itemObjs;
     private bool open = false;
+    private bool animating = false;
 
     private string collecting;
 
@@ -42,7 +43,7 @@ public class InventoryHandler : MonoBehaviour
         for (int i = 0; i < items.Length; i++)
         {
             items[i] = "";
-            slots[i] = transform.Find("Opened").Find("Slot" + i).gameObject;
+            slots[i] = transform.Find("Opened").Find("Background").Find("Slot" + i).gameObject;
             itemObjs[i] = slots[i].transform.Find("Item").gameObject;
         }
         openButton = transform.Find("Open").gameObject;
@@ -51,21 +52,26 @@ public class InventoryHandler : MonoBehaviour
 
     public void Open()
     {
-        if (!open)
+        if (!open && !animating)
         {
             Util.ActivateChildren(openedInventory);
-            openedInventory.GetComponent<Animation>().Play();
-            open = true;
+            Animation anim = openedInventory.GetComponent<Animation>();
+            anim["InventoryOpen"].speed = 1;
+            anim["InventoryOpen"].time = 0;
+            anim.Play("InventoryOpen");
+            animating = true;
+            Invoke("OpenDelayed", 0.5f);
+
         }
     }
 
     public void Toggle()
     {
-        if (!open)
+        if (!open && !animating)
         {
             Open();
         }
-        else
+        else if(!animating)
         {
             Close();
         }
@@ -73,11 +79,28 @@ public class InventoryHandler : MonoBehaviour
 
     public void Close()
     {
-        if (open)
+        if (open && !animating)
         {
-            Util.DeactivateChildren(openedInventory);
-            open = false;
+            Animation anim = openedInventory.GetComponent<Animation>();
+            anim["InventoryOpen"].speed = -1;
+            anim["InventoryOpen"].time = anim["InventoryOpen"].length;
+            anim.Play("InventoryOpen");
+            animating = true;
+            Invoke("CloseDelayed", 0.5f);
         }
+    }
+
+    public void CloseDelayed()
+    {
+        Util.DeactivateChildren(openedInventory);
+        open = false;
+        animating = false;
+    }
+
+    public void OpenDelayed()
+    {
+        animating = false;
+        open = true;
     }
 
     public void Remove(string objToRemove)
