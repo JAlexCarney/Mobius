@@ -56,6 +56,14 @@ public class InventoryHandler : MonoBehaviour
             Util.ActivateChildren(openedInventory);
             open = true;
         }
+    }
+
+    public void Toggle()
+    {
+        if (!open)
+        {
+            Open();
+        }
         else
         {
             Close();
@@ -64,8 +72,11 @@ public class InventoryHandler : MonoBehaviour
 
     public void Close()
     {
-        Util.DeactivateChildren(openedInventory);
-        open = false;
+        if (open)
+        {
+            Util.DeactivateChildren(openedInventory);
+            open = false;
+        }
     }
 
     public void Remove(string objToRemove)

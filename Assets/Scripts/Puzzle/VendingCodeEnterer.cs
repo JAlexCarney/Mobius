@@ -70,7 +70,8 @@ public class VendingCodeEnterer : MonoBehaviour
             else if (count < animTime)
             {
                 count++;
-                fallingObj.position = Vector3.Lerp(startPos, objDestination.position, (float)count / animTime);
+                fallingObj.position = Vector3.Lerp(startPos, objDestination.position, Mathf.Pow((float)count / animTime, 2));
+                fallingObj.eulerAngles = Vector3.Lerp(new Vector3(0, 0, 0), objDestination.eulerAngles, Mathf.Pow((float)count / animTime, 2));
             }
         }
     }

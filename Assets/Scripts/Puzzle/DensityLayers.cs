@@ -35,6 +35,10 @@ public class DensityLayers : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Util.player = 1;
+
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+
         // inistialize sprites dictionary
         sprites.Add("saturn", saturn);
         sprites.Add("starMatter", starMatter);
@@ -49,13 +53,6 @@ public class DensityLayers : MonoBehaviour
         sprites.Add("tomato", tomato);
 
         currentSolution = new string[correctSolution.Length];
-
-        for (int i = 0; i < correctSolution.Length; i++)
-        {
-            nameToLvl[correctSolution[i]] = i;
-        }
-
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         // initailize correct solution
         if (Util.player == 1)
@@ -75,6 +72,11 @@ public class DensityLayers : MonoBehaviour
             correctSolution[3] = "tomato";
             correctSolution[4] = "tea";
             correctSolution[5] = "saturn";
+        }
+
+        for (int i = 0; i < correctSolution.Length; i++)
+        {
+            nameToLvl[correctSolution[i]] = i;
         }
 
         EmptyTube();

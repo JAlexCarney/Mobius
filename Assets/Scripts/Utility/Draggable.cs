@@ -61,7 +61,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             else
             {
                 counter++;
-                transform.position = Vector3.Lerp(dropPos, startPos, (float)counter/30f);
+                transform.position = Vector3.Lerp(dropPos, startPos, 1 + Mathf.Pow((float)counter/30f - 1,3));
             }
         }
     }

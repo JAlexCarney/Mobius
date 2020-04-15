@@ -116,4 +116,9 @@ public class Util
         return heldRect.Overlaps(staticRect);
     }
 
+    public static float ease1(float value)
+    {
+        return (float)Mathf.Pow(2*value, 3) - (float)Mathf.Pow(value, 2);
+    }
+
 }
