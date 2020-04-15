@@ -54,6 +54,7 @@ public class InventoryHandler : MonoBehaviour
         if (!open)
         {
             Util.ActivateChildren(openedInventory);
+            openedInventory.GetComponent<Animation>().Play();
             open = true;
         }
     }

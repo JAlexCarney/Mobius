@@ -207,15 +207,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numSlots: 5
   pickupableObjs:
-  - label: p1liquid1
-    invSprite: {fileID: 21300000, guid: 70be280116901f442bb423546040327a, type: 3}
-  - label: p1liquid2
-    invSprite: {fileID: 21300000, guid: 0b66caec90a11b544836d9a419050437, type: 3}
-  - label: p2liquid1
-    invSprite: {fileID: 21300000, guid: 70be280116901f442bb423546040327a, type: 3}
-  - label: p2liquid2
-    invSprite: {fileID: 21300000, guid: 0b66caec90a11b544836d9a419050437, type: 3}
+  - label: milk
+    invSprite: {fileID: 21300000, guid: 8eab17d0a7dd94e3babe3f2f07a8f395, type: 3}
+  - label: water
+    invSprite: {fileID: 21300000, guid: 6bdc7b14237202d47936f87f28a255e4, type: 3}
+  - label: tomato
+    invSprite: {fileID: 21300000, guid: 85696a9c1e45a4d079eb9f53dcff9bf5, type: 3}
+  - label: tea
+    invSprite: {fileID: 21300000, guid: 8083e80e9126149cb9e4a2983b3346f3, type: 3}
   - label: mobiusPiece
+    invSprite: {fileID: 7935350148300883095, guid: a54bad36fc803644ba6d5390d40003af,
+      type: 3}
+  - label: bone
     invSprite: {fileID: 7935350148300883095, guid: a54bad36fc803644ba6d5390d40003af,
       type: 3}
 --- !u!1 &702549781938750378
@@ -320,6 +323,7 @@ GameObject:
   - component: {fileID: 3170410603046783336}
   - component: {fileID: 7938904925879082099}
   - component: {fileID: 2002449142097763834}
+  - component: {fileID: 4257772651404115924}
   m_Layer: 5
   m_Name: Opened
   m_TagString: Untagged
@@ -413,6 +417,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!111 &4257772651404115924
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647594228546070851}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 61a539ecabdf5eb478e1ae0a91881acb, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 61a539ecabdf5eb478e1ae0a91881acb, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1780830304605458614
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,6 +763,7 @@ GameObject:
   - component: {fileID: 8089600776516557951}
   - component: {fileID: 8459729443244613529}
   - component: {fileID: 4097800480632336659}
+  - component: {fileID: 1726867744}
   m_Layer: 5
   m_Name: OpenJournal
   m_TagString: Untagged
@@ -870,6 +891,22 @@ MonoBehaviour:
           m_StringArgument: journalOpen
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!111 &1726867744
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3990077776066698079}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: dd4443f264f2710469a3b100f527adf0, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &4713251231179396382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,7 +1251,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6389265938694743973}
-        m_MethodName: Open
+        m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
