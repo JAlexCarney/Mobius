@@ -35,7 +35,6 @@ public class DensityLayers : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Util.player = 1;
 
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
