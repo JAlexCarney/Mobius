@@ -67,7 +67,7 @@ public class DensityLayers : MonoBehaviour
         {
             correctSolution[0] = "gold";
             correctSolution[1] = "mercury";
-            correctSolution[2] = "star";
+            correctSolution[2] = "starMatter";
             correctSolution[3] = "tomato";
             correctSolution[4] = "tea";
             correctSolution[5] = "saturn";

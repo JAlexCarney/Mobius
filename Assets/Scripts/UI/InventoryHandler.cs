@@ -29,7 +29,6 @@ public class InventoryHandler : MonoBehaviour
 
     public void Start()
     {
-        Util.player = 1;
 
         foreach(Pickupable pickupable in pickupableObjs)
         {

@@ -24,8 +24,6 @@ public class Placeable : MonoBehaviour
                 drag.startPos = pos;
                 inv.Remove(name);
             }
-           // if (drag.caresAboutPlaceable) 
-                //set to true; enable dragging
         }
     }
 }
