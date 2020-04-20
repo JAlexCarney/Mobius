@@ -6,13 +6,33 @@ using UnityEngine.UI;
 public class PrismsLight : MonoBehaviour
 {
 
+    // Variables for light casting.
     public RectTransform start;
     public RectTransform end;
     public GameObject linePrefab;
 
+    // Variables for rotation in FixedUpdate.
+    bool isRotating = false;
+
+    // Array to store possible rotation values.
+    private Vector3[] rotationVectors = new Vector3[] {
+            new Vector3(0, 0, 45),
+            new Vector3(0, 0, 135),
+            new Vector3(0, 0, 225),
+            new Vector3(0, 0, 315)
+        };
+
     public void Start()
     {
         GameObject newLine = CastLight(start.anchoredPosition, end.anchoredPosition, linePrefab);
+    }
+
+    public void FixedUpdate()
+    {
+        if (isRotating)
+        {
+
+        }
     }
 
     public GameObject CastLight(Vector2 pos1, Vector2 pos2, GameObject prefab)
@@ -43,4 +63,11 @@ public class PrismsLight : MonoBehaviour
 
         return line;
     }
+
+    public void RotateMirror()
+    {
+
+        isRotating = true;
+    }
+
 }
