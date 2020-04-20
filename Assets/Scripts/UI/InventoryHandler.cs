@@ -15,7 +15,9 @@ public class InventoryHandler : MonoBehaviour
     private GameObject[] itemObjs;
     private bool open = false;
     private bool animating = false;
+    private bool isCollecting = false;
 
+    private string labelToCollect;
     private string collecting;
 
     [System.Serializable]
@@ -100,6 +102,26 @@ public class InventoryHandler : MonoBehaviour
     {
         animating = false;
         open = true;
+        if (isCollecting)
+        {
+            // Get reference to object being collected
+            GameObject tmp = GameObject.Find(collecting);
+
+            // Add reference to Open Slot
+            int index = 0;
+            while (items[index] != "") { index++; }
+            items[index] = labelToCollect;
+            GameObject item = itemObjs[index];
+            item.GetComponent<Draggable>().label = labelToCollect;
+
+            // play animation and destroy Pickup Object
+            item.transform.position = tmp.transform.position;
+            item.GetComponent<Draggable>().dropPos = tmp.transform.position;
+            item.GetComponent<Draggable>().isGoingBack = true;
+            item.GetComponent<Image>().sprite = pickupDict[labelToCollect];
+            item.GetComponent<Image>().color = Color.white;
+            Destroy(tmp);
+        }
     }
 
     public void Remove(string objToRemove)
@@ -130,13 +152,18 @@ public class InventoryHandler : MonoBehaviour
 
     public void Collect(string labelAndObj)
     {
-        // make sure inventory is opened
-        Open();
-        
         // parse input
         List<string> input = Util.Split(labelAndObj, '+');
-        string label = input[0];
+        labelToCollect = input[0];
         collecting = input[1];
+
+        // make sure inventory is opened
+        if (!open)
+        {
+            Open();
+            isCollecting = true;
+            return;
+        }
         
         // Get reference to object being collected
         GameObject tmp = GameObject.Find(collecting);
@@ -144,15 +171,15 @@ public class InventoryHandler : MonoBehaviour
         // Add reference to Open Slot
         int index = 0;
         while (items[index] != "") { index++; }
-        items[index] = label;
+        items[index] = labelToCollect;
         GameObject item = itemObjs[index];
-        item.GetComponent<Draggable>().label = label;
+        item.GetComponent<Draggable>().label = labelToCollect;
 
         // play animation and destroy Pickup Object
         item.transform.position = tmp.transform.position;
         item.GetComponent<Draggable>().dropPos = tmp.transform.position;
         item.GetComponent<Draggable>().isGoingBack = true;
-        item.GetComponent<Image>().sprite = pickupDict[label];
+        item.GetComponent<Image>().sprite = pickupDict[labelToCollect];
         item.GetComponent<Image>().color = Color.white;
         Destroy(tmp);
     }
