@@ -93,9 +93,6 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             holding = true;
             held = label;
             heldObj = gameObject;
-            //this.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
-            //this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 30.0f);
-            //GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
             transform.parent = movingVisual.gameObject.transform;
         }
     }
@@ -107,9 +104,6 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         held = "";
         heldObj = null;
         isGoingBack = true;
-        this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-        //GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
         justReleased = false;
     }
 }

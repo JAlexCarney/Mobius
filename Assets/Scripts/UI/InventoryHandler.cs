@@ -102,6 +102,11 @@ public class InventoryHandler : MonoBehaviour
     {
         animating = false;
         open = true;
+        foreach (GameObject item in itemObjs)
+        {
+            item.GetComponent<Draggable>().startPos = item.transform.position;
+        }
+
         if (isCollecting)
         {
             // Get reference to object being collected

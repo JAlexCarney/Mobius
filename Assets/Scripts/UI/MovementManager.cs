@@ -152,6 +152,7 @@ public class MovementManager : MonoBehaviour
 
     private void EnableRight()
     {
+        RightButton.SetActive(true);
         RightButton.GetComponent<Image>().color = Color.white;
         rightIsDisabled = false;
         RightButton.GetComponent<Button>().interactable = true;
@@ -166,6 +167,7 @@ public class MovementManager : MonoBehaviour
 
     private void EnableLeft()
     {
+        LeftButton.SetActive(true);
         LeftButton.GetComponent<Image>().color = Color.white;
         leftIsDisabled = false;
         LeftButton.GetComponent<Button>().interactable = true;

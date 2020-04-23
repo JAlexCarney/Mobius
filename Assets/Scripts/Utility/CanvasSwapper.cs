@@ -104,8 +104,8 @@ public class CanvasSwapper : MonoBehaviour
         Util.DeactivateChildren(inventory);
         Util.DeactivateChildren(currentCanvas);
         Util.ActivateChildren(movement);
-        movement.transform.Find("RightArrow").gameObject.SetActive(false);
-        movement.transform.Find("leftArrow").gameObject.SetActive(false);
+        movementManager.RightButton.SetActive(false);
+        movementManager.LeftButton.SetActive(false);
         Util.ActivateChildren(canvasToActivate);
         Util.DeactivateChildren(hintManager.gameObject);
 

@@ -28,12 +28,15 @@ public class SoundManager : MonoBehaviour
         int index = Random.Range(0, SoundLib[sound].Length);
 
         // Create a new game object to play the sound
-        GameObject obj = new GameObject();
+        GameObject obj = new GameObject("PlayingSound");
         obj.AddComponent<AudioSource>();
         AudioSource src = obj.GetComponent<AudioSource>();
 
         // play the sound
         src.clip = SoundLib[sound][index];
         src.Play();
+
+        // Destroy object after sound ends
+        Destroy(obj, src.clip.length);
     }
 }
