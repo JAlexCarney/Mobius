@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class LightCaster : MonoBehaviour
+public class Source : MonoBehaviour
 {
 
     // Variables for light casting.
     public RectTransform start;
     public RectTransform end;
     public GameObject linePrefab;
+    // Sources always have a set color, so there is no need for dynamic color changing.
 
     public void Start()
     {
-        GameObject newLine = CastLight(start.anchoredPosition, end.anchoredPosition, linePrefab);
+        CastLight(start.anchoredPosition, end.anchoredPosition, linePrefab);
     }
 
     public GameObject CastLight(Vector2 pos1, Vector2 pos2, GameObject prefab)
@@ -26,7 +26,7 @@ public class LightCaster : MonoBehaviour
 
         // Get length and angle of vector
         float length = delta.magnitude;
-        float angle = Vector2.SignedAngle(new Vector2(1,0), delta);
+        float angle = Vector2.SignedAngle(new Vector2(1, 0), delta);
 
         // Place object at midpoint and rotate at angle of new vector and stretch between the points.
         Vector2 midpoint = (pos1 + pos2) / 2;
