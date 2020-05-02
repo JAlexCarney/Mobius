@@ -2008,6 +2008,7 @@ RectTransform:
   - {fileID: 6664147073465452862}
   - {fileID: 6664147074350439469}
   - {fileID: 6664147073434026446}
+  - {fileID: 653870583847929752}
   m_Father: {fileID: 6664147074406508817}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4662,6 +4663,7 @@ GameObject:
   - component: {fileID: 6664147075416945696}
   - component: {fileID: 6664147075416945699}
   - component: {fileID: 6664147075416945698}
+  - component: {fileID: 9150805810145544727}
   m_Layer: 5
   m_Name: NewspaperClipping
   m_TagString: Untagged
@@ -4778,6 +4780,20 @@ MonoBehaviour:
           m_StringArgument: water+WaterPickUp
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9150805810145544727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6664147075416945700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054ac241b3adee54d992aacf33637727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: {fileID: 8500603235304523066}
+  activate: 0
 --- !u!1 &6664147075419185516
 GameObject:
   m_ObjectHideFlags: 0
@@ -5186,6 +5202,84 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8708388405208635124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 653870583847929752}
+  - component: {fileID: 5542885432265836401}
+  - component: {fileID: 8500603235304523066}
+  m_Layer: 5
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &653870583847929752
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8708388405208635124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6664147074231739904}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -669.4, y: -7.2999}
+  m_SizeDelta: {x: 302, y: 703.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5542885432265836401
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8708388405208635124}
+  m_CullTransparentMesh: 0
+--- !u!114 &8500603235304523066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8708388405208635124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 195e8591ff4b88c45bd2ddda1c6e4af3, type: 3}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 50
+    m_Alignment: 2
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "I\u2019m used to working alone, but working with someone else doesn\u2019t
+    seem all that bad.\r\n"
 --- !u!1 &8845615342926926793
 GameObject:
   m_ObjectHideFlags: 0

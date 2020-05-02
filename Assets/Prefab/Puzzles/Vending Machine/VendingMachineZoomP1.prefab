@@ -294,6 +294,84 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6896790697411769550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7810161719844933881}
+  - component: {fileID: 2916538482011104649}
+  - component: {fileID: 8374381494242844734}
+  m_Layer: 5
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &7810161719844933881
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896790697411769550}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8625640474670070399}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -663, y: 60.8}
+  m_SizeDelta: {x: 282.1, y: 743.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2916538482011104649
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896790697411769550}
+  m_CullTransparentMesh: 0
+--- !u!114 &8374381494242844734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896790697411769550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 195e8591ff4b88c45bd2ddda1c6e4af3, type: 3}
+    m_FontSize: 54
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 76
+    m_Alignment: 2
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "I\u2019m glad \nI can hear another person -\n I wouldn\u2019t have been
+    able to figure this out without their help.\r"
 --- !u!1 &8497639247957905614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,6 +1677,7 @@ RectTransform:
   - {fileID: 8625640474363057473}
   - {fileID: 8625640474853998674}
   - {fileID: 8625640474394549681}
+  - {fileID: 7810161719844933881}
   m_Father: {fileID: 8625640474764326254}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4451,6 +4530,7 @@ GameObject:
   - component: {fileID: 8625640475918149727}
   - component: {fileID: 8625640475918149724}
   - component: {fileID: 8625640475918149725}
+  - component: {fileID: 3015317530367788438}
   m_Layer: 5
   m_Name: NewspaperClipping
   m_TagString: Untagged
@@ -4567,6 +4647,19 @@ MonoBehaviour:
           m_StringArgument: water+WaterPickUp
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3015317530367788438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8625640475918149723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054ac241b3adee54d992aacf33637727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: {fileID: 8374381494242844734}
 --- !u!1 &8625640475965805907
 GameObject:
   m_ObjectHideFlags: 0
