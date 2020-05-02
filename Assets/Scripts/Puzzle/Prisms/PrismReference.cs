@@ -294,4 +294,50 @@ public class PrismReference : MonoBehaviour
         return line;
     }
 
+    public string PrimaryColorCombine(string color1, string color2)
+    {
+        string comboColor = " ";
+
+        if (color1 == "red")
+        {
+            if (color2 == "blue")
+            {
+                comboColor = "magenta";
+            }
+
+            else if (color2 == "green")
+            {
+                comboColor = "yellow";
+            }
+        }
+
+        else if (color1 == "blue")
+        {
+            if (color2 == "red")
+            {
+                comboColor = "magenta";
+            }
+
+            else if (color2 == "green")
+            {
+                comboColor = "cyan";
+            }
+        }
+
+        else if (color1 == "green")
+        {
+            if (color2 == "blue")
+            {
+                comboColor = "cyan";
+            }
+
+            else if (color2 == "red")
+            {
+                comboColor = "yellow";
+            }
+        }
+
+        return comboColor;
+    }
+
 }
