@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PrismReference : MonoBehaviour
 {
@@ -22,13 +23,29 @@ public class PrismReference : MonoBehaviour
     public GameObject white;
     public GameObject yellow;
 
-    public Dictionary<string, GameObject> lightPrefabs;
+    [System.Serializable]
+    public struct ElementImage
+    {
+        public string name;
+        public Sprite image;
+    }
 
-    private List<GameObject> lightBeams = new List<GameObject>();
+    public Dictionary<string, GameObject> lightPrefabs;
+    private Stack<GameObject> lightBeams = new Stack<GameObject>();
+
+    private Dictionary<string, Sprite> mirrorImages;
+    private Dictionary<string, Sprite> prismImages;
+
+    public ElementImage[] mirrorImagesArray;
+    public ElementImage[] prismImagesArray;
+   
 
     private void Start()
     {
         lightPrefabs = new Dictionary<string, GameObject>();
+        mirrorImages = new Dictionary<string, Sprite>();
+        prismImages = new Dictionary<string, Sprite>();
+
         lightPrefabs.Add("blue", blue);
         lightPrefabs.Add("cyan", cyan);
         lightPrefabs.Add("green", green);
@@ -44,6 +61,16 @@ public class PrismReference : MonoBehaviour
         prismReference[4] = row4;
         prismReference[5] = row5;
         prismReference[6] = row6;
+
+        for (int i = 0; i < mirrorImagesArray.Length; i++)
+        {
+            mirrorImages[mirrorImagesArray[i].name] = mirrorImagesArray[i].image;
+        }
+
+        for (int i = 0; i < prismImagesArray.Length; i++)
+        {
+            prismImages[prismImagesArray[i].name] = prismImagesArray[i].image;
+        }
 
         for (int i = 0; i < prismReference.Length; i++)
         {
@@ -66,9 +93,12 @@ public class PrismReference : MonoBehaviour
         BoardUpdate();
     }
 
-    private void BoardUpdate()
+    public void BoardUpdate()
     {
         List<PrismElement> sources = new List<PrismElement>();
+
+        ClearBeams();
+        ClearColors();
 
         for (int i = 0; i < prismReference.Length; i++)
         {
@@ -220,6 +250,9 @@ public class PrismReference : MonoBehaviour
                     next.color = current.color;
                     current.next = next;
                     current = next;
+
+                    // Change the color of the mirror.
+                    currentElement.GetComponentInChildren<Image>().sprite = mirrorImages[next.color];
                 }
 
             }
@@ -258,7 +291,7 @@ public class PrismReference : MonoBehaviour
             //Debug.Log(current.position);
             //Debug.Log(current.next.color);
             //Debug.Log(current.next.position);
-            lightBeams.Add(beam);
+            lightBeams.Push(beam);
             current = current.next;
         }
     }
@@ -282,7 +315,8 @@ public class PrismReference : MonoBehaviour
 
         Vector3 position = new Vector3(midpoint.x, midpoint.y, 0f);
 
-        line.GetComponent<RectTransform>().SetParent(this.transform.GetChild(0));
+        line.GetComponent<RectTransform>().SetParent(this.transform);
+        line.transform.SetSiblingIndex(1);
 
         RectTransform lineRect = line.GetComponent<RectTransform>();
 
@@ -292,6 +326,35 @@ public class PrismReference : MonoBehaviour
         lineRect.sizeDelta = new Vector2(length, lineRect.sizeDelta.y);
 
         return line;
+    }
+
+    public void ClearBeams()
+    {
+        while (lightBeams.Count != 0)
+        {
+            Destroy(lightBeams.Pop());
+        }
+    }
+
+    public void ClearColors()
+    {
+        for (int i = 0; i < prismReference.Length; i++)
+        {
+            for (int j = 0; j < prismReference.Length; j++)
+            {
+                PrismElement current = prismReference[i][j].GetComponent<PrismElement>();
+
+                if (current.type == "mirror")
+                {
+                    current.GetComponentInChildren<Image>().sprite = mirrorImages["none"];
+                }
+
+                else if (current.type == "prism")
+                {
+                    current.GetComponentInChildren<Image>().sprite = prismImages["none"];
+                }
+            }
+        }
     }
 
     public string PrimaryColorCombine(string color1, string color2)
