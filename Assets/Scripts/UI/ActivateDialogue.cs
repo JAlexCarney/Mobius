@@ -36,11 +36,14 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
         originalDialogue = dialogue.text;
         originalColor = dialogue.color;
         clearColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
+        dialogue.gameObject.SetActive(false); //make sure it's invisible
     }
 
     //Check if obj is awake for activate on awake!
     public void Update()
     {
+        Debug.Log("hahaha");
+        dialogue.gameObject.SetActive(inCycle); //make sure it's invisible
         //start showing text
         if (!inCycle && activate == Activate.onEnter)
         {
@@ -84,7 +87,7 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
             dialogue.text = originalDialogue.Substring(0, i);
             yield return new WaitForSeconds(delay);
         }
-        //for (int i = 0; i < wordsInDialogue.Length; i++)
+        //for (int i = 0; i < wordsInDialogue.Length; i++) //word by word
         //{
         //    dialogue.text += wordsInDialogue[i] + " ";
         //    yield return new WaitForSeconds(delay);
@@ -122,7 +125,7 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
 
     private void Reset()
     {
-        dialogue.gameObject.SetActive(false);
+        Destroy(dialogue); //eeehhhhh
         dialogue.color = originalColor;
         dialogue.text = originalDialogue;
         inCycle = false;
