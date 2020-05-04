@@ -31,8 +31,9 @@ public class InventoryHandler : MonoBehaviour
 
     public void Start()
     {
+        Debug.Log("Inventory Start");
 
-        foreach(Pickupable pickupable in pickupableObjs)
+        foreach (Pickupable pickupable in pickupableObjs)
         {
             pickupDict[pickupable.label] = pickupable.invSprite;
         }
@@ -98,16 +99,26 @@ public class InventoryHandler : MonoBehaviour
         animating = false;
     }
 
+    private bool firstOpening = true;
+    private Vector3[] positions = new Vector3[10]; 
     public void OpenDelayed()
     {
         animating = false;
         open = true;
-        foreach (GameObject item in itemObjs)
+        if (firstOpening)
         {
-            item.GetComponent<Draggable>().startPos = item.transform.position;
+            for (int i = 0; i < itemObjs.Length; i++)
+            {
+                positions[i] = itemObjs[i].transform.position;
+            }
+            firstOpening = false;
+        }
+        for (int i = 0; i < itemObjs.Length; i++)
+        {
+            itemObjs[i].GetComponent<Draggable>().startPos = positions[i];
         }
 
-        if (isCollecting)
+        if (isCollecting && GameObject.Find(collecting))
         {
             // Get reference to object being collected
             GameObject tmp = GameObject.Find(collecting);
@@ -139,6 +150,38 @@ public class InventoryHandler : MonoBehaviour
                 itemObjs[i].GetComponent<Draggable>().label = "";
                 itemObjs[i].GetComponent<Image>().color = Color.clear;
             }
+        }
+        // reorder inventory slots
+        Invoke("UpdateInventory", 0.5f);
+    }
+
+    private void UpdateInventory()
+    {
+        List<string> currentItems = new List<string>();
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] != "")
+            {
+                currentItems.Add(items[i]);
+            }
+        }
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] != "")
+            {
+                items[i] = "";
+                itemObjs[i].GetComponent<Draggable>().label = "";
+                itemObjs[i].GetComponent<Image>().color = Color.clear;
+            }
+        }
+        int index = 0;
+        foreach (string currentItem in currentItems)
+        {
+            items[index] = currentItem;
+            itemObjs[index].GetComponent<Draggable>().label = currentItem;
+            itemObjs[index].GetComponent<Image>().color = Color.white;
+            itemObjs[index].GetComponent<Image>().sprite = pickupDict[currentItem];
+            index++;
         }
         if (Empty())
         {

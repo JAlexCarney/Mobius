@@ -13,7 +13,7 @@ public class CanvasSwapper : MonoBehaviour
 
     private Stack<BackCanvas> backStack;
     public GameObject inventory;
-    public GameObject movement;
+    private GameObject movement;
     public GameObject fade;
 
     private MovementManager movementManager;
@@ -23,9 +23,11 @@ public class CanvasSwapper : MonoBehaviour
     private void Start()
     {
         fadeImage = fade.GetComponent<Image>();
-        movementManager = movement.GetComponent<MovementManager>();
+        movement = GameObject.Find("MovementManager");
         hintManager = GameObject.Find("HintManager").GetComponent<HintManager>();
+        movementManager = GameObject.Find("MovementManager").GetComponent<MovementManager>();
         backStack = new Stack<BackCanvas>();
+        Debug.Log("Start!!");
     }
 
     private readonly int delay = 25;
@@ -71,6 +73,7 @@ public class CanvasSwapper : MonoBehaviour
 
     public void ClearBackStack()
     {
+        Debug.Log(backStack);
         backStack.Clear();
         movementManager.DisableBack();
     }
@@ -131,6 +134,7 @@ public class CanvasSwapper : MonoBehaviour
         Util.DeactivateChildren(currentCanvas);
         Util.ActivateChildren(inventory);
         Util.ActivateChildren(movement);
+        Util.DeactivateChildren(GameObject.Find("JournalCanvas"));
         currentCanvas = canvasToActivate;
         hintManager.DisplayCheck();
     }
@@ -142,7 +146,8 @@ public class CanvasSwapper : MonoBehaviour
         Util.DeactivateChildren(currentCanvas);
         Util.ActivateChildren(inventory);
         Util.ActivateChildren(movement);
-        
+        Util.DeactivateChildren(GameObject.Find("JournalCanvas"));
+
 
         // push to backStack
         movementManager.EnableBack();
@@ -167,6 +172,7 @@ public class CanvasSwapper : MonoBehaviour
         Util.DeactivateChildren(currentCanvas);
         Util.ActivateChildren(inventory);
         Util.ActivateChildren(movement);
+        Util.DeactivateChildren(GameObject.Find("JournalCanvas"));
 
         // push to backStack
         movementManager.EnableBack();
@@ -218,6 +224,7 @@ public class CanvasSwapper : MonoBehaviour
             Util.ActivateChildren(canvasToActivate);
             Util.ActivateChildren(inventory);
             Util.ActivateChildren(movement);
+            Util.DeactivateChildren(GameObject.Find("JournalCanvas"));
 
             currentCanvas = canvasToActivate;
 

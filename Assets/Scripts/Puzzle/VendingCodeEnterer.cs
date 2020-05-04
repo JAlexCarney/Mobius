@@ -29,6 +29,8 @@ public class VendingCodeEnterer : MonoBehaviour
     public Transform obj1;
     public Transform obj2;
     public Transform obj3;
+    public Sprite obj1Sprite;
+    public Sprite obj2Sprite;
     public Transform objDestination;
     public GameObject door;
 
@@ -44,6 +46,7 @@ public class VendingCodeEnterer : MonoBehaviour
     public GameObject[] indicatorNumbers;
 
     private bool acceptingNewLetters = true;
+    private int objNum = 0;
 
     private void Start()
     {
@@ -65,6 +68,14 @@ public class VendingCodeEnterer : MonoBehaviour
                 count = 0;
                 isFalling = false;
                 fallingObj.position = objDestination.position;
+                if (objNum == 1)
+                {
+                    fallingObj.GetComponent<Image>().sprite = obj1Sprite;
+                }
+                else if (objNum == 2)
+                {
+                    fallingObj.GetComponent<Image>().sprite = obj2Sprite;
+                }
                 door.SetActive(false);
             }
             else if (count < animTime)
@@ -82,6 +93,7 @@ public class VendingCodeEnterer : MonoBehaviour
         isFalling = true;
         fallingObj = obj;
         startPos = obj.position;
+        objNum++;
     }
 
     public void CollectObj()
