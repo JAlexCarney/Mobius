@@ -8,12 +8,15 @@ public class Swappable : MonoBehaviour
     public int swapID;
     private Animator anim;
     private TopVisualFolllow movingVisual = null;
+    private SoundManager sm;
+    private bool shaking = false;
 
     public void Start()
     {
         movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
         anim = GetComponentInChildren<Animator>();
         Debug.Log(anim.name);
+        sm = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     public void Update()
@@ -32,6 +35,8 @@ public class Swappable : MonoBehaviour
                 {
                     Draggable.justReleased = false;
 
+                    sm.Play("placeFlask");
+
                     Vector3 temp = heldDrag.startPos;
                     heldDrag.startPos = thisDrag.startPos;
                     thisDrag.startPos = temp;
@@ -42,15 +47,18 @@ public class Swappable : MonoBehaviour
                 }
 
                 //telegraph SHAKE SHAKE
-                else
+                else if (shaking == false)
                 {
                     anim.SetBool("Clicked", true);
+                    sm.Play("flaskShake");
+                    shaking = true;
                     Invoke("SetClickedFalse", 1f);
                 }
             }
             else //if its shaking, STOP IT
             {
                 anim.SetBool("Clicked", false);
+                shaking = false;
             }
         }
     }

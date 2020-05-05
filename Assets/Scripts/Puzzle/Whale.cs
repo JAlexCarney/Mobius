@@ -18,7 +18,7 @@ public class Whale : MonoBehaviour, IPointerDownHandler
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         //find the bone
-        bone = GameObject.Find("Bone").GetComponent<RectTransform>();
+        bone = GameObject.Find("BonePickUp").GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -27,7 +27,7 @@ public class Whale : MonoBehaviour, IPointerDownHandler
         //shake that bone off
         if (count < 3)
         {
-            soundManager.Play("penScratch");
+            soundManager.Play("boneBreak");
             anim.SetBool("Clicked", true);
             Invoke("setClickedFalse", 1f);
             bone.rotation = Quaternion.Euler(0, 0, 15*count);

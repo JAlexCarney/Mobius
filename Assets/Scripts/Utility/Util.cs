@@ -9,6 +9,7 @@ public class Util
 {
 
     public static int player = -1;
+    public static float volume = 0.5f;
 
     public static bool CheckBounds(GameObject obj, Vector3 touchPos)
     {

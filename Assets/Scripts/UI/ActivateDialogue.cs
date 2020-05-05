@@ -21,7 +21,7 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
 
 
     private bool inCycle = false; //track if text is displaying
-    public static float delay = 0.05f;
+    public static float delay = 0.025f;
     public static float fadeOutTime = 3f; 
     public static float timeToRead = 2f;
 
@@ -42,7 +42,6 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
     //Check if obj is awake for activate on awake!
     public void Update()
     {
-        Debug.Log("hahaha");
         dialogue.gameObject.SetActive(inCycle); //make sure it's invisible
         //start showing text
         if (!inCycle && activate == Activate.onEnter)

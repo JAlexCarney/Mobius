@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
+    public Slider slider;
+
     [System.Serializable]
     public struct SoundWithAName
     {
@@ -33,10 +36,17 @@ public class SoundManager : MonoBehaviour
         AudioSource src = obj.GetComponent<AudioSource>();
 
         // play the sound
+        src.volume = Util.volume;
         src.clip = SoundLib[sound][index];
         src.Play();
 
         // Destroy object after sound ends
         Destroy(obj, src.clip.length);
+    }
+
+    public void SetVolume()
+    {
+        Util.volume = slider.value;
+        //Play("click");
     }
 }

@@ -80,6 +80,10 @@ public class JournalHandler : MonoBehaviour
         }
 
         RefreshJournal();
+
+        // TURN THOSE FUCKING ARROWS OFF GOD DAMMMMMIIITTT
+        leftButton.SetActive(false);
+        rightButton.SetActive(false);
     }
 
     public void FlipLeft()
