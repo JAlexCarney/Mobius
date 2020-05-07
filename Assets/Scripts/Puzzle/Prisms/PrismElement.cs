@@ -16,100 +16,172 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private int thresholdFrames;
     private bool isDown;
 
-    // Public variables for debug.
-    public float currentRotation;
+    public int currentRotation;
     public RectTransform mirrorRect;
     public int index;
-
-    // Array to store possible rotation values.
-    private readonly List<int> rotationVectors = new List<int> { 45, 135, 225, 315 };
-
     private bool isRotating;
+
+    static GameObject held = null;
+    private bool isGoingBack = false;
+    private int counter = 0;
+    private TopVisualFolllow movingVisual;
+    private Transform parent;
+    private Vector3 origin;
+    private Vector3 destination;
+    private Touch touch;
 
     // Start is called before the first frame update
     void Start()
     {
         prismReference = this.GetComponentInParent<PrismReference>();
+
+        if (this.orientation == "NW")
+        {
+            this.currentRotation = 45;
+        }
+
+        else if (this.orientation == "SW")
+        {
+            this.currentRotation = 135;
+        }
+
+        else if (this.orientation == "SE")
+        {
+            this.currentRotation = 225;
+        }
+
+        else if (this.orientation == "NE")
+        {
+            this.currentRotation = 325;
+        }
+
+        movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
+        parent = transform.parent;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Determine clicking vs. dragging.
         if(isDown)
         {
             thresholdFrames++;
         }
 
+        // Rotate the Mirror.
         if (isRotating)
         {
-            isRotating = false;
+            currentRotation += 5;
 
-            // Gets the current rotation vector of the mirror.
-            mirrorRect = this.GetComponent<RectTransform>();
-            currentRotation = mirrorRect.localEulerAngles.z;
+            int newZ = currentRotation % 360;
+            Debug.Log("NewZ: " + newZ);
 
-            Debug.Log(currentRotation);
-            Debug.Log(rotationVectors[3]);
+            Vector3 updatedRotation = new Vector3(0, 0, newZ);
+            this.GetComponent<RectTransform>().localEulerAngles = updatedRotation;
 
-            // Find the current vector in the vector array and update.
-            int currentRotationInt = System.Convert.ToInt32(currentRotation);
-            index = rotationVectors.IndexOf(currentRotationInt);
-            Debug.Log(index);
-
-            // If the vector is at the end of the array, reset to the beginning, otherwise increment.
-            if (index == 0)
-            {
-                currentRotation = rotationVectors[3];
-            }
-            else
-            {
-                currentRotation = rotationVectors[index - 1];
-                Debug.Log(currentRotation);
-            }
-
-            Vector3 updatedRotation = new Vector3(0f, 0f, currentRotation);
-
-            mirrorRect.localEulerAngles = updatedRotation;
-
-            if (mirrorRect.localEulerAngles.z == 45)
+            if (newZ >= 44 && newZ <= 46)
             {
                 this.orientation = "NW";
+                Debug.Log(this.orientation + " " + currentRotation);
+                prismReference.BoardUpdate();
+                isRotating = false;
             }
 
-            else if (mirrorRect.localEulerAngles.z == 135)
+            else if (newZ >= 134 && newZ <= 136)
             {
                 this.orientation = "SW";
+                Debug.Log(this.orientation + " " + currentRotation);
+                prismReference.BoardUpdate();
+                isRotating = false;
             }
 
-            else if (mirrorRect.localEulerAngles.z == 225)
+            else if (newZ >= 224 && newZ <= 226)
             {
                 this.orientation = "SE";
+                Debug.Log(this.orientation + " " + currentRotation);
+                prismReference.BoardUpdate();
+                isRotating = false;
             }
 
-            else if (mirrorRect.localEulerAngles.z == 315)
+            else if (newZ >= 314 && newZ <= 316)
             {
                 this.orientation = "NE";
+                Debug.Log(this.orientation + " " + currentRotation);
+                prismReference.BoardUpdate();
+                isRotating = false;
             }
         }
 
+        // Holding and moving mirror.
+        if (Input.touchCount == 1)
+        {
+            touch = Input.GetTouch(0);
+        }
+
+        if (held == this.gameObject && thresholdFrames >= 15)
+        {
+            if (Input.touchCount == 0)
+            {
+                transform.position = Input.mousePosition;
+            }
+            else
+            {
+                transform.position = touch.position;
+            }
+        }
+        else if (isGoingBack)
+        {
+            if (counter == 30)
+            {
+                counter = 0;
+                isGoingBack = false;
+                transform.parent = parent;
+            }
+            else
+            {
+                counter++;
+                transform.position = Vector3.Lerp(destination, origin, (float)counter / 30f);
+            }
+        }
     }
 
     public void OnPointerDown(PointerEventData d)
     {
-        thresholdFrames = 0;
-        isDown = true;
+        if (held == null) {
+
+            if (!isRotating && !isGoingBack)
+            {
+                thresholdFrames = 0;
+                isDown = true;
+
+                if (this.type == "mirror")
+                {
+                    held = this.gameObject;
+                    origin = held.transform.position;
+                    held.transform.parent = movingVisual.gameObject.transform;
+                }
+            }
+        }
+        
     }
 
     public void OnPointerUp(PointerEventData d)
     {
-        isDown = false;
-
-        if (thresholdFrames < 30)
+        if (!isRotating && !isGoingBack && held == this.gameObject)
         {
-            if (this.type == "mirror")
+            isDown = false;
+
+            if (thresholdFrames < 15)
             {
-                RotateMirror();
-                prismReference.BoardUpdate();
+                if (this.type == "mirror")
+                {
+                    RotateMirror();
+                }
+            }
+
+            else if (thresholdFrames >= 15)
+            {
+                DropMirror();
             }
         }
     }
@@ -117,5 +189,12 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void RotateMirror()
     {
         isRotating = true;
+    }
+
+    public void DropMirror()
+    {
+        isGoingBack = true;
+        destination = this.transform.position;
+        held = null;
     }
 }

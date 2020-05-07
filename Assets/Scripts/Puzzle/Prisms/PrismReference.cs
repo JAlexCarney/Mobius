@@ -85,7 +85,7 @@ public class PrismReference : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Corner");
+                    //Debug.Log("Corner");
                 }
             }
         }
@@ -300,8 +300,8 @@ public class PrismReference : MonoBehaviour
     {
         // Spawn an image object as a little square with 2 screen positions
         GameObject line = Instantiate(prefab);
-        Debug.Log(pos1.ToString());
-        Debug.Log(pos2.ToString());
+        //Debug.Log(pos1.ToString());
+        //Debug.Log(pos2.ToString());
         
         // Take one screen postions and subtract it component wise from the other, x-x y-y
         Vector2 delta = pos1 - pos2;
