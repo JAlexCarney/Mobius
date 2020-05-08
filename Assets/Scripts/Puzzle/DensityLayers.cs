@@ -79,6 +79,9 @@ public class DensityLayers : MonoBehaviour
         }
 
         EmptyTube();
+        mobiusPiece.GetComponent<RectTransform>().anchoredPosition = 
+            new Vector2(liquidLayersVisual[0].GetComponent<RectTransform>().anchoredPosition.x,
+            liquidLayersVisual[0].GetComponent<RectTransform>().anchoredPosition.y + 100);
     }
 
     private void CheckSolutionV2(string lastLiquid)
@@ -146,6 +149,7 @@ public class DensityLayers : MonoBehaviour
     void End()
     {
         print("Win");
+        ResetAnim();
         winEvent.Invoke();
     }
 
@@ -200,17 +204,29 @@ public class DensityLayers : MonoBehaviour
         {
             if (currentSolution[topIndex - 1] != "sludge")
             {
+                mobiusPiece.GetComponent<Animation>()["float"].time = 0.0f;
+                
                 mobiusPiece.transform.position = liquidLayersVisual[topIndex].transform.position;
+                
+                mobiusPiece.GetComponent<Animation>().Play();
+                Invoke("ResetAnim", mobiusPiece.GetComponent<Animation>().clip.length);
             }
             else
             {
                 mobiusPiece.transform.position = liquidLayersVisual[0].transform.position;
             }
+            liquidLayersVisual[topIndex - 1].GetComponent<Animation>().Play();
         }
         else
         {
             mobiusPiece.transform.position = liquidLayersVisual[0].transform.position;
         }
+    }
+
+    public void ResetAnim()
+    {
+        mobiusPiece.GetComponent<Animation>().Play();
+        mobiusPiece.GetComponent<Animation>().Stop();
     }
 
     public void PourLiquid(string liquid)

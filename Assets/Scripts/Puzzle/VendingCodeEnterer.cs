@@ -20,6 +20,8 @@ public class VendingCodeEnterer : MonoBehaviour
 
     public GameObject display;
 
+    private List<GameObject> blinkingLights;
+
     // objects given for correct answers!
     private int count = 0;
     private float animTime = 30f;
@@ -48,12 +50,15 @@ public class VendingCodeEnterer : MonoBehaviour
     private bool acceptingNewLetters = true;
     private int objNum = 0;
 
+    // blinking lights counter
+    int blinkCounter = 0;
+
     private void Start()
     {
-
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        blinkingLights = new List<GameObject>();
 
-        if(Util.player == 1)
+        if (Util.player == 1)
         {
             SetState(player1CodesToDisplay[0]);
         }
@@ -83,6 +88,24 @@ public class VendingCodeEnterer : MonoBehaviour
                 count++;
                 fallingObj.position = Vector3.Lerp(startPos, objDestination.position, Mathf.Pow((float)count / animTime, 2));
                 fallingObj.eulerAngles = Vector3.Lerp(new Vector3(0, 0, 0), objDestination.eulerAngles, Mathf.Pow((float)count / animTime, 2));
+            }
+        }
+
+        
+        blinkCounter++;
+        if (blinkCounter == 20)
+        {
+            foreach (GameObject blinkingLight in blinkingLights)
+            {
+                blinkingLight.GetComponent<Image>().sprite = lightOn;
+            }
+        }
+        else if (blinkCounter == 60)
+        {
+            blinkCounter = 0;
+            foreach (GameObject blinkingLight in blinkingLights)
+            {
+                blinkingLight.GetComponent<Image>().sprite = lightOff;
             }
         }
     }
@@ -152,7 +175,7 @@ public class VendingCodeEnterer : MonoBehaviour
     public void SetState(string state)
     {
         // Makes sure no other lights are turned on before activating new lights.
-        foreach(GameObject indicator in indicatorLetters)
+        foreach (GameObject indicator in indicatorLetters)
         {
             indicator.GetComponent<Image>().sprite = lightOff;
         }
@@ -160,6 +183,7 @@ public class VendingCodeEnterer : MonoBehaviour
         {
             indicator.GetComponent<Image>().sprite = lightOff;
         }
+       
 
         // Finds the lights corresponding to the proper code and turns them on.
         string letter = state[0].ToString();
@@ -168,9 +192,13 @@ public class VendingCodeEnterer : MonoBehaviour
         GameObject letterIndicator = transform.Find("Indicators").Find("Indicator"+letter).gameObject;
         GameObject numberIndicator = transform.Find("Indicators").Find("Indicator"+number).gameObject;
 
-        letterIndicator.GetComponent<Image>().sprite = lightOn;
-        numberIndicator.GetComponent<Image>().sprite = lightOn;
+        blinkingLights.Clear();
 
+        //letterIndicator.GetComponent<Image>().sprite = lightOn;
+        //numberIndicator.GetComponent<Image>().sprite = lightOn;
+
+        blinkingLights.Add(letterIndicator);
+        blinkingLights.Add(numberIndicator);
     }
 
     public void DisplayUpdate(string value)
