@@ -1411,6 +1411,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4259088197090725294, guid: 2c56d80710f7c2948b5282d3df0e3d92,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1991661803}
+    - target: {fileID: 4259088197090725294, guid: 2c56d80710f7c2948b5282d3df0e3d92,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4636135358100184591, guid: 2c56d80710f7c2948b5282d3df0e3d92,
         type: 3}
       propertyPath: canvasSwapper
@@ -2224,7 +2234,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  delay: 0.25
+  delay: 1
 --- !u!1 &1011177172
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,7 +2784,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1399997602}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1991661803}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 096685b615595bf4ea97f1fea77cc469, type: 3}
@@ -3559,6 +3569,12 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1991661803 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9109492722622925430, guid: 3db0d8ee10164f246b29a2b2401f6453,
+    type: 3}
+  m_PrefabInstance: {fileID: 1399997602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2008461152
 PrefabInstance:
   m_ObjectHideFlags: 0
