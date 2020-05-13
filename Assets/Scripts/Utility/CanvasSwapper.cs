@@ -9,6 +9,7 @@ public class CanvasSwapper : MonoBehaviour
     struct BackCanvas {
         public GameObject obj;
         public bool lookingEnabled;
+        public int curLookPos;
     }
 
     private Stack<BackCanvas> backStack;
@@ -92,7 +93,8 @@ public class CanvasSwapper : MonoBehaviour
         BackCanvas bc = new BackCanvas
         {
             obj = currentCanvas,
-            lookingEnabled = movementManager.lookingEnabled
+            lookingEnabled = movementManager.lookingEnabled,
+            curLookPos = movementManager.curPos
         };
         backStack.Push(bc);
         currentCanvas = canvasToActivate;
@@ -101,29 +103,71 @@ public class CanvasSwapper : MonoBehaviour
         movementManager.DisableLooking();
     }
 
+    public void DisableUI()
+    {
+        Util.DeactivateChildren(inventory);
+        movementManager.BackButton.SetActive(false);
+        movementManager.RightButton.SetActive(false);
+        movementManager.LeftButton.SetActive(false);
+    }
+
+    public void EnableUI()
+    {
+        Util.ActivateChildren(inventory);
+        Util.ActivateChildren(movement);
+    }
+
     public void OpenJournal()
     {
         GameObject canvasToActivate = GameObject.Find("JournalCanvas");
-        Util.DeactivateChildren(inventory);
-        Util.DeactivateChildren(currentCanvas);
-        Util.ActivateChildren(movement);
-        movementManager.RightButton.SetActive(false);
-        movementManager.LeftButton.SetActive(false);
         Util.ActivateChildren(canvasToActivate);
         Util.DeactivateChildren(hintManager.gameObject);
 
         // push to backStack
+        /*
         movementManager.EnableBack();
         BackCanvas bc = new BackCanvas
         {
             obj = currentCanvas,
-            lookingEnabled = movementManager.lookingEnabled
+            lookingEnabled = movementManager.lookingEnabled,
+            curLookPos = movementManager.curPos
         };
         backStack.Push(bc);
         currentCanvas = canvasToActivate;
+        */
+    }
 
-        // set looking
-        movementManager.DisableLooking();
+    public void CloseJournal()
+    {
+        GameObject canvasToActivate = currentCanvas;
+
+        Util.ActivateChildren(canvasToActivate);
+        Util.ActivateChildren(inventory);
+        Util.ActivateChildren(movement);
+        movementManager.BackButton.SetActive(true);
+        Util.DeactivateChildren(GameObject.Find("JournalCanvas"));
+
+        currentCanvas = canvasToActivate;
+
+        hintManager.DisplayCheck();
+
+        if (movementManager.lookingEnabled)
+        {
+            int curPos = movementManager.curPos;
+            movementManager.CenterAndEnableLooking();
+            if (curPos == 0)
+            {
+                movementManager.LookLeft();
+            }
+            else if (curPos == 2)
+            {
+                movementManager.LookRight();
+            }
+        }
+        else
+        {
+            movementManager.DisableLooking();
+        }
     }
 
     // depricated!!
@@ -154,7 +198,8 @@ public class CanvasSwapper : MonoBehaviour
         BackCanvas bc = new BackCanvas
         {
             obj = currentCanvas,
-            lookingEnabled = movementManager.lookingEnabled
+            lookingEnabled = movementManager.lookingEnabled,
+            curLookPos = movementManager.curPos
         };
         backStack.Push(bc);
         currentCanvas = canvasToActivate;
@@ -179,7 +224,8 @@ public class CanvasSwapper : MonoBehaviour
         BackCanvas bc = new BackCanvas
         {
             obj = currentCanvas,
-            lookingEnabled = movementManager.lookingEnabled
+            lookingEnabled = movementManager.lookingEnabled,
+            curLookPos = movementManager.curPos
         };
         backStack.Push(bc);
         currentCanvas = canvasToActivate;
@@ -233,6 +279,14 @@ public class CanvasSwapper : MonoBehaviour
             if (backCanvas.lookingEnabled)
             {
                 movementManager.CenterAndEnableLooking();
+                if (backCanvas.curLookPos == 0)
+                {
+                    movementManager.LookLeft();
+                }
+                else if (backCanvas.curLookPos == 2)
+                {
+                    movementManager.LookRight();
+                }
             }
             else
             {

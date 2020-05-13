@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GoToJournal : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class GoToJournal : MonoBehaviour
             {
                 counter = 0;
                 isGoingToJournal = false;
+                GetComponent<Image>().color = Color.clear;
                 
             }
             else

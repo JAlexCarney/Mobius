@@ -13,6 +13,8 @@ public class JournalHandler : MonoBehaviour
     public SoundManager soundManager;
     public GameObject leftButton;
     public GameObject rightButton;
+    public GameObject OpenAnim;
+    public GameObject FlipAnim; //forwards is left, backwards is right.
     private List<string> showing;
     private Dictionary<string, GameObject> entryObjs;
     private int currentSpread = 0;
@@ -90,7 +92,12 @@ public class JournalHandler : MonoBehaviour
     {
         currentSpread--;
         spreadsToSee[currentSpread] = false;
-        RefreshJournal();
+        Animation anim = FlipAnim.GetComponent<Animation>();
+        AnimationState flip = anim["journalFlip"];
+        anim.Play();
+        flip.speed = 1;
+        flip.time = 0;
+        Invoke("RefreshJournal", flip.length/2);
         soundManager.Play("pageTurn");
     }
 
@@ -98,7 +105,13 @@ public class JournalHandler : MonoBehaviour
     {
         currentSpread++;
         spreadsToSee[currentSpread] = false;
-        RefreshJournal();
+        Animation anim = FlipAnim.GetComponent<Animation>();
+        AnimationState flip = anim["journalFlip"];
+        Debug.Log(flip);
+        anim.Play();
+        flip.speed = -1;
+        flip.time = flip.length;
+        Invoke("RefreshJournal", flip.length/2);
         soundManager.Play("pageTurn");
     }
 
@@ -216,13 +229,44 @@ public class JournalHandler : MonoBehaviour
 
         spreadsToSee[currentSpread] = false;
 
-        RefreshJournal();
+        //RefreshJournal();
 
+        Animation anim = OpenAnim.GetComponent<Animation>();
+        anim.Play();
+        anim["journalOpen"].speed = 1;
+        anim["journalOpen"].time = 0;
+        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().DisableUI();
+        Invoke("PlayOpeningSound", 0.333f);
+        Invoke("FinishOpen", 1.0f);
+    }
+
+    public void Close()
+    {
+        Animation anim = OpenAnim.GetComponent<Animation>();
+        anim.Play();
+        anim["journalOpen"].speed = -1;
+        anim["journalOpen"].time = anim["journalOpen"].length;
         soundManager.Play("journalOpen");
+        Invoke("FinishClose", 0.08f);
+    }
 
+    public void PlayOpeningSound()
+    {
+        soundManager.Play("journalOpen");
+    }
+
+    public void FinishOpen()
+    {
         //use canvas swapper to open the journal
         GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().OpenJournal();
+        //OpenAnim.GetComponent<Animation>().Stop();
 
         RefreshJournal();
+    }
+
+    public void FinishClose()
+    {
+        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().CloseJournal();
+        //OpenAnim.GetComponent<Animation>().Stop();
     }
 }

@@ -17,7 +17,7 @@ public class MovementManager : MonoBehaviour
     // 0 -> left
     // 1 -> center
     // 2 -> right
-    private int curPos;
+    public int curPos;
 
     private bool isPanning = false;
     private int panningTime = 25; // one second
