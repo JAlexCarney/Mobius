@@ -120,6 +120,7 @@ public class PrismReference : MonoBehaviour
             CastLight(lightPath);
         }
 
+        /*
         while (castingPrisms.Count != 0)
         {
             PrismElement prism = castingPrisms.Pop();
@@ -136,6 +137,7 @@ public class PrismReference : MonoBehaviour
                 CastLight(prismPath);
             }
         }
+        */
     }
 
     public LightNode CalculateLight(int sourceRow, int sourceCol, string sourceDir, LightNode path)

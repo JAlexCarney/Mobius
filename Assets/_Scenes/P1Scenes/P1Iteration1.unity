@@ -2156,6 +2156,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1843338250970165596, guid: ce8294ff1062d904f806786471b38bf1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce8294ff1062d904f806786471b38bf1, type: 3}
 --- !u!114 &1065264072 stripped
@@ -4918,6 +4923,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4259088197219039729, guid: 2c56d80710f7c2948b5282d3df0e3d92,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 81
+      objectReference: {fileID: 0}
     - target: {fileID: 4259088197219039742, guid: 2c56d80710f7c2948b5282d3df0e3d92,
         type: 3}
       propertyPath: m_UiScaleMode
@@ -4996,11 +5006,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AspectRatio
       value: 0.001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4259088197219039729, guid: 2c56d80710f7c2948b5282d3df0e3d92,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 81
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5245085724520011161, guid: 2c56d80710f7c2948b5282d3df0e3d92, type: 3}
@@ -6055,16 +6060,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4629480179926403796, guid: bf8a06ec9ac3df84c8d5410c5364376e,
-        type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 999792618}
-    - target: {fileID: 4629480179926403796, guid: bf8a06ec9ac3df84c8d5410c5364376e,
-        type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetVolume
-      objectReference: {fileID: 0}
     - target: {fileID: 5137143132876443501, guid: bf8a06ec9ac3df84c8d5410c5364376e,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -6094,6 +6089,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629480179926403796, guid: bf8a06ec9ac3df84c8d5410c5364376e,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 999792618}
+    - target: {fileID: 4629480179926403796, guid: bf8a06ec9ac3df84c8d5410c5364376e,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetVolume
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf8a06ec9ac3df84c8d5410c5364376e, type: 3}
@@ -11676,18 +11681,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Newspaper
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1065264072}
-        m_MethodName: Show
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: VendingMachineSolution
+          m_StringArgument: Newspaper+VendingMachineSolution
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 461010875}
