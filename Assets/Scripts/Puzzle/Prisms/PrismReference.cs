@@ -259,7 +259,35 @@ public class PrismReference : MonoBehaviour
 
             else if (currentElement.type == "prism")
             {
+                if (currentElement.colorToCast == "")
+                {
+                    currentElement.colorToCast = current.color;
+                }
 
+                else
+                {
+                    currentElement.colorToCast = PrimaryColorCombine(currentElement.colorToCast, current.color);
+                    Debug.Log(currentElement.colorToCast);
+                }
+
+                LightNode next = new LightNode();
+                next.position = currentElement.gameObject.GetComponent<RectTransform>().anchoredPosition;
+                next.color = current.color;
+                current.next = next;
+                current = next;
+
+                // Change the color of the mirror.
+                currentElement.GetComponentInChildren<Image>().sprite = prismImages[currentElement.colorToCast];
+            }
+
+            else if (currentElement.type == "symbol")
+            {
+                if (currentElement.colorToCast == current.color)
+                {
+                    currentElement.GetComponent<Image>().color = Color.white;
+                }
+
+                blocked = true;
             }
 
             else if (currentElement.type == "wall" || currentElement.type == "source" || currentElement.type == "socket")
@@ -353,13 +381,47 @@ public class PrismReference : MonoBehaviour
                 {
                     current.GetComponentInChildren<Image>().sprite = prismImages["none"];
                 }
+
+                else if (current.type == "symbol")
+                {
+                    current.GetComponent<Image>().color = Color.clear;
+                }
             }
         }
     }
 
+    public PrismElement Swappable(PrismElement held, Vector3 pos)
+    {
+        for (int i = 0; i < prismReference.Length; i++)
+        {
+            for (int j = 0; j < prismReference.Length; j++)
+            {
+                PrismElement current = prismReference[i][j].GetComponent<PrismElement>();
+
+                if (current != held)
+                {
+                    if (current.type == "mirror" || current.type == "")
+                    {
+                        if (Util.CheckBounds(current.gameObject, pos))
+                        {
+                            return current;
+                        }
+                    }
+                } 
+            }
+        }
+
+        PrismElement dummy = new PrismElement();
+        dummy.row = -1;
+        dummy.column = -1;
+
+        return dummy;
+    }
+
     public string PrimaryColorCombine(string color1, string color2)
     {
-        string comboColor = " ";
+        string comboColor = "";
+        Debug.Log(color1 + " " + color2);
 
         if (color1 == "red")
         {

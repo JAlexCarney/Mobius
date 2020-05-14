@@ -27,7 +27,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private TopVisualFolllow movingVisual;
     private Transform parent;
     private Vector3 origin;
-    private Vector3 destination;
+    private Vector3 droppedPos;
     private Touch touch;
 
     // Start is called before the first frame update
@@ -57,6 +57,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
         movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
         parent = transform.parent;
+        origin = this.transform.position;
     }
 
     // Update is called once per frame
@@ -135,12 +136,14 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             {
                 counter = 0;
                 isGoingBack = false;
+                prismReference.BoardUpdate();
                 transform.parent = parent;
+                Debug.Log(row + " " + column);
             }
             else
             {
                 counter++;
-                transform.position = Vector3.Lerp(destination, origin, (float)counter / 30f);
+                transform.position = Vector3.Lerp(droppedPos, origin, (float)counter / 30f);
             }
         }
     }
@@ -181,7 +184,16 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
             else if (thresholdFrames >= 15)
             {
-                DropMirror();
+                PrismElement element = prismReference.Swappable(this, this.transform.position);
+
+                if (element.row != -1)
+                {
+                    SwapMirror(element);
+                }
+                else
+                {
+                    DropMirror();
+                }
             }
         }
     }
@@ -189,12 +201,41 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void RotateMirror()
     {
         isRotating = true;
+        held = null;
     }
 
     public void DropMirror()
     {
         isGoingBack = true;
-        destination = this.transform.position;
+        droppedPos = this.transform.position;
+        Debug.Log("Mirror was dropped.");
+        held = null;
+    }
+
+    public void SwapMirror(PrismElement toSwap)
+    {
+        droppedPos = this.transform.position;
+        toSwap.droppedPos = toSwap.transform.position;
+
+        Vector3 tempPos = origin;
+        int tempRow = row;
+        int tempCol = column;
+
+        origin = toSwap.origin;
+        row = toSwap.row;
+        column = toSwap.column;
+        
+        toSwap.origin = tempPos;
+        toSwap.row = tempRow;
+        toSwap.column = tempCol;
+
+        isGoingBack = true;
+        toSwap.isGoingBack = true;
+        toSwap.transform.parent = movingVisual.gameObject.transform;
+
+        prismReference.prismReference[row][column] = this.gameObject;
+        prismReference.prismReference[toSwap.row][toSwap.column] = toSwap.gameObject;
+
         held = null;
     }
 }
