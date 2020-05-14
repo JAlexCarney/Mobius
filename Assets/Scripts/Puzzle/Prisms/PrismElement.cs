@@ -9,6 +9,8 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public string type;
     public string orientation;
     public string colorToCast;
+    public List<string> colorsToCast;
+    public List<string> directionsToCast; 
     public PrismReference prismReference;
     public int row;
     public int column;
@@ -34,6 +36,9 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     void Start()
     {
         prismReference = this.GetComponentInParent<PrismReference>();
+
+        colorsToCast = new List<string>();
+        directionsToCast = new List<string>();
 
         if (this.orientation == "NW")
         {
@@ -75,7 +80,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             currentRotation += 5;
 
             int newZ = currentRotation % 360;
-            Debug.Log("NewZ: " + newZ);
+            //Debug.Log("NewZ: " + newZ);
 
             Vector3 updatedRotation = new Vector3(0, 0, newZ);
             this.GetComponent<RectTransform>().localEulerAngles = updatedRotation;
@@ -83,7 +88,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             if (newZ >= 44 && newZ <= 46)
             {
                 this.orientation = "NW";
-                Debug.Log(this.orientation + " " + currentRotation);
+                //Debug.Log(this.orientation + " " + currentRotation);
                 prismReference.BoardUpdate();
                 isRotating = false;
             }
@@ -91,7 +96,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             else if (newZ >= 134 && newZ <= 136)
             {
                 this.orientation = "SW";
-                Debug.Log(this.orientation + " " + currentRotation);
+                //Debug.Log(this.orientation + " " + currentRotation);
                 prismReference.BoardUpdate();
                 isRotating = false;
             }
@@ -99,7 +104,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             else if (newZ >= 224 && newZ <= 226)
             {
                 this.orientation = "SE";
-                Debug.Log(this.orientation + " " + currentRotation);
+                //Debug.Log(this.orientation + " " + currentRotation);
                 prismReference.BoardUpdate();
                 isRotating = false;
             }
@@ -107,7 +112,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             else if (newZ >= 314 && newZ <= 316)
             {
                 this.orientation = "NE";
-                Debug.Log(this.orientation + " " + currentRotation);
+                //Debug.Log(this.orientation + " " + currentRotation);
                 prismReference.BoardUpdate();
                 isRotating = false;
             }
@@ -138,7 +143,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
                 isGoingBack = false;
                 prismReference.BoardUpdate();
                 transform.parent = parent;
-                Debug.Log(row + " " + column);
+                //Debug.Log(row + " " + column);
             }
             else
             {
@@ -208,7 +213,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         isGoingBack = true;
         droppedPos = this.transform.position;
-        Debug.Log("Mirror was dropped.");
+        //Debug.Log("Mirror was dropped.");
         held = null;
     }
 
