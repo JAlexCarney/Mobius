@@ -120,24 +120,123 @@ public class PrismReference : MonoBehaviour
             CastLight(lightPath);
         }
 
-        /*
-        while (castingPrisms.Count != 0)
+        int count = 0;
+        while (castingPrisms.Count != 0 && count < 100)
         {
             PrismElement prism = castingPrisms.Pop();
+            count++;
+            Debug.Log("Iteration: " + count);
+
+            List<string> up = new List<string>();
+            List<string> down = new List<string>();
+            List<string> left = new List<string>();
+            List<string> right = new List<string>();
 
             for (int i = 0; i < prism.colorsToCast.Count; i++)
             {
                 string color = prism.colorsToCast[i];
                 string direction = prism.directionsToCast[i];
 
-                LightNode prismPath = new LightNode();
-                prismPath.position = prism.gameObject.GetComponent<RectTransform>().anchoredPosition;
-                prismPath.color = color;
-                prismPath = CalculateLight(prism.row, prism.column, direction, prismPath);
-                CastLight(prismPath);
+                if (direction == "up")
+                {
+                    up.Add(color);
+                }
+                else if (direction == "down")
+                {
+                    down.Add(color);
+                }
+                else if (direction == "left")
+                {
+                    left.Add(color);
+                }
+                else if (direction == "right")
+                {
+                    right.Add(color);
+                }
+            }
+
+            string upColor = "";
+            foreach (string color in up)
+            {
+                upColor = ColorCombine(upColor, color);
+            }
+
+            if (up.Count != 0)
+            {
+                // cast a beam
+                LightNode lightPath = new LightNode();
+                lightPath.position = prism.gameObject.GetComponent<RectTransform>().anchoredPosition;
+                lightPath.color = upColor;
+                lightPath = CalculateLight(prism.row, prism.column, "up", lightPath);
+                CastLight(lightPath);
+            }
+
+            string downColor = "";
+            foreach (string color in down)
+            {
+                downColor = ColorCombine(downColor, color);
+            }
+
+            if (down.Count != 0)
+            {
+                // cast a beam
+                LightNode lightPath = new LightNode();
+                lightPath.position = prism.gameObject.GetComponent<RectTransform>().anchoredPosition;
+                lightPath.color = downColor;
+                lightPath = CalculateLight(prism.row, prism.column, "down", lightPath);
+                CastLight(lightPath);
+            }
+
+            string leftColor = "";
+            foreach (string color in left)
+            {
+                leftColor = ColorCombine(leftColor, color);
+            }
+
+            if (left.Count != 0)
+            {
+                // cast a beam
+                LightNode lightPath = new LightNode();
+                lightPath.position = prism.gameObject.GetComponent<RectTransform>().anchoredPosition;
+                lightPath.color = leftColor;
+                lightPath = CalculateLight(prism.row, prism.column, "left", lightPath);
+                CastLight(lightPath);
+            }
+
+            string rightColor = "";
+            foreach (string color in right)
+            {
+                rightColor = ColorCombine(rightColor, color);
+            }
+
+            if (right.Count != 0)
+            {
+                // cast a beam
+                LightNode lightPath = new LightNode();
+                lightPath.position = prism.gameObject.GetComponent<RectTransform>().anchoredPosition;
+                lightPath.color = rightColor;
+                lightPath = CalculateLight(prism.row, prism.column, "right", lightPath);
+                CastLight(lightPath);
+            }
+
+            if (prism.orientation == "up")
+            {
+                if (downColor != "")
+                {
+                    // Change the color of the prism.
+                    prism.GetComponentInChildren<Image>().sprite = prismImages[downColor];
+                }
+            }
+            else
+            {
+                if(upColor != "")
+                {
+                    // Change the color of the prism.
+                    prism.GetComponentInChildren<Image>().sprite = prismImages[upColor];
+                }
             }
         }
-        */
+        
     }
 
     public LightNode CalculateLight(int sourceRow, int sourceCol, string sourceDir, LightNode path)
@@ -397,8 +496,6 @@ public class PrismReference : MonoBehaviour
     {
         // Spawn an image object as a little square with 2 screen positions
         GameObject line = Instantiate(prefab);
-        //Debug.Log(pos1.ToString());
-        //Debug.Log(pos2.ToString());
         
         // Take one screen postions and subtract it component wise from the other, x-x y-y
         Vector2 delta = pos1 - pos2;
@@ -451,6 +548,8 @@ public class PrismReference : MonoBehaviour
                 {
                     current.GetComponentInChildren<Image>().sprite = prismImages["none"];
                     current.colorToCast = "";
+                    current.colorsToCast = new List<string>();
+                    current.directionsToCast = new List<string>();
                 }
 
                 else if (current.type == "symbol")
@@ -489,50 +588,129 @@ public class PrismReference : MonoBehaviour
         return dummy;
     }
 
-    public string PrimaryColorCombine(string color1, string color2)
+    public Vector3Int ColorStringToVector3Int(string color)
     {
-        string comboColor = "";
-        //Debug.Log(color1 + " " + color2);
+        // 3-bit color
+        // x = red
+        // y = green
+        // z = blue
 
-        if (color1 == "red")
+        Vector3Int c = new Vector3Int();
+
+        if (color == "")
         {
-            if (color2 == "blue")
-            {
-                comboColor = "magenta";
-            }
-
-            else if (color2 == "green")
-            {
-                comboColor = "yellow";
-            }
+            c.x = 0;
+            c.y = 0;
+            c.z = 0;
+        }
+        else if (color == "red")
+        {
+            c.x = 1;
+            c.y = 0;
+            c.z = 0;
+        }
+        else if (color == "green")
+        {
+            c.x = 0;
+            c.y = 1;
+            c.z = 0;
+        }
+        else if (color == "blue")
+        {
+            c.x = 0;
+            c.y = 0;
+            c.z = 1;
+        }
+        else if (color == "magenta")
+        {
+            c.x = 1;
+            c.y = 0;
+            c.z = 1;
+        }
+        else if (color == "cyan")
+        {
+            c.x = 0;
+            c.y = 1;
+            c.z = 1;
+        }
+        else if (color == "yellow")
+        {
+            c.x = 1;
+            c.y = 1;
+            c.z = 0;
+        }
+        else if (color == "white")
+        {
+            c.x = 1;
+            c.y = 1;
+            c.z = 1;
         }
 
-        else if (color1 == "blue")
-        {
-            if (color2 == "red")
-            {
-                comboColor = "magenta";
-            }
+        return c;
+    }
 
-            else if (color2 == "green")
-            {
-                comboColor = "cyan";
-            }
+    public string Vector3IntToColorString(Vector3Int color)
+    {
+        // 3-bit color
+        // x = red
+        // y = green
+        // z = blue
+
+        if (color == new Vector3Int(0,0,0))
+        {
+            return "";
+        }
+        else if (color == new Vector3Int(1, 0, 0))
+        {
+            return "red";
+        }
+        else if (color == new Vector3Int(0, 1, 0))
+        {
+            return "green";
+        }
+        else if (color == new Vector3Int(0, 0, 1))
+        {
+            return "blue";
+        }
+        else if (color == new Vector3Int(1, 0, 1))
+        {
+            return "magenta";
+        }
+        else if (color == new Vector3Int(0, 1, 1))
+        {
+            return "cyan";
+        }
+        else if (color == new Vector3Int(1, 1, 0))
+        {
+            return "yellow";
+        }
+        else
+        {
+            return "white";
+        }
+    }
+
+    public string ColorCombine(string color1, string color2)
+    {
+        
+        Vector3Int c1 = ColorStringToVector3Int(color1);
+        Vector3Int c2 = ColorStringToVector3Int(color2);
+
+        Vector3Int combinedColor = c1 + c2;
+
+        if (combinedColor.x > 1)
+        {
+            combinedColor.x = 1;
+        }
+        if (combinedColor.y > 1)
+        {
+            combinedColor.y = 1;
+        }
+        if (combinedColor.z > 1)
+        {
+            combinedColor.z = 1;
         }
 
-        else if (color1 == "green")
-        {
-            if (color2 == "blue")
-            {
-                comboColor = "cyan";
-            }
-
-            else if (color2 == "red")
-            {
-                comboColor = "yellow";
-            }
-        }
-
-        return comboColor;
+        return Vector3IntToColorString(combinedColor);
     }
 }

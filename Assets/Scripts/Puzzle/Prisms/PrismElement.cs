@@ -243,4 +243,15 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
         held = null;
     }
+
+    public void Socket(string objName)
+    {
+        PrismElement pe = GameObject.Find(objName).GetComponent<PrismElement>();
+        pe.row = row;
+        pe.column = column;
+        pe.gameObject.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+        prismReference.prismReference[row][column] = pe.gameObject;
+
+        prismReference.BoardUpdate();
+    }
 }
