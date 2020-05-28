@@ -30,8 +30,8 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
         label = gameObject.name;
         startPos = transform.position;
         movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
-        movingVisualInverse = GameObject.Find("MovingVisualCanvasInverse").GetComponent<TopVisualFolllow>();
         parent = transform.parent;
+        inverse = transform.GetChild(0).gameObject;
         offset = new Vector3(-100f, 100f, 0f);
     }
 
@@ -62,8 +62,8 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
                 counter = 0;
                 isGoingBack = false;
                 //movingVisual.StopTracking(gameObject);
-                inverse.transform.parent = parent;
                 transform.parent = parent;
+                inverse.transform.parent = transform;
             }
             else
             {
@@ -81,13 +81,11 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     public void OnPointerDown(PointerEventData d)
     {
-        Debug.Log("Clicked");
         Hold();
     }
 
     public void OnPointerUp(PointerEventData d)
     {
-        //Debug.Log("released");
         dropPos = transform.position;
         justReleased = true;
         Invoke("Drop", 0.1f);
@@ -101,17 +99,10 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
             holding = true;
             held = label;
             heldObj = gameObject;
-            
-            // alter scale
-            this.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
-            this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 30.0f);
-            // alter inverse scale
-            inverse.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
-            inverse.transform.eulerAngles = new Vector3(0.0f, 0.0f, 30.0f);
 
-            //GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
-            transform.parent = movingVisual.gameObject.transform;
-            inverse.transform.parent = movingVisualInverse.gameObject.transform;
+            movingVisualInverse = GameObject.Find("MovingVisualCanvasInverse").GetComponent<TopVisualFolllow>();
+            transform.parent = movingVisualInverse.gameObject.transform;
+            inverse.transform.parent = movingVisual.gameObject.transform;
         }
     }
 
@@ -123,14 +114,6 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
         heldObj = null;
         isGoingBack = true;
 
-        // return scale to normal
-        this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        this.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-        // return inverse scale to normal
-        inverse.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        inverse.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-
-        //GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
         justReleased = false;
     }
 }

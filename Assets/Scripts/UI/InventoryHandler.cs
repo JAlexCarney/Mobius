@@ -8,6 +8,7 @@ public class InventoryHandler : MonoBehaviour
 {
     private GameObject openButton = null;
     private GameObject openedInventory = null;
+    private SoundManager soundManager;
 
     public int numSlots;
     private string[] items;
@@ -31,6 +32,7 @@ public class InventoryHandler : MonoBehaviour
 
     public void Start()
     {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         Debug.Log("Inventory Start");
 
         foreach (Pickupable pickupable in pickupableObjs)
@@ -56,6 +58,7 @@ public class InventoryHandler : MonoBehaviour
     {
         if (!open && !animating)
         {
+            soundManager.Play("bagOpen");
             Util.ActivateChildren(openedInventory);
             Animation anim = openedInventory.GetComponent<Animation>();
             anim["InventoryOpen"].speed = 1;
@@ -83,6 +86,7 @@ public class InventoryHandler : MonoBehaviour
     {
         if (open && !animating)
         {
+            soundManager.Play("bagOpen");
             Animation anim = openedInventory.GetComponent<Animation>();
             anim["InventoryOpen"].speed = -1;
             anim["InventoryOpen"].time = anim["InventoryOpen"].length;

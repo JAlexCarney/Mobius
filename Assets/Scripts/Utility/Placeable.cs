@@ -5,6 +5,7 @@ using UnityEngine;
 public class Placeable : MonoBehaviour
 {
     public InventoryHandler inv;
+    public string label;
     private bool placed = false;
 
     public void Place(string objToPlaceOn)
@@ -23,6 +24,10 @@ public class Placeable : MonoBehaviour
             {
                 drag.startPos = pos;
                 inv.Remove(name);
+            }
+            else
+            {
+                inv.Remove(label);
             }
         }
     }

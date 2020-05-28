@@ -205,6 +205,8 @@ public class VendingCodeEnterer : MonoBehaviour
     {
         print("Display Update: " + value);
 
+        soundManager.Play("vendingClick");
+
         // Updates display code.
         if(acceptingNewLetters)
         {

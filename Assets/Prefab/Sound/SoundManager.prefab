@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3ffe1b3a1ddcb45aec2a1399990c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
   SoundsWithNames:
   - name: walk
     sound:
@@ -76,7 +77,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: e2693bfd188d411488b34aff70dfab1f, type: 3}
   - name: pour
     sound:
-    - {fileID: 8300000, guid: e2693bfd188d411488b34aff70dfab1f, type: 3}
+    - {fileID: 8300000, guid: 7bc577faaea040a43b97c74ab53dd4b5, type: 3}
   - name: boneBreak
     sound:
     - {fileID: 8300000, guid: 10d45617eb1601744896d881b845b401, type: 3}
@@ -93,3 +94,12 @@ MonoBehaviour:
     sound:
     - {fileID: 8300000, guid: f2ac4285ecd443a4199cb99ca29b16f3, type: 3}
     - {fileID: 8300000, guid: 810c5f92f6a567c4098035f239eac3f4, type: 3}
+  - name: move
+    sound:
+    - {fileID: 8300000, guid: 9fdf28d5b89f2cb489fa8ff88bb744b2, type: 3}
+  - name: bagOpen
+    sound:
+    - {fileID: 8300000, guid: b1b787c10a7117043b0d2c05ccc54a31, type: 3}
+  - name: vendingClick
+    sound:
+    - {fileID: 8300000, guid: 4af84d6af355ade4aadde6313b66043b, type: 3}

@@ -530,7 +530,6 @@ GameObject:
   - component: {fileID: 5347045203032150930}
   - component: {fileID: 5347045203032150929}
   - component: {fileID: 6284262453741038695}
-  - component: {fileID: 1860647252111797394}
   m_Layer: 0
   m_Name: Statue
   m_TagString: Untagged
@@ -616,22 +615,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1860647252111797394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5347045203032150943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 508dbdea714291045b7af0fac73cddd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionPrefab: {fileID: 0}
-  transitionEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &5347045203809423221
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +627,7 @@ GameObject:
   - component: {fileID: 5347045203809423176}
   - component: {fileID: 5347045203809423223}
   - component: {fileID: 5347045203809423222}
+  - component: {fileID: 2002994702045660271}
   m_Layer: 0
   m_Name: Intro
   m_TagString: Untagged
@@ -733,6 +717,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2002994702045660271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347045203809423221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508dbdea714291045b7af0fac73cddd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionPrefab: {fileID: 0}
+  transitionEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6690581231288133537
 GameObject:
   m_ObjectHideFlags: 0

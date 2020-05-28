@@ -32,6 +32,8 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private Vector3 droppedPos;
     private Touch touch;
 
+    private bool locked = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -155,7 +157,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerDown(PointerEventData d)
     {
-        if (held == null) {
+        if (held == null && !locked) {
 
             if (!isRotating && !isGoingBack)
             {
@@ -183,6 +185,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             {
                 if (this.type == "mirror")
                 {
+                    held.transform.parent = held.GetComponent<PrismElement>().parent;
                     RotateMirror();
                 }
             }
@@ -247,11 +250,18 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void Socket(string objName)
     {
         PrismElement pe = GameObject.Find(objName).GetComponent<PrismElement>();
+        Debug.Log(objName);
+        Debug.Log(GameObject.Find(objName).transform.position);
         pe.row = row;
         pe.column = column;
         pe.gameObject.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
         prismReference.prismReference[row][column] = pe.gameObject;
 
         prismReference.BoardUpdate();
+    }
+
+    public void Lock()
+    {
+        locked = true;
     }
 }

@@ -18,7 +18,7 @@ public class JournalHandler : MonoBehaviour
     private List<string> showing;
     private Dictionary<string, GameObject> entryObjs;
     private int currentSpread = 0;
-    private readonly int spreadCount = 3;
+    private int spreadCount = 3;
     private bool[] spreadsToSee;
 
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class JournalHandler : MonoBehaviour
         journalButton = GameObject.Find("InventoryManager").transform.GetChild(2).gameObject;
         showing = new List<string>();
         entryObjs = new Dictionary<string, GameObject>();
-        spreadsToSee = new bool[spreadCount];
+        spreadsToSee = new bool[10];
         for (int i = 0; i < spreadsToSee.Length; i++)
         {
             spreadsToSee[i] = false;
@@ -268,5 +268,34 @@ public class JournalHandler : MonoBehaviour
     {
         GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().CloseJournal();
         //OpenAnim.GetComponent<Animation>().Stop();
+    }
+
+    public void ShowLoopOne()
+    {
+        List<GameObject> spreadsToShow = new List<GameObject>
+        {
+            transform.GetChild(5).gameObject,
+            transform.GetChild(6).gameObject,
+            transform.GetChild(7).gameObject
+        };
+        string names = "";
+        foreach (GameObject spread in spreadsToShow)
+        {
+            for (int i = 0; i < spread.transform.childCount; i++)
+            {
+                Transform t = spread.transform.GetChild(i);
+                for (int j = 0; j < t.childCount; j++)
+                {
+                    if (names != "")
+                    {
+                        names += "+";
+                    }
+
+                    names += t.GetChild(j).name;
+                }
+            }
+        }
+        Show(names);
+        spreadCount = 5;
     }
 }

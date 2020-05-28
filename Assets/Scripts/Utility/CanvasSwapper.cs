@@ -19,6 +19,7 @@ public class CanvasSwapper : MonoBehaviour
 
     private MovementManager movementManager;
     private HintManager hintManager;
+    private SoundManager soundManager;
 
     private Image fadeImage;
     private void Start()
@@ -27,6 +28,7 @@ public class CanvasSwapper : MonoBehaviour
         movement = GameObject.Find("MovementManager");
         hintManager = GameObject.Find("HintManager").GetComponent<HintManager>();
         movementManager = GameObject.Find("MovementManager").GetComponent<MovementManager>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         backStack = new Stack<BackCanvas>();
         Debug.Log("Start!!");
     }
@@ -87,6 +89,8 @@ public class CanvasSwapper : MonoBehaviour
         Util.DeactivateChildren(inventory);
         Util.DeactivateChildren(movement);
         Util.DeactivateChildren(hintManager.gameObject);
+
+        soundManager.Play("move");
 
         // push to backStack
         movementManager.EnableBack();
@@ -179,6 +183,7 @@ public class CanvasSwapper : MonoBehaviour
         Util.ActivateChildren(inventory);
         Util.ActivateChildren(movement);
         Util.DeactivateChildren(GameObject.Find("JournalCanvas"));
+        soundManager.Play("move");
         currentCanvas = canvasToActivate;
         hintManager.DisplayCheck();
     }
@@ -191,6 +196,7 @@ public class CanvasSwapper : MonoBehaviour
         Util.ActivateChildren(inventory);
         Util.ActivateChildren(movement);
         Util.DeactivateChildren(GameObject.Find("JournalCanvas"));
+        soundManager.Play("move");
 
 
         // push to backStack
@@ -218,6 +224,7 @@ public class CanvasSwapper : MonoBehaviour
         Util.ActivateChildren(inventory);
         Util.ActivateChildren(movement);
         Util.DeactivateChildren(GameObject.Find("JournalCanvas"));
+        soundManager.Play("move");
 
         // push to backStack
         movementManager.EnableBack();
@@ -271,6 +278,7 @@ public class CanvasSwapper : MonoBehaviour
             Util.ActivateChildren(inventory);
             Util.ActivateChildren(movement);
             Util.DeactivateChildren(GameObject.Find("JournalCanvas"));
+            soundManager.Play("move");
 
             currentCanvas = canvasToActivate;
 

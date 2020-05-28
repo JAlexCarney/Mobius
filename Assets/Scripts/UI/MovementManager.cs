@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MovementManager : MonoBehaviour
 {
     public CanvasSwapper canvasSwapper;
+    private SoundManager soundManager;
     public GameObject LeftButton;
     public GameObject RightButton;
     public GameObject BackButton;
@@ -32,7 +33,11 @@ public class MovementManager : MonoBehaviour
         if (isPanning)
         {
             count++;
-            bgRect.anchoredPosition = Vector3.Lerp(from, to, (float)count / panningTime);
+            //Vector3.Lerp(from, to, Mathf.Pow((float)count / panningTime, 0.5f));
+            bgRect.anchoredPosition = new Vector3(
+                Mathf.SmoothStep(from.x, to.x, (float)count / panningTime), 
+                Mathf.SmoothStep(from.y, to.y, (float)count / panningTime),
+                0.0f);
             if (count == panningTime)
             {
                 count = 0;
@@ -44,6 +49,7 @@ public class MovementManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         // 1 = room center
         curPos = 1;
     }
@@ -68,6 +74,7 @@ public class MovementManager : MonoBehaviour
 
     public void LookLeft()
     {
+        soundManager.Play("move");
         if (!leftIsDisabled && lookingEnabled)
         {
             int pos = curPos - 1;
@@ -88,6 +95,7 @@ public class MovementManager : MonoBehaviour
 
     public void LookRight()
     {
+        soundManager.Play("move");
         if (!rightIsDisabled && lookingEnabled)
         {
             int pos = curPos + 1;
@@ -130,6 +138,40 @@ public class MovementManager : MonoBehaviour
             else if (pos == 2)
             {
                 to = new Vector3(-(bgRect.rect.width - 1600) / 2, 0, 0);
+            }
+            isPanning = true;
+            curPos = pos;
+        }
+    }
+
+    public void SetPositionInstant(int pos)
+    {
+
+        GameObject background = canvasSwapper.currentCanvas.transform.GetChild(0).gameObject;
+        bgRect = background.GetComponent<RectTransform>();
+
+        from = bgRect.anchoredPosition;
+
+        if (pos != curPos)
+        {
+            // set room left
+            if (pos == 0)
+            {
+                to = new Vector3((bgRect.rect.width - 1600) / 2, 0, 0);
+                from = to;
+                DisableLeft();
+            }
+            // set room center
+            else if (pos == 1)
+            {
+                to = new Vector3(0, 0, 0);
+                from = to;
+            }
+            // set room right
+            else if (pos == 2)
+            {
+                to = new Vector3(-(bgRect.rect.width - 1600) / 2, 0, 0);
+                from = to;
             }
             isPanning = true;
             curPos = pos;

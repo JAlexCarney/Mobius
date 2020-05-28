@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PrismReference : MonoBehaviour
@@ -39,7 +41,23 @@ public class PrismReference : MonoBehaviour
 
     public ElementImage[] mirrorImagesArray;
     public ElementImage[] prismImagesArray;
-   
+
+    private int framesSinceCast = 0;
+    private bool casting = false;
+
+    public UnityEvent winEvent;
+
+    private void FixedUpdate()
+    {
+        if (casting)
+        {
+            framesSinceCast++;
+            if (framesSinceCast == 60)
+            {
+                casting = false;
+            }
+        }
+    }
 
     private void Start()
     {
@@ -121,7 +139,7 @@ public class PrismReference : MonoBehaviour
         }
 
         int count = 0;
-        while (castingPrisms.Count != 0 && count < 100)
+        while (castingPrisms.Count != 0 && count < 10)
         {
             PrismElement prism = castingPrisms.Pop();
             count++;
@@ -226,6 +244,11 @@ public class PrismReference : MonoBehaviour
                     // Change the color of the prism.
                     prism.GetComponentInChildren<Image>().sprite = prismImages[downColor];
                 }
+                else if (rightColor != "")
+                {
+                    // Change the color of the prism.
+                    prism.GetComponentInChildren<Image>().sprite = prismImages[rightColor];
+                }
             }
             else
             {
@@ -233,6 +256,11 @@ public class PrismReference : MonoBehaviour
                 {
                     // Change the color of the prism.
                     prism.GetComponentInChildren<Image>().sprite = prismImages[upColor];
+                }
+                else if (rightColor != "")
+                {
+                    // Change the color of the prism.
+                    prism.GetComponentInChildren<Image>().sprite = prismImages[rightColor];
                 }
             }
         }
@@ -251,220 +279,249 @@ public class PrismReference : MonoBehaviour
 
         while (!blocked)
         {
-            // Search through the reference array to find an object.
-            if (direction == "left")
-            {
-                col--;
-            }
-
-            else if (direction == "right")
-            {
-                col++;
-            }
-
-            else if (direction == "up")
-            {
-                row--;
-            }
-
-            else if (direction == "down")
-            {
-                row++;
-            }
-
-            PrismElement currentElement = prismReference[row][col].GetComponent<PrismElement>();
-            /*Debug.Log(currentElement.name);
-            Debug.Log(direction);
-            Debug.Log("Type: " + currentElement.type);
-            Debug.Log("Column: " + col);
-            Debug.Log("Row: " + row); */
-
-            // How light interacts will mirrors.
-            if (currentElement.type == "mirror")
-            {
-                string mirrorOrientation = currentElement.orientation;
-
-                if (mirrorOrientation == "NE")
+                // Search through the reference array to find an object.
+                if (direction == "left")
                 {
-                    if (direction == "left")
-                    {
-                        direction = "up";
-                    }
-
-                    else if (direction == "down")
-                    {
-                        direction = "right";
-                    }
-
-                    else if (direction == "up" || direction == "right")
-                    {
-                        blocked = true;
-                    }
-
+                    col--;
                 }
 
-                else if (mirrorOrientation == "SE")
+                else if (direction == "right")
                 {
-                    if (direction == "left")
-                    {
-                        direction = "down";
-                    }
-
-                    else if (direction == "up")
-                    {
-                        direction = "right";
-                    }
-
-                    else if (direction == "down" || direction == "right")
-                    {
-                        blocked = true;
-                    }
+                    col++;
                 }
 
-                else if (mirrorOrientation == "SW")
+                else if (direction == "up")
                 {
-                    if (direction == "right")
-                    {
-                        direction = "down";
-                    }
-
-                    else if (direction == "up")
-                    {
-                        direction = "left";
-                    }
-
-                    else if (direction == "down" || direction == "left")
-                    {
-                        blocked = true;
-                    }
+                    row--;
                 }
 
-                else if (mirrorOrientation == "NW")
+                else if (direction == "down")
                 {
-                    if (direction == "right")
-                    {
-                        direction = "up";
-                    }
-
-                    else if (direction == "down")
-                    {
-                        direction = "left";
-                    }
-
-                    else if (direction == "up" || direction == "left")
-                    {
-                        blocked = true;
-                    }
+                    row++;
                 }
 
-                // Declare next light node in list.
-                if (!blocked)
+                PrismElement currentElement = prismReference[row][col].GetComponent<PrismElement>();
+                /*Debug.Log(currentElement.name);
+                Debug.Log(direction);
+                Debug.Log("Type: " + currentElement.type);
+                Debug.Log("Column: " + col);
+                Debug.Log("Row: " + row); */
+
+                // How light interacts will mirrors.
+                if (currentElement.type == "mirror")
                 {
-                    LightNode next = new LightNode();
-                    next.position = currentElement.gameObject.GetComponent<RectTransform>().anchoredPosition;
-                    next.color = current.color;
-                    current.next = next;
-                    current = next;
+                    string mirrorOrientation = currentElement.orientation;
 
-                    // Change the color of the mirror.
-                    currentElement.GetComponentInChildren<Image>().sprite = mirrorImages[next.color];
-                }
-
-            }
-
-            else if (currentElement.type == "prism")
-            {
-                // Reflection logic.
-                if (currentElement.orientation == "up")
-                {
-                    if (direction == "left" || direction == "right")
+                    if (mirrorOrientation == "NE")
                     {
-                        currentElement.directionsToCast.Add("down");
-                        currentElement.colorsToCast.Add(current.color);
-
-                        if (!castingPrisms.Contains(currentElement))
+                        if (direction == "left")
                         {
-                            castingPrisms.Push(currentElement);
-                        }
-                        
-                        blocked = true;
-                    }
-
-                    else if (direction == "up")
-                    {
-                        currentElement.directionsToCast.Add("left");
-                        currentElement.directionsToCast.Add("right");
-                        currentElement.colorsToCast.Add(current.color);
-                        currentElement.colorsToCast.Add(current.color);
-
-                        if (!castingPrisms.Contains(currentElement))
-                        {
-                            castingPrisms.Push(currentElement);
+                            direction = "up";
                         }
 
+                        else if (direction == "down")
+                        {
+                            direction = "right";
+                        }
+
+                        else if (direction == "up" || direction == "right")
+                        {
+                            blocked = true;
+                        }
+
+                    }
+
+                    else if (mirrorOrientation == "SE")
+                    {
+                        if (direction == "left")
+                        {
+                            direction = "down";
+                        }
+
+                        else if (direction == "up")
+                        {
+                            direction = "right";
+                        }
+
+                        else if (direction == "down" || direction == "right")
+                        {
+                            blocked = true;
+                        }
+                    }
+
+                    else if (mirrorOrientation == "SW")
+                    {
+                        if (direction == "right")
+                        {
+                            direction = "down";
+                        }
+
+                        else if (direction == "up")
+                        {
+                            direction = "left";
+                        }
+
+                        else if (direction == "down" || direction == "left")
+                        {
+                            blocked = true;
+                        }
+                    }
+
+                    else if (mirrorOrientation == "NW")
+                    {
+                        if (direction == "right")
+                        {
+                            direction = "up";
+                        }
+
+                        else if (direction == "down")
+                        {
+                            direction = "left";
+                        }
+
+                        else if (direction == "up" || direction == "left")
+                        {
+                            blocked = true;
+                        }
+                    }
+
+                    if (currentElement.colorToCast != "")
+                    {
                         blocked = true;
                     }
 
-                    else if (direction == "down")
+                    // Declare next light node in list.
+                    if (!blocked)
                     {
-                        blocked = true;
+                        LightNode next = new LightNode();
+                        next.position = currentElement.gameObject.GetComponent<RectTransform>().anchoredPosition;
+                        next.color = current.color;
+                        current.next = next;
+                        current = next;
+
+                        // Change the color of the mirror.
+                        currentElement.GetComponentInChildren<Image>().sprite = mirrorImages[next.color];
+                        currentElement.colorToCast = current.color;
+                    }
+
+                }
+
+                else if (currentElement.type == "prism")
+                {
+                    // Reflection logic.
+                    if (currentElement.orientation == "up")
+                    {
+                        if (direction == "left" || direction == "right")
+                        {
+                            currentElement.directionsToCast.Add("down");
+                            currentElement.colorsToCast.Add(current.color);
+
+                            if (!castingPrisms.Contains(currentElement))
+                            {
+                                castingPrisms.Push(currentElement);
+                            }
+
+                            blocked = true;
+                        }
+
+                        else if (direction == "up")
+                        {
+                            currentElement.directionsToCast.Add("left");
+                            currentElement.directionsToCast.Add("right");
+                            currentElement.colorsToCast.Add(current.color);
+                            currentElement.colorsToCast.Add(current.color);
+
+                            if (!castingPrisms.Contains(currentElement))
+                            {
+                                castingPrisms.Push(currentElement);
+                            }
+
+                            blocked = true;
+                        }
+
+                        else if (direction == "down")
+                        {
+                            blocked = true;
+                        }
+                    }
+
+                    else if (currentElement.orientation == "down")
+                    {
+                        if (direction == "left" || direction == "right")
+                        {
+                            currentElement.directionsToCast.Add("up");
+                            currentElement.colorsToCast.Add(current.color);
+
+                            if (!castingPrisms.Contains(currentElement))
+                            {
+                                castingPrisms.Push(currentElement);
+                            }
+
+                            blocked = true;
+                        }
+
+                        else if (direction == "down")
+                        {
+                            currentElement.directionsToCast.Add("left");
+                            currentElement.directionsToCast.Add("right");
+                            currentElement.colorsToCast.Add(current.color);
+                            currentElement.colorsToCast.Add(current.color);
+
+                            if (!castingPrisms.Contains(currentElement))
+                            {
+                                castingPrisms.Push(currentElement);
+                            }
+
+                            blocked = true;
+                        }
+
+                        else if (direction == "up")
+                        {
+                            blocked = true;
+                        }
                     }
                 }
 
-                else if (currentElement.orientation == "down")
+                else if (currentElement.type == "symbol")
                 {
-                    if (direction == "left" || direction == "right")
+                    if (currentElement.colorToCast == current.color)
                     {
-                        currentElement.directionsToCast.Add("up");
-                        currentElement.colorsToCast.Add(current.color);
-
-                        if (!castingPrisms.Contains(currentElement))
-                        {
-                            castingPrisms.Push(currentElement);
-                        }
-
-                        blocked = true;
+                        currentElement.GetComponent<Image>().color = Color.white;
                     }
 
-                    else if (direction == "down")
-                    {
-                        currentElement.directionsToCast.Add("left");
-                        currentElement.directionsToCast.Add("right");
-                        currentElement.colorsToCast.Add(current.color);
-                        currentElement.colorsToCast.Add(current.color);
-
-                        if (!castingPrisms.Contains(currentElement))
-                        {
-                            castingPrisms.Push(currentElement);
-                        }
-
-                        blocked = true;
-                    }
-
-                    else if (direction == "up")
-                    {
-                        blocked = true;
-                    }
-                }                
-            }
-
-            else if (currentElement.type == "symbol")
-            {
-                if (currentElement.colorToCast == current.color)
-                {
-                    currentElement.GetComponent<Image>().color = Color.white;
+                    blocked = true;
                 }
 
-                blocked = true;
-            }
+                else if (currentElement.type == "win")
+                {
+                    if (currentElement.colorToCast == current.color)
+                    {
+                        winEvent.Invoke();
+                        Debug.Log("Prisims_Win!");
+                        for (int i = 0; i < prismReference.Length; i++)
+                        {
+                            for (int j = 0; j < prismReference.Length; j++)
+                            {
 
-            else if (currentElement.type == "wall" || currentElement.type == "source" || currentElement.type == "socket")
-            {
-                blocked = true;
-                
-            }
+                                if (prismReference[i][j] != null)
+                                {
+                                    GameObject currentObj = prismReference[i][j];
+                                    currentObj.GetComponent<PrismElement>().Lock();
+                                }
+                            }
+                        }
+                    }
 
-        }
+                    blocked = true;
+                }
+
+                else if (currentElement.type == "wall" || currentElement.type == "source" || currentElement.type == "socket")
+                {
+                    blocked = true;
+                }
+
+            }
+        
 
         // Declare light node where the beam stops casting.
         LightNode end = new LightNode();
@@ -496,7 +553,10 @@ public class PrismReference : MonoBehaviour
     {
         // Spawn an image object as a little square with 2 screen positions
         GameObject line = Instantiate(prefab);
-        
+
+        line.GetComponent<RectTransform>().SetParent(this.transform);
+        line.transform.SetSiblingIndex(1);
+
         // Take one screen postions and subtract it component wise from the other, x-x y-y
         Vector2 delta = pos1 - pos2;
 
@@ -509,15 +569,14 @@ public class PrismReference : MonoBehaviour
 
         Vector3 position = new Vector3(midpoint.x, midpoint.y, 0f);
 
-        line.GetComponent<RectTransform>().SetParent(this.transform);
-        line.transform.SetSiblingIndex(1);
-
         RectTransform lineRect = line.GetComponent<RectTransform>();
 
         lineRect.anchoredPosition = position;
         lineRect.localEulerAngles = new Vector3(0, 0, angle);
 
         lineRect.sizeDelta = new Vector2(length, lineRect.sizeDelta.y);
+
+        line.transform.localScale = new Vector3(1f, 1f, 1f);
 
         return line;
     }
