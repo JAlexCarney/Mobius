@@ -27,6 +27,10 @@ public class MovementManager : MonoBehaviour
     private Vector3 from;
     private Vector3 to;
 
+    private Vector2 noWhere;
+    private Vector2 RightButtonPosition;
+    private Vector2 LeftButtonPosition;
+
     // called 50 times a second regardless of frameRate
     private void FixedUpdate()
     {
@@ -52,6 +56,10 @@ public class MovementManager : MonoBehaviour
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         // 1 = room center
         curPos = 1;
+
+        RightButtonPosition = RightButton.GetComponent<RectTransform>().anchoredPosition;
+        LeftButtonPosition = LeftButton.GetComponent<RectTransform>().anchoredPosition;
+        noWhere = new Vector2(5000, 5000);
     }
 
     public void CenterAndEnableLooking()
@@ -198,6 +206,7 @@ public class MovementManager : MonoBehaviour
         RightButton.GetComponent<Image>().color = Color.white;
         rightIsDisabled = false;
         RightButton.GetComponent<Button>().interactable = true;
+        RightButton.GetComponent<RectTransform>().anchoredPosition = RightButtonPosition;
     }
 
     private void DisableRight()
@@ -205,6 +214,7 @@ public class MovementManager : MonoBehaviour
         RightButton.GetComponent<Image>().color = Color.clear;
         rightIsDisabled = true;
         RightButton.GetComponent<Button>().interactable = false;
+        RightButton.GetComponent<RectTransform>().anchoredPosition = noWhere;
     }
 
     private void EnableLeft()
@@ -213,6 +223,7 @@ public class MovementManager : MonoBehaviour
         LeftButton.GetComponent<Image>().color = Color.white;
         leftIsDisabled = false;
         LeftButton.GetComponent<Button>().interactable = true;
+        LeftButton.GetComponent<RectTransform>().anchoredPosition = LeftButtonPosition;
     }
 
     private void DisableLeft()
@@ -220,5 +231,6 @@ public class MovementManager : MonoBehaviour
         LeftButton.GetComponent<Image>().color = Color.clear;
         LeftButton.GetComponent<Button>().interactable = false;
         leftIsDisabled = true;
+        LeftButton.GetComponent<RectTransform>().anchoredPosition = noWhere;
     }
 }

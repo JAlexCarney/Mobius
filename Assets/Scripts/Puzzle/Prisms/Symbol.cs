@@ -8,6 +8,8 @@ public class Symbol : MonoBehaviour
     public string currentColorString = "off";
     private int currentColorInt = 0;
 
+    private SoundManager soundManager;
+
     public Sprite off;
     public Sprite red;
     public Sprite green;
@@ -24,6 +26,8 @@ public class Symbol : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+
         currentColorString = "off";
         currentColorInt = 0;
 
@@ -58,6 +62,7 @@ public class Symbol : MonoBehaviour
             currentColorString = colors[currentColorInt];
             GetComponent<Image>().sprite = colorSprites[currentColorInt];
             GetComponentInParent<SymbolCodeCheck>().Check();
+            soundManager.Play("lightButton");
         }
     }
 }
