@@ -14,6 +14,12 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public PrismReference prismReference;
     public int row;
     public int column;
+    public int touchedByPrism;
+    public int prismID;
+    public LightNode pathDown = null;
+    public LightNode pathUp = null;
+    public LightNode pathLeft = null;
+    public LightNode pathRight = null;
 
     private int thresholdFrames;
     private bool isDown;
@@ -74,6 +80,11 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if(isDown)
         {
             thresholdFrames++;
+        }
+
+        if (held == this.gameObject && thresholdFrames % 3 == 0)
+        {
+            prismReference.BoardUpdate();
         }
 
         // Rotate the Mirror.
@@ -155,10 +166,19 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         }
     }
 
+    public bool IsHeld()
+    {
+        if (held == this.gameObject && thresholdFrames > 10)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void OnPointerDown(PointerEventData d)
     {
         if (held == null && !locked) {
-
+            
             if (!isRotating && !isGoingBack)
             {
                 thresholdFrames = 0;
@@ -172,7 +192,9 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
                 }
             }
         }
-        
+
+        prismReference.BoardUpdate();
+
     }
 
     public void OnPointerUp(PointerEventData d)
@@ -181,16 +203,17 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         {
             isDown = false;
 
-            if (thresholdFrames < 15)
+            if (thresholdFrames < 10)
             {
                 if (this.type == "mirror")
                 {
                     held.transform.parent = held.GetComponent<PrismElement>().parent;
                     RotateMirror();
+                    prismReference.BoardUpdate();
                 }
             }
 
-            else if (thresholdFrames >= 15)
+            else if (thresholdFrames >= 10)
             {
                 PrismElement element = prismReference.Swappable(this, this.transform.position);
 

@@ -9,4 +9,5 @@ public class LightNode
     public string color;
     public GameObject beam;
     public Vector2 position;
+    public int castFromPrism = 0;
 }

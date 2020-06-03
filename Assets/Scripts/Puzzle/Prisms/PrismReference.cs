@@ -33,7 +33,7 @@ public class PrismReference : MonoBehaviour
     }
 
     public Dictionary<string, GameObject> lightPrefabs;
-    public Stack<PrismElement> castingPrisms;
+    public Queue<PrismElement> castingPrisms;
     private Stack<GameObject> lightBeams = new Stack<GameObject>();
 
     private Dictionary<string, Sprite> mirrorImages;
@@ -111,7 +111,7 @@ public class PrismReference : MonoBehaviour
     public void BoardUpdate()
     {
         List<PrismElement> sources = new List<PrismElement>();
-        castingPrisms = new Stack<PrismElement>();
+        castingPrisms = new Queue<PrismElement>();
 
         ClearBeams();
         ClearColors();
@@ -141,7 +141,8 @@ public class PrismReference : MonoBehaviour
         int count = 0;
         while (castingPrisms.Count != 0 && count < 10)
         {
-            PrismElement prism = castingPrisms.Pop();
+            PrismElement prism = castingPrisms.Dequeue();
+            ClearPrismEffects(prism.prismID);
             count++;
             Debug.Log("Iteration: " + count);
 
@@ -185,8 +186,9 @@ public class PrismReference : MonoBehaviour
                 LightNode lightPath = new LightNode();
                 lightPath.position = prism.gameObject.GetComponent<RectTransform>().anchoredPosition;
                 lightPath.color = upColor;
+                lightPath.castFromPrism = prism.prismID;
                 lightPath = CalculateLight(prism.row, prism.column, "up", lightPath);
-                CastLight(lightPath);
+                prism.pathUp = lightPath;
             }
 
             string downColor = "";
@@ -201,8 +203,10 @@ public class PrismReference : MonoBehaviour
                 LightNode lightPath = new LightNode();
                 lightPath.position = prism.gameObject.GetComponent<RectTransform>().anchoredPosition;
                 lightPath.color = downColor;
+                lightPath.castFromPrism = prism.prismID;
                 lightPath = CalculateLight(prism.row, prism.column, "down", lightPath);
-                CastLight(lightPath);
+                prism.pathDown = lightPath;
+                //CastLight(lightPath);
             }
 
             string leftColor = "";
@@ -217,8 +221,10 @@ public class PrismReference : MonoBehaviour
                 LightNode lightPath = new LightNode();
                 lightPath.position = prism.gameObject.GetComponent<RectTransform>().anchoredPosition;
                 lightPath.color = leftColor;
+                lightPath.castFromPrism = prism.prismID;
                 lightPath = CalculateLight(prism.row, prism.column, "left", lightPath);
-                CastLight(lightPath);
+                prism.pathLeft = lightPath;
+                //CastLight(lightPath);
             }
 
             string rightColor = "";
@@ -233,8 +239,10 @@ public class PrismReference : MonoBehaviour
                 LightNode lightPath = new LightNode();
                 lightPath.position = prism.gameObject.GetComponent<RectTransform>().anchoredPosition;
                 lightPath.color = rightColor;
+                lightPath.castFromPrism = prism.prismID;
                 lightPath = CalculateLight(prism.row, prism.column, "right", lightPath);
-                CastLight(lightPath);
+                prism.pathRight = lightPath;
+                //CastLight(lightPath);
             }
 
             if (prism.orientation == "up")
@@ -264,7 +272,34 @@ public class PrismReference : MonoBehaviour
                 }
             }
         }
-        
+
+        for (int i = 0; i < prismReference.Length; i++)
+        {
+            for (int j = 0; j < prismReference.Length; j++)
+            {
+                PrismElement prism = prismReference[i][j].GetComponent<PrismElement>();
+
+                if (prismReference[i][j].GetComponent<PrismElement>().type == "prism")
+                {
+                    if (prism.pathDown != null)
+                    {
+                        CastLight(prism.pathDown);
+                    }
+                    if (prism.pathUp != null)
+                    {
+                        CastLight(prism.pathUp);
+                    }
+                    if (prism.pathLeft != null)
+                    {
+                        CastLight(prism.pathLeft);
+                    }
+                    if (prism.pathRight != null)
+                    {
+                        CastLight(prism.pathRight);
+                    }
+                }
+            }
+        }
     }
 
     public LightNode CalculateLight(int sourceRow, int sourceCol, string sourceDir, LightNode path)
@@ -308,8 +343,10 @@ public class PrismReference : MonoBehaviour
                 Debug.Log("Row: " + row); */
 
                 // How light interacts will mirrors.
-                if (currentElement.type == "mirror")
+                if (currentElement.type == "mirror" && !currentElement.IsHeld())
                 {
+                    currentElement.touchedByPrism = current.castFromPrism;
+
                     string mirrorOrientation = currentElement.orientation;
 
                     if (mirrorOrientation == "NE")
@@ -387,7 +424,7 @@ public class PrismReference : MonoBehaviour
 
                     if (currentElement.colorToCast != "")
                     {
-                        blocked = true;
+                        blocked = true; ;
                     }
 
                     // Declare next light node in list.
@@ -408,6 +445,8 @@ public class PrismReference : MonoBehaviour
 
                 else if (currentElement.type == "prism")
                 {
+                    currentElement.touchedByPrism = current.castFromPrism;
+
                     // Reflection logic.
                     if (currentElement.orientation == "up")
                     {
@@ -418,7 +457,7 @@ public class PrismReference : MonoBehaviour
 
                             if (!castingPrisms.Contains(currentElement))
                             {
-                                castingPrisms.Push(currentElement);
+                                castingPrisms.Enqueue(currentElement);
                             }
 
                             blocked = true;
@@ -426,16 +465,16 @@ public class PrismReference : MonoBehaviour
 
                         else if (direction == "up")
                         {
-                            currentElement.directionsToCast.Add("left");
+                            /*currentElement.directionsToCast.Add("left");
                             currentElement.directionsToCast.Add("right");
                             currentElement.colorsToCast.Add(current.color);
                             currentElement.colorsToCast.Add(current.color);
 
                             if (!castingPrisms.Contains(currentElement))
                             {
-                                castingPrisms.Push(currentElement);
+                                castingPrisms.Enqueue(currentElement);
                             }
-
+                            */
                             blocked = true;
                         }
 
@@ -454,7 +493,7 @@ public class PrismReference : MonoBehaviour
 
                             if (!castingPrisms.Contains(currentElement))
                             {
-                                castingPrisms.Push(currentElement);
+                                castingPrisms.Enqueue(currentElement);
                             }
 
                             blocked = true;
@@ -462,6 +501,7 @@ public class PrismReference : MonoBehaviour
 
                         else if (direction == "down")
                         {
+                            /*
                             currentElement.directionsToCast.Add("left");
                             currentElement.directionsToCast.Add("right");
                             currentElement.colorsToCast.Add(current.color);
@@ -469,8 +509,9 @@ public class PrismReference : MonoBehaviour
 
                             if (!castingPrisms.Contains(currentElement))
                             {
-                                castingPrisms.Push(currentElement);
+                                castingPrisms.Enqueue(currentElement);
                             }
+                            */
 
                             blocked = true;
                         }
@@ -484,6 +525,8 @@ public class PrismReference : MonoBehaviour
 
                 else if (currentElement.type == "symbol")
                 {
+                    currentElement.touchedByPrism = current.castFromPrism;
+
                     if (currentElement.colorToCast == current.color)
                     {
                         currentElement.GetComponent<Image>().color = Color.white;
@@ -609,6 +652,10 @@ public class PrismReference : MonoBehaviour
                     current.colorToCast = "";
                     current.colorsToCast = new List<string>();
                     current.directionsToCast = new List<string>();
+                    current.pathUp = null;
+                    current.pathDown = null;
+                    current.pathLeft = null;
+                    current.pathRight = null;
                 }
 
                 else if (current.type == "symbol")
@@ -617,6 +664,47 @@ public class PrismReference : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ClearPrismEffects(int prismID)
+    {
+        for (int i = 0; i < prismReference.Length; i++)
+        {
+            for (int j = 0; j < prismReference.Length; j++)
+            {
+                PrismElement current = prismReference[i][j].GetComponent<PrismElement>();
+
+                if (prismReference[i][j].GetComponent<PrismElement>().touchedByPrism == prismID)
+                {
+                    if (current.type == "mirror")
+                    {
+                        current.GetComponentInChildren<Image>().sprite = mirrorImages["none"];
+                        current.colorToCast = "";
+                    }
+
+                    else if (current.type == "prism")
+                    {
+                        current.GetComponentInChildren<Image>().sprite = prismImages["none"];
+                        current.colorToCast = "";
+                        current.colorsToCast = new List<string>();
+                        current.directionsToCast = new List<string>();
+                    }
+
+                    else if (current.type == "symbol")
+                    {
+                        current.GetComponent<Image>().color = Color.clear;
+                    }
+                }
+            }
+        }
+
+        //List<GameObject> beamsToDestroy = new List<GameObject>();
+
+        //foreach (GameObject lightBeam in lightBeams)
+       // {
+         //   if (lightBeam.GetComponent<LightNode>().castFromPrism == prismID)
+          //      beamsToDestroy.Add(lightBeam);
+       // }
     }
 
     public PrismElement Swappable(PrismElement held, Vector3 pos)
@@ -770,6 +858,7 @@ public class PrismReference : MonoBehaviour
             combinedColor.z = 1;
         }
 
+        Debug.Log(Vector3IntToColorString(combinedColor));
         return Vector3IntToColorString(combinedColor);
     }
 }
