@@ -17,13 +17,23 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
     static public string held = "";
     static public GameObject heldObj = null;
     public GameObject inverse;
+    public DraggableWithColor[] set;
+
 
     private TopVisualFolllow movingVisual;
     private TopVisualFolllow movingVisualInverse;
     private Transform parent;
     private Vector3 offset;
 
+    private DraggableWithColor swapingWith;
+
     private Touch touch;
+
+    private static int idCounter = 0;
+    public int id;
+    public int winId;
+
+    public Mono mono;
 
     private void Start()
     {
@@ -33,6 +43,10 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
         parent = transform.parent;
         inverse = transform.GetChild(0).gameObject;
         offset = new Vector3(-100f, 100f, 0f);
+        id = idCounter;
+        winId = idCounter;
+        idCounter++;
+        swapingWith = null;
     }
 
     // Update is called once per frame
@@ -64,6 +78,7 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
                 //movingVisual.StopTracking(gameObject);
                 transform.parent = parent;
                 inverse.transform.parent = transform;
+                mono.Check();
             }
             else
             {
@@ -88,7 +103,28 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
     {
         dropPos = transform.position;
         justReleased = true;
-        Invoke("Drop", 0.1f);
+
+        bool swapable = false;
+        foreach (DraggableWithColor obj in set)
+        {
+            Debug.Log("Checking... " + obj.gameObject.name + " and " + gameObject.name);
+            if (Util.CheckBounds(obj.gameObject, transform.position) && obj.gameObject != gameObject)
+            {
+                Debug.Log("Found Swaper");
+                swapable = true;
+                swapingWith = obj;
+                break;
+            }
+        }
+
+        if (swapable)
+        {
+            Invoke("Swap", 0.1f);
+        }
+        else
+        {
+            Invoke("Drop", 0.1f);
+        }
     }
 
     public void Hold()
@@ -113,7 +149,31 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
         held = "";
         heldObj = null;
         isGoingBack = true;
+        swapingWith = null;
+        justReleased = false;
+    }
+
+    public void Swap()
+    {
+        Debug.Log("Swap");
+
+        isHeld = false;
+        holding = false;
+        held = "";
+        heldObj = null;
+
+        isGoingBack = true;
+        swapingWith.isGoingBack = true;
+
+        swapingWith.dropPos = swapingWith.transform.position;
+        dropPos = transform.position;
+        
+        swapingWith.startPos = startPos;
+        startPos = swapingWith.transform.position;
 
         justReleased = false;
+        int temp = id;
+        id = swapingWith.id;
+        swapingWith.id = temp;
     }
 }
