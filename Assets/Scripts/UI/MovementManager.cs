@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MovementManager : MonoBehaviour
 {
     public CanvasSwapper canvasSwapper;
+    private SoundManager soundManager;
     public GameObject LeftButton;
     public GameObject RightButton;
     public GameObject BackButton;
@@ -17,7 +18,7 @@ public class MovementManager : MonoBehaviour
     // 0 -> left
     // 1 -> center
     // 2 -> right
-    private int curPos;
+    public int curPos;
 
     private bool isPanning = false;
     private int panningTime = 25; // one second
@@ -26,13 +27,21 @@ public class MovementManager : MonoBehaviour
     private Vector3 from;
     private Vector3 to;
 
+    private Vector2 noWhere;
+    private Vector2 RightButtonPosition;
+    private Vector2 LeftButtonPosition;
+
     // called 50 times a second regardless of frameRate
     private void FixedUpdate()
     {
         if (isPanning)
         {
             count++;
-            bgRect.anchoredPosition = Vector3.Lerp(from, to, (float)count / panningTime);
+            //Vector3.Lerp(from, to, Mathf.Pow((float)count / panningTime, 0.5f));
+            bgRect.anchoredPosition = new Vector3(
+                Mathf.SmoothStep(from.x, to.x, (float)count / panningTime), 
+                Mathf.SmoothStep(from.y, to.y, (float)count / panningTime),
+                0.0f);
             if (count == panningTime)
             {
                 count = 0;
@@ -44,8 +53,13 @@ public class MovementManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         // 1 = room center
         curPos = 1;
+
+        RightButtonPosition = RightButton.GetComponent<RectTransform>().anchoredPosition;
+        LeftButtonPosition = LeftButton.GetComponent<RectTransform>().anchoredPosition;
+        noWhere = new Vector2(5000, 5000);
     }
 
     public void CenterAndEnableLooking()
@@ -68,6 +82,7 @@ public class MovementManager : MonoBehaviour
 
     public void LookLeft()
     {
+        soundManager.Play("move");
         if (!leftIsDisabled && lookingEnabled)
         {
             int pos = curPos - 1;
@@ -88,6 +103,7 @@ public class MovementManager : MonoBehaviour
 
     public void LookRight()
     {
+        soundManager.Play("move");
         if (!rightIsDisabled && lookingEnabled)
         {
             int pos = curPos + 1;
@@ -136,6 +152,40 @@ public class MovementManager : MonoBehaviour
         }
     }
 
+    public void SetPositionInstant(int pos)
+    {
+
+        GameObject background = canvasSwapper.currentCanvas.transform.GetChild(0).gameObject;
+        bgRect = background.GetComponent<RectTransform>();
+
+        from = bgRect.anchoredPosition;
+
+        if (pos != curPos)
+        {
+            // set room left
+            if (pos == 0)
+            {
+                to = new Vector3((bgRect.rect.width - 1600) / 2, 0, 0);
+                from = to;
+                DisableLeft();
+            }
+            // set room center
+            else if (pos == 1)
+            {
+                to = new Vector3(0, 0, 0);
+                from = to;
+            }
+            // set room right
+            else if (pos == 2)
+            {
+                to = new Vector3(-(bgRect.rect.width - 1600) / 2, 0, 0);
+                from = to;
+            }
+            isPanning = true;
+            curPos = pos;
+        }
+    }
+
     public void DisableBack()
     {
         backIsDisabled = true;
@@ -156,6 +206,7 @@ public class MovementManager : MonoBehaviour
         RightButton.GetComponent<Image>().color = Color.white;
         rightIsDisabled = false;
         RightButton.GetComponent<Button>().interactable = true;
+        RightButton.GetComponent<RectTransform>().anchoredPosition = RightButtonPosition;
     }
 
     private void DisableRight()
@@ -163,6 +214,7 @@ public class MovementManager : MonoBehaviour
         RightButton.GetComponent<Image>().color = Color.clear;
         rightIsDisabled = true;
         RightButton.GetComponent<Button>().interactable = false;
+        RightButton.GetComponent<RectTransform>().anchoredPosition = noWhere;
     }
 
     private void EnableLeft()
@@ -171,6 +223,7 @@ public class MovementManager : MonoBehaviour
         LeftButton.GetComponent<Image>().color = Color.white;
         leftIsDisabled = false;
         LeftButton.GetComponent<Button>().interactable = true;
+        LeftButton.GetComponent<RectTransform>().anchoredPosition = LeftButtonPosition;
     }
 
     private void DisableLeft()
@@ -178,5 +231,6 @@ public class MovementManager : MonoBehaviour
         LeftButton.GetComponent<Image>().color = Color.clear;
         LeftButton.GetComponent<Button>().interactable = false;
         leftIsDisabled = true;
+        LeftButton.GetComponent<RectTransform>().anchoredPosition = noWhere;
     }
 }

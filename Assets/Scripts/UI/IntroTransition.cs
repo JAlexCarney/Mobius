@@ -16,7 +16,7 @@ public class IntroTransition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = transform.GetChild(1).GetComponent<Animator>();
         animator.enabled = false;
         transition = GameObject.Find("Transition").GetComponent<Animator>();
         frameCount = 0;
@@ -31,7 +31,11 @@ public class IntroTransition : MonoBehaviour
             {
                 transition.enabled = true;
             }
-            else if (frameCount == 720)
+            else if (frameCount == 714)
+            {
+                transitionEvent.Invoke();
+            }
+            else if (frameCount == 744)
             {
                 Destroy(GameObject.Find("Transition"));
                 SceneHandler scenehandeler = GameObject.Find("SceneHandler").GetComponent<SceneHandler>();
@@ -40,7 +44,6 @@ public class IntroTransition : MonoBehaviour
                 scenehandeler.transitionObj = transition;
                 transition.GetComponent<Animator>().enabled = false;
                 isAnimating = false;
-                transitionEvent.Invoke();
             }
         }
     }

@@ -13,10 +13,12 @@ public class JournalHandler : MonoBehaviour
     public SoundManager soundManager;
     public GameObject leftButton;
     public GameObject rightButton;
+    public GameObject OpenAnim;
+    public GameObject FlipAnim; //forwards is left, backwards is right.
     private List<string> showing;
     private Dictionary<string, GameObject> entryObjs;
     private int currentSpread = 0;
-    private readonly int spreadCount = 3;
+    private int spreadCount = 3;
     private bool[] spreadsToSee;
 
     // Start is called before the first frame update
@@ -25,7 +27,7 @@ public class JournalHandler : MonoBehaviour
         journalButton = GameObject.Find("InventoryManager").transform.GetChild(2).gameObject;
         showing = new List<string>();
         entryObjs = new Dictionary<string, GameObject>();
-        spreadsToSee = new bool[spreadCount];
+        spreadsToSee = new bool[10];
         for (int i = 0; i < spreadsToSee.Length; i++)
         {
             spreadsToSee[i] = false;
@@ -90,7 +92,12 @@ public class JournalHandler : MonoBehaviour
     {
         currentSpread--;
         spreadsToSee[currentSpread] = false;
-        RefreshJournal();
+        Animation anim = FlipAnim.GetComponent<Animation>();
+        AnimationState flip = anim["journalFlip"];
+        anim.Play();
+        flip.speed = 1;
+        flip.time = 0;
+        Invoke("RefreshJournal", flip.length/2);
         soundManager.Play("pageTurn");
     }
 
@@ -98,7 +105,13 @@ public class JournalHandler : MonoBehaviour
     {
         currentSpread++;
         spreadsToSee[currentSpread] = false;
-        RefreshJournal();
+        Animation anim = FlipAnim.GetComponent<Animation>();
+        AnimationState flip = anim["journalFlip"];
+        Debug.Log(flip);
+        anim.Play();
+        flip.speed = -1;
+        flip.time = flip.length;
+        Invoke("RefreshJournal", flip.length/2);
         soundManager.Play("pageTurn");
     }
 
@@ -216,13 +229,73 @@ public class JournalHandler : MonoBehaviour
 
         spreadsToSee[currentSpread] = false;
 
-        RefreshJournal();
+        //RefreshJournal();
 
+        Animation anim = OpenAnim.GetComponent<Animation>();
+        anim.Play();
+        anim["journalOpen"].speed = 1;
+        anim["journalOpen"].time = 0;
+        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().DisableUI();
+        Invoke("PlayOpeningSound", 0.333f);
+        Invoke("FinishOpen", 1.0f);
+    }
+
+    public void Close()
+    {
+        Animation anim = OpenAnim.GetComponent<Animation>();
+        anim.Play();
+        anim["journalOpen"].speed = -1;
+        anim["journalOpen"].time = anim["journalOpen"].length;
         soundManager.Play("journalOpen");
+        Invoke("FinishClose", 0.08f);
+    }
 
+    public void PlayOpeningSound()
+    {
+        soundManager.Play("journalOpen");
+    }
+
+    public void FinishOpen()
+    {
         //use canvas swapper to open the journal
         GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().OpenJournal();
+        //OpenAnim.GetComponent<Animation>().Stop();
 
         RefreshJournal();
+    }
+
+    public void FinishClose()
+    {
+        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().CloseJournal();
+        //OpenAnim.GetComponent<Animation>().Stop();
+    }
+
+    public void ShowLoopOne()
+    {
+        List<GameObject> spreadsToShow = new List<GameObject>
+        {
+            transform.GetChild(5).gameObject,
+            transform.GetChild(6).gameObject,
+            transform.GetChild(7).gameObject
+        };
+        string names = "";
+        foreach (GameObject spread in spreadsToShow)
+        {
+            for (int i = 0; i < spread.transform.childCount; i++)
+            {
+                Transform t = spread.transform.GetChild(i);
+                for (int j = 0; j < t.childCount; j++)
+                {
+                    if (names != "")
+                    {
+                        names += "+";
+                    }
+
+                    names += t.GetChild(j).name;
+                }
+            }
+        }
+        Show(names);
+        spreadCount = 5;
     }
 }
