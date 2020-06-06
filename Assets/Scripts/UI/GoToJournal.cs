@@ -9,10 +9,12 @@ public class GoToJournal : MonoBehaviour
     private Vector3 startPos;
     private Vector3 journalButtonPosition;
     private int counter = 0;
+    private SoundManager soundManager;
 
     private void Start()
     {
         journalButtonPosition = GameObject.Find("OpenJournal").transform.position;
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -39,5 +41,6 @@ public class GoToJournal : MonoBehaviour
     {
         startPos = transform.position;
         isGoingToJournal = true;
+        soundManager.Play("note");
     }
 }

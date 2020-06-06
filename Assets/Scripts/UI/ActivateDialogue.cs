@@ -78,6 +78,20 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    public void Show()
+    {
+        inCycle = true;
+        dialogue.gameObject.SetActive(true);
+
+        //get each word in the dialogue, to show one at a time
+        wordsInDialogue = dialogue.text.Split(' ');
+        dialogue.text = "";
+
+
+        //show text
+        StartCoroutine(ShowDialogue());
+    }
+
     //show words one at a time
     IEnumerator ShowDialogue()
     {

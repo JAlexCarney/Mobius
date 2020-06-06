@@ -143,12 +143,13 @@ public class VendingCodeEnterer : MonoBehaviour
             else if (objNum == 2)
             {
                 CollectObj();
-                SetState(player1CodesToDisplay[2]);
+                //SetState(player1CodesToDisplay[2]);
+                SetVictoryState();
             }
             else if (objNum == 3)
             {
                 CollectObj();
-                SetVictoryState();
+                
             }
         }
         else
@@ -162,12 +163,13 @@ public class VendingCodeEnterer : MonoBehaviour
             {
                 CollectObj();
                 SetState(player2CodesToDisplay[1]);
+                SetVictoryState();
             }
             else if (objNum == 3)
             {
                 CollectObj();
                 SetState(player2CodesToDisplay[2]);
-                SetVictoryState();
+                
             }
         }
     }

@@ -38,11 +38,14 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private Vector3 droppedPos;
     private Touch touch;
 
+    private SoundManager soundManager;
+
     private bool locked = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         prismReference = this.GetComponentInParent<PrismReference>();
 
         colorsToCast = new List<string>();
@@ -233,6 +236,7 @@ public class PrismElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         isRotating = true;
         held = null;
+        soundManager.Play("mirrorRotate");
     }
 
     public void DropMirror()

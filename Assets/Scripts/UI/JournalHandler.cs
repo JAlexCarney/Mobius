@@ -18,7 +18,7 @@ public class JournalHandler : MonoBehaviour
     private List<string> showing;
     private Dictionary<string, GameObject> entryObjs;
     private int currentSpread = 0;
-    private int spreadCount = 3;
+    private int spreadCount = 4;
     private bool[] spreadsToSee;
 
     // Start is called before the first frame update
@@ -115,8 +115,36 @@ public class JournalHandler : MonoBehaviour
         soundManager.Play("pageTurn");
     }
 
+    public void JumpToPage(int spread)
+    {
+        if (currentSpread < spread)
+        {
+            currentSpread = spread;
+            Animation anim = FlipAnim.GetComponent<Animation>();
+            AnimationState flip = anim["journalFlip"];
+            anim.Play();
+            flip.speed = -1;
+            flip.time = flip.length;
+            Invoke("RefreshJournal", flip.length / 2);
+            soundManager.Play("pageTurn");
+        }
+        else if (currentSpread > spread)
+        {
+            currentSpread = spread;
+            Animation anim = FlipAnim.GetComponent<Animation>();
+            AnimationState flip = anim["journalFlip"];
+            Debug.Log(flip);
+            anim.Play();
+            flip.speed = -1;
+            flip.time = flip.length;
+            Invoke("RefreshJournal", flip.length / 2);
+            soundManager.Play("pageTurn");
+        }
+    }
+
     public void FindNewEntry(string name)
     {
+        Debug.Log(name);
         for (int i = 0; i < spreadCount; i++)
         {
             GameObject spread = transform.Find("Spread" + i).gameObject;
@@ -152,6 +180,7 @@ public class JournalHandler : MonoBehaviour
     {
         for (int i = 0; i < spreadCount; i++)
         {
+            Debug.Log("Spread" + i);
             Util.DeactivateChildren(transform.Find("Spread" + i).gameObject);
         }
         Transform spread = transform.Find("Spread" + currentSpread);
@@ -276,7 +305,8 @@ public class JournalHandler : MonoBehaviour
         {
             transform.GetChild(5).gameObject,
             transform.GetChild(6).gameObject,
-            transform.GetChild(7).gameObject
+            transform.GetChild(7).gameObject,
+            transform.GetChild(8).gameObject
         };
         string names = "";
         foreach (GameObject spread in spreadsToShow)
@@ -295,7 +325,8 @@ public class JournalHandler : MonoBehaviour
                 }
             }
         }
-        Show(names);
-        spreadCount = 5;
+        spreadCount = 8;
+        Show(names + "+Newspaper2");
+        
     }
 }
