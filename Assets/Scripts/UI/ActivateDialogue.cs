@@ -30,9 +30,14 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
     private Color originalColor;
     private Color clearColor; //same as original but with 0 for alpha
 
+    private bool hasBeenShown = false;
+
+    private SoundManager soundManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         originalDialogue = dialogue.text;
         originalColor = dialogue.color;
         clearColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
@@ -80,6 +85,7 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
 
     public void Show()
     {
+
         inCycle = true;
         dialogue.gameObject.SetActive(true);
 
@@ -95,6 +101,8 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
     //show words one at a time
     IEnumerator ShowDialogue()
     {
+        hasBeenShown = true;
+        soundManager.Play("textShow");
         for (int i = 0; i < originalDialogue.Length; i++)
         {
             dialogue.text = originalDialogue.Substring(0, i);
@@ -116,6 +124,7 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
 
     private IEnumerator FadeOutRoutine()
     {
+        //soundManager.Play("textGone");
         //slowly fade out lmao thats it
         for (float t = 0.01f; t < fadeOutTime; t += Time.deltaTime)
         {
@@ -126,14 +135,13 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
         Reset();
     }
 
-    //if you leave the scene, reset everything
-    private void OnDisable()
+    
+    private void OnEnable()
     {
-        if (!this.gameObject.activeInHierarchy) //this double checks that the GAMEOBJECT is inactive, not just the component
+        if (hasBeenShown) //this double checks that the GAMEOBJECT is inactive, not just the component
         {
             Reset();
         }
-
     }
 
     private void Reset()

@@ -333,6 +333,7 @@ public class VendingCodeEnterer : MonoBehaviour
         else
         {
             display.GetComponent<Image>().sprite = displayFalse;
+            soundManager.Play("negativeFeedback");
         }
 
     }
