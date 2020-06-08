@@ -49,7 +49,7 @@ public class SymbolCodeCheck : MonoBehaviour
 
         for (int i = 0; i < solution.Length; i++)
         {
-            if (solution[i] != symbols[i].currentColorString)
+            if (solution[i] != symbols[i].currentColorString && solution[i] != "off")
             {
                 correct = false;
             }
@@ -58,6 +58,13 @@ public class SymbolCodeCheck : MonoBehaviour
         if (correct)
         {
             winEvent.Invoke();
+            for (int i = 0; i < solution.Length; i++)
+            {
+                if (solution[i] == "off")
+                {
+                    symbols[i].Off();
+                }
+            }
             foreach (Symbol symbol in symbols)
             {
                 symbol.locked = true;

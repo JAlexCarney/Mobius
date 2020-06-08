@@ -32,11 +32,39 @@ public class Mono : MonoBehaviour
 
         if (!started)
         {
-            for (int i = 0; i < 20; i++)
+            bool set1Correct = true;
+            bool set2Correct = true;
+            bool set3Correct = true;
+            while (set1Correct || set2Correct || set3Correct)
             {
                 Swap(set1[Random.Range(0, set1.Length)], set1[Random.Range(0, set1.Length)]);
                 Swap(set2[Random.Range(0, set2.Length)], set2[Random.Range(0, set2.Length)]);
                 Swap(set3[Random.Range(0, set3.Length)], set3[Random.Range(0, set3.Length)]);
+
+                set1Correct = true;
+                foreach (DraggableWithColor obj in set1)
+                {
+                    if (obj.id != obj.winId)
+                    {
+                        set1Correct = false;
+                    }
+                }
+                set2Correct = true;
+                foreach (DraggableWithColor obj in set2)
+                {
+                    if (obj.id != obj.winId)
+                    {
+                        set2Correct = false;
+                    }
+                }
+                set3Correct = true;
+                foreach (DraggableWithColor obj in set3)
+                {
+                    if (obj.id != obj.winId)
+                    {
+                        set3Correct = false;
+                    }
+                }
             }
             started = true;
         }

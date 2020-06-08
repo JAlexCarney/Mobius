@@ -65,4 +65,11 @@ public class Symbol : MonoBehaviour
             soundManager.Play("lightButton");
         }
     }
+
+    public void Off()
+    {
+        currentColorInt = 0;
+        currentColorString = colors[0];
+        GetComponent<Image>().sprite = colorSprites[0];
+    }
 }

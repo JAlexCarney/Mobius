@@ -2495,17 +2495,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -8974956319170009023, guid: 9dbed222ee99d6f41ad55ca6677634ed,
         type: 3}
+    - target: {fileID: 8820583252098847587, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3280120482455084645, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 218564582050656333, guid: 4f822f14b033e0247b168f184e60c765,
         type: 3}
-    - target: {fileID: 8820583252098847587, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e3fe135db461aa43b281852c9c31bde, type: 3}
 --- !u!114 &378048399 stripped
@@ -2796,7 +2796,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 669267922}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3202,8 +3202,8 @@ RectTransform:
   - {fileID: 1702511601}
   - {fileID: 1300868318}
   - {fileID: 1591792844}
-  - {fileID: 1503290199}
   - {fileID: 566922214}
+  - {fileID: 1503290199}
   - {fileID: 318282818}
   - {fileID: 160389032}
   - {fileID: 1070694182}
@@ -5689,6 +5689,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 669267922}
     m_Modifications:
+    - target: {fileID: 4430807419890632895, guid: 51869152de7afec4780aa6e197e45a85,
+        type: 3}
+      propertyPath: m_Name
+      value: ElevatorP2
+      objectReference: {fileID: 0}
     - target: {fileID: 4430807419890632888, guid: 51869152de7afec4780aa6e197e45a85,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5793,11 +5798,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430807419890632895, guid: 51869152de7afec4780aa6e197e45a85,
-        type: 3}
-      propertyPath: m_Name
-      value: ElevatorP2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51869152de7afec4780aa6e197e45a85, type: 3}

@@ -22,8 +22,8 @@ public class ActivateDialogue : MonoBehaviour, IPointerDownHandler
 
     private bool inCycle = false; //track if text is displaying
     public static float delay = 0.025f;
-    public static float fadeOutTime = 3f; 
-    public static float timeToRead = 2f;
+    public static float fadeOutTime = 1f; 
+    public static float timeToRead = 6f;
 
     private string[] wordsInDialogue;
     private string originalDialogue;
