@@ -22,6 +22,8 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     private TopVisualFolllow movingVisual;
     private TopVisualFolllow movingVisualInverse;
+    private TopVisualFolllow UI_Blocker_Canvas;
+    private Transform UI_Blocker;
     private Transform parent;
     private Vector3 offset;
 
@@ -40,6 +42,8 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
         label = gameObject.name;
         startPos = transform.position;
         movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
+        UI_Blocker_Canvas = GameObject.Find("UI_Blocker_Canvas").GetComponent<TopVisualFolllow>();
+        UI_Blocker = GameObject.Find("UI_Blocker").transform;
         parent = transform.parent;
         inverse = transform.GetChild(0).gameObject;
         offset = new Vector3(-100f, 100f, 0f);
@@ -67,6 +71,15 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
             {
                 transform.position = touch.position + (Vector2)offset;
                 inverse.transform.position = touch.position + (Vector2)offset;
+            }
+
+            if (UI_Blocker.position.y > inverse.transform.position.y)
+            {
+                inverse.transform.parent = UI_Blocker_Canvas.transform;
+            }
+            else 
+            {
+                inverse.transform.parent = movingVisual.gameObject.transform;
             }
         }
         else if (isGoingBack)
@@ -167,7 +180,7 @@ public class DraggableWithColor : MonoBehaviour, IPointerDownHandler, IPointerUp
 
         swapingWith.dropPos = swapingWith.transform.position;
         dropPos = transform.position;
-        
+
         swapingWith.startPos = startPos;
         startPos = swapingWith.transform.position;
 
