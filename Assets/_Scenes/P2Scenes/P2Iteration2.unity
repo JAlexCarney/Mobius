@@ -409,6 +409,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1119372882}
     m_Modifications:
+    - target: {fileID: 7136603247345979737, guid: b60c8db9164174b47b6f4bc6a9248e69,
+        type: 3}
+      propertyPath: m_Name
+      value: DensityBroken
+      objectReference: {fileID: 0}
     - target: {fileID: 52446065475787570, guid: b60c8db9164174b47b6f4bc6a9248e69,
         type: 3}
       propertyPath: m_Text
@@ -530,11 +535,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136603247345979737, guid: b60c8db9164174b47b6f4bc6a9248e69,
-        type: 3}
-      propertyPath: m_Name
-      value: DensityBroken
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b60c8db9164174b47b6f4bc6a9248e69, type: 3}
@@ -876,6 +876,7 @@ GameObject:
   - component: {fileID: 252250756}
   - component: {fileID: 252250755}
   - component: {fileID: 252250754}
+  - component: {fileID: 252250757}
   m_Layer: 5
   m_Name: Mobuis Statue
   m_TagString: Untagged
@@ -993,6 +994,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252250752}
   m_CullTransparentMesh: 0
+--- !u!114 &252250757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252250752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c664de686522e419641926dff8d2f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - trigger: mobiusPiece
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1572700121}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: loopTransition
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1886710049}
+          m_MethodName: P1EnterLoop3
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1048222496}
+          m_MethodName: Remove
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: mobiusPiece
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &272626991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1000,6 +1051,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 537742401}
     m_Modifications:
+    - target: {fileID: 2166958785061702022, guid: f7f9e2cf25cd43541a8dd0db0a7ae9ed,
+        type: 3}
+      propertyPath: m_Name
+      value: beamP2
+      objectReference: {fileID: 0}
     - target: {fileID: 2166958785061702021, guid: f7f9e2cf25cd43541a8dd0db0a7ae9ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1104,11 +1160,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2166958785061702022, guid: f7f9e2cf25cd43541a8dd0db0a7ae9ed,
-        type: 3}
-      propertyPath: m_Name
-      value: beamP2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7f9e2cf25cd43541a8dd0db0a7ae9ed, type: 3}
@@ -4565,6 +4616,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1567482352}
     m_Modifications:
+    - target: {fileID: 8316874874875941077, guid: 21455732e18df4b408c7c56609512182,
+        type: 3}
+      propertyPath: m_Name
+      value: ElevatorDialogueP2
+      objectReference: {fileID: 0}
     - target: {fileID: 8316874874875941074, guid: 21455732e18df4b408c7c56609512182,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4669,11 +4725,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8316874874875941077, guid: 21455732e18df4b408c7c56609512182,
-        type: 3}
-      propertyPath: m_Name
-      value: ElevatorDialogueP2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21455732e18df4b408c7c56609512182, type: 3}
@@ -6087,6 +6138,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1567482352}
     m_Modifications:
+    - target: {fileID: 7259028717004964393, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
+        type: 3}
+      propertyPath: m_Name
+      value: VendingMachine
+      objectReference: {fileID: 0}
     - target: {fileID: 7259028715369302058, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -6113,11 +6169,6 @@ PrefabInstance:
       value: 'Such delicious snacks, all gone to waste.
 
 '
-      objectReference: {fileID: 0}
-    - target: {fileID: 7259028717004964393, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
-        type: 3}
-      propertyPath: m_Name
-      value: VendingMachine
       objectReference: {fileID: 0}
     - target: {fileID: 7259028717004964398, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
         type: 3}
@@ -7520,6 +7571,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: Note6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488853735204218569, guid: 5849b198da66beb469a0c90da2bd73a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7027433748526710321, guid: 5849b198da66beb469a0c90da2bd73a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5849b198da66beb469a0c90da2bd73a6, type: 3}

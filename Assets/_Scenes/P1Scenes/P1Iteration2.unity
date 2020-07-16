@@ -1261,6 +1261,7 @@ GameObject:
   - component: {fileID: 204005311}
   - component: {fileID: 204005310}
   - component: {fileID: 204005309}
+  - component: {fileID: 204005312}
   m_Layer: 5
   m_Name: Mobuis Statue
   m_TagString: Untagged
@@ -1378,6 +1379,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204005307}
   m_CullTransparentMesh: 0
+--- !u!114 &204005312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204005307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c664de686522e419641926dff8d2f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - trigger: mobiusPiece
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 461175044}
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: loopTransition
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 642930170}
+          m_MethodName: P1EnterLoop3
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 93321463}
+          m_MethodName: Remove
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: mobiusPiece
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &217119813 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7259028716072626344, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
@@ -2824,6 +2875,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 839162650}
     m_Modifications:
+    - target: {fileID: 1449569013800307615, guid: 9cd3f838d7afabf439f5ef9d5e921ace,
+        type: 3}
+      propertyPath: m_Name
+      value: LobbyDialogueP1
+      objectReference: {fileID: 0}
     - target: {fileID: 1449569013800307614, guid: 9cd3f838d7afabf439f5ef9d5e921ace,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2928,11 +2984,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1449569013800307615, guid: 9cd3f838d7afabf439f5ef9d5e921ace,
-        type: 3}
-      propertyPath: m_Name
-      value: LobbyDialogueP1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cd3f838d7afabf439f5ef9d5e921ace, type: 3}
@@ -3240,6 +3291,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 83057794}
     m_Modifications:
+    - target: {fileID: 8795449507486748827, guid: 798317ff276a09d4eb5e03c64aea14b5,
+        type: 3}
+      propertyPath: m_Name
+      value: beamP1
+      objectReference: {fileID: 0}
     - target: {fileID: 8795449507486748824, guid: 798317ff276a09d4eb5e03c64aea14b5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3344,11 +3400,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8795449507486748827, guid: 798317ff276a09d4eb5e03c64aea14b5,
-        type: 3}
-      propertyPath: m_Name
-      value: beamP1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 798317ff276a09d4eb5e03c64aea14b5, type: 3}
@@ -3854,6 +3905,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1011177173}
     m_Modifications:
+    - target: {fileID: 7136603247345979737, guid: b60c8db9164174b47b6f4bc6a9248e69,
+        type: 3}
+      propertyPath: m_Name
+      value: DensityBroken
+      objectReference: {fileID: 0}
     - target: {fileID: 4566313371085683130, guid: b60c8db9164174b47b6f4bc6a9248e69,
         type: 3}
       propertyPath: anim
@@ -3968,11 +4024,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136603247345979737, guid: b60c8db9164174b47b6f4bc6a9248e69,
-        type: 3}
-      propertyPath: m_Name
-      value: DensityBroken
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b60c8db9164174b47b6f4bc6a9248e69, type: 3}
@@ -7514,6 +7565,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: Note9
       objectReference: {fileID: 0}
+    - target: {fileID: 3794209453468619395, guid: 6d342ae7354a12d4b9aafd5779b832eb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d342ae7354a12d4b9aafd5779b832eb, type: 3}
 --- !u!1 &1709592656407595537 stripped
@@ -7550,6 +7606,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: JournalCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
+        type: 3}
+      propertyPath: OpenAnim
+      value: 
+      objectReference: {fileID: 733202103}
+    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
+        type: 3}
+      propertyPath: FlipAnim
+      value: 
+      objectReference: {fileID: 724358516}
+    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 461175044}
+    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
+        type: 3}
+      propertyPath: journalButtonImg
+      value: 
+      objectReference: {fileID: 9089393271968083430, guid: 7bc90d151d1f8c24e86b03a00b48d029,
+        type: 3}
+    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
+        type: 3}
+      propertyPath: journalButtonNewMsgImg
+      value: 
+      objectReference: {fileID: 2196860369424673168, guid: a7329812b9ab9664baa1ce9b4c203fa7,
+        type: 3}
     - target: {fileID: 2139136153723862567, guid: 81d8ae06ec452dd40ae4845f7b910120,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7665,33 +7748,6 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 98
       objectReference: {fileID: 0}
-    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
-        type: 3}
-      propertyPath: OpenAnim
-      value: 
-      objectReference: {fileID: 733202103}
-    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
-        type: 3}
-      propertyPath: FlipAnim
-      value: 
-      objectReference: {fileID: 724358516}
-    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
-        type: 3}
-      propertyPath: soundManager
-      value: 
-      objectReference: {fileID: 461175044}
-    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
-        type: 3}
-      propertyPath: journalButtonImg
-      value: 
-      objectReference: {fileID: 9089393271968083430, guid: 7bc90d151d1f8c24e86b03a00b48d029,
-        type: 3}
-    - target: {fileID: 4394177972216889755, guid: 81d8ae06ec452dd40ae4845f7b910120,
-        type: 3}
-      propertyPath: journalButtonNewMsgImg
-      value: 
-      objectReference: {fileID: 2196860369424673168, guid: a7329812b9ab9664baa1ce9b4c203fa7,
-        type: 3}
     - target: {fileID: 9217064316984768159, guid: 81d8ae06ec452dd40ae4845f7b910120,
         type: 3}
       propertyPath: m_Name
