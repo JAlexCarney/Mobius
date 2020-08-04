@@ -13,6 +13,7 @@ public class SceneHandler : MonoBehaviour
     private int loopBeingEntered = -1;
     // transition object
     public GameObject transitionObj;
+    public int player = -1;
 
     public void Start()
     {
@@ -35,11 +36,48 @@ public class SceneHandler : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) 
+        {
+            if (SceneManager.GetActiveScene().name.Contains("P1")) 
+            {
+                PlayerOneStart();
+            } 
+            else 
+            {
+                PlayerTwoStart();
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (SceneManager.GetActiveScene().name.Contains("P1"))
+            {
+                P1EnterLoop2();
+            }
+            else
+            {
+                P2EnterLoop2();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (SceneManager.GetActiveScene().name.Contains("P1"))
+            {
+                P1EnterLoop3();
+            }
+            else
+            {
+                P2EnterLoop3();
+            }
+        }
+    }
+
     public void PlayerOneStart()
     {
         playerBeingTransitioned = 1;
         loopBeingEntered = 1;
-        Util.player = 1;
+        player = 1;
         LoadRoom();
     }
 
@@ -48,13 +86,14 @@ public class SceneHandler : MonoBehaviour
 
         playerBeingTransitioned = 2;
         loopBeingEntered = 1;
-        Util.player = 2;
+        player = 2;
         LoadRoom();
     }
 
     public void LoadRoom()
     {
         string sceneName = "P" + playerBeingTransitioned + "Iteration" + loopBeingEntered;
+        Debug.Log(player);
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
@@ -72,6 +111,7 @@ public class SceneHandler : MonoBehaviour
 
     public void P1EnterLoop3()
     {
+        Debug.Log("ENTERING LOOP 3");
         playerBeingTransitioned = 1;
         loopBeingEntered = 3;
         TransitionWithAnimation();
@@ -97,4 +137,6 @@ public class SceneHandler : MonoBehaviour
         transitioning = true;
         transitionObj.GetComponent<Animator>().enabled = true;
     }
+
+
 }

@@ -329,4 +329,37 @@ public class JournalHandler : MonoBehaviour
         Show(names + "+Newspaper2");
         
     }
+
+    public void ShowLoopTwo()
+    {
+        List<GameObject> spreadsToShow = new List<GameObject>
+        {
+            transform.GetChild(5).gameObject,
+            transform.GetChild(6).gameObject,
+            transform.GetChild(7).gameObject,
+            transform.GetChild(8).gameObject,
+            transform.GetChild(9).gameObject,
+            transform.GetChild(10).gameObject,
+            transform.GetChild(11).gameObject
+        };
+        string names = "";
+        foreach (GameObject spread in spreadsToShow)
+        {
+            for (int i = 0; i < spread.transform.childCount; i++)
+            {
+                Transform t = spread.transform.GetChild(i);
+                for (int j = 0; j < t.childCount; j++)
+                {
+                    if (names != "")
+                    {
+                        names += "+";
+                    }
+
+                    names += t.GetChild(j).name;
+                }
+            }
+        }
+        spreadCount = 10;
+        Show(names);
+    }
 }
