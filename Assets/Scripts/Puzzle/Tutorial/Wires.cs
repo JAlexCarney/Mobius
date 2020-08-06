@@ -1,17 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class Wires : MonoBehaviour
 {
 
-    // Wires to be drawn
+    // Wires to be drawn.
     public GameObject fixedWire1;
     public GameObject fixedWire2;
     public GameObject fixedWire3;
-    public GameObject wire1;
-    public GameObject wire2;
-    public GameObject wire3;
+    public GameObject moveableWire1;
+    public GameObject moveableWire2;
+    public GameObject moveableWire3;
+
+    // Objects to drag wires.
+    public GameObject wireDragger1;
+    public GameObject wireDragger2;
+    public GameObject wireDragger3;
 
     // Sources and sockets for the fixed partner solution.
     public GameObject fixedSource1;
@@ -21,7 +28,7 @@ public class Wires : MonoBehaviour
     public GameObject fixedSource3;
     public GameObject fixedSocket3;
 
-    // Sources and sockets for solution checking.
+    // Sources and sockets for solution input.
     public GameObject source1;
     public GameObject socket1;
     public GameObject source2;
@@ -29,22 +36,59 @@ public class Wires : MonoBehaviour
     public GameObject source3;
     public GameObject socket3;
 
+    // Event to invoke upon success or failure.
+    public UnityEvent winEvent;
+    public UnityEvent failEvent;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Draw fixed wires to represent partner solution.
         DrawWire(fixedSource1.transform.localPosition, fixedSocket1.transform.localPosition, fixedWire1);
         DrawWire(fixedSource2.transform.localPosition, fixedSocket2.transform.localPosition, fixedWire2);
         DrawWire(fixedSource3.transform.localPosition, fixedSocket3.transform.localPosition, fixedWire3);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        if (Draggable.heldObj == wireDragger1 || wireDragger1.GetComponent<Draggable>().isGoingBack)
+        {
+            DrawWire(source1.transform.localPosition, wireDragger1.transform.localPosition, moveableWire1);
+        }
+
+        if (Draggable.heldObj == wireDragger2 || wireDragger2.GetComponent<Draggable>().isGoingBack)
+        {
+            DrawWire(source2.transform.localPosition, wireDragger2.transform.localPosition, moveableWire2);
+        }
+
+        if (Draggable.heldObj == wireDragger3 || wireDragger3.GetComponent<Draggable>().isGoingBack)
+        {
+            DrawWire(source3.transform.localPosition, wireDragger3.transform.localPosition, moveableWire3);
+        }
     }
 
-    public void PlaceWire(string sourceWire)
+    public void PlaceWire(string placeInput)
     {
+        List<string> placeInputSplit = Util.Split(placeInput, '+');
+        Debug.Log(placeInputSplit[0] + ' ' + placeInputSplit[1] + ' ' + placeInputSplit[2]);
+
+        GameObject source = GameObject.Find(placeInputSplit[0]);
+        Debug.Log(source.name);
+
+        GameObject socket = GameObject.Find(placeInputSplit[1]);
+        Debug.Log(socket.name);
+
+        GameObject wire = GameObject.Find(placeInputSplit[2]);
+        Debug.Log(wire.name);
+
+        if(socket.GetComponent<WireData>().currentSource == null)
+        {
+            source.GetComponent<WireData>().currentSocket = socket;
+            socket.GetComponent<WireData>().currentSource = source;
+
+            Draggable.heldObj.GetComponent<Draggable>().startPos = socket.transform.position;
+        }
 
     }
 
@@ -76,5 +120,24 @@ public class Wires : MonoBehaviour
         wire.transform.localScale = new Vector3(1f, 1f, 1f);
 
         return wire;
+    }
+
+    public void CheckSolution()
+    {
+        WireData source1Data = source1.GetComponent<WireData>();
+        WireData source2Data = source2.GetComponent<WireData>();
+        WireData source3Data = source3.GetComponent<WireData>();
+
+        if(source1Data.currentSocket == source1Data.correctSocket &&
+            source2Data.currentSocket == source2Data.correctSocket &&
+            source3Data.currentSocket == source3Data.correctSocket)
+        {
+            winEvent.Invoke();
+        } else
+        {
+            failEvent.Invoke();
+        }
+
+        
     }
 }
