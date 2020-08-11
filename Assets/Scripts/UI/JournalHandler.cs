@@ -340,7 +340,8 @@ public class JournalHandler : MonoBehaviour
             transform.GetChild(8).gameObject,
             transform.GetChild(9).gameObject,
             transform.GetChild(10).gameObject,
-            transform.GetChild(11).gameObject
+            transform.GetChild(11).gameObject,
+            transform.GetChild(12).gameObject
         };
         string names = "";
         foreach (GameObject spread in spreadsToShow)
