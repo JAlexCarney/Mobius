@@ -78,9 +78,6 @@ public class Star : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
                 //update location
                 lockBoxReference.starLocations[starNumber] = currentLoc;
-                
-                //check solution
-                lockBoxReference.CheckSolution(); 
             }
             else
             {

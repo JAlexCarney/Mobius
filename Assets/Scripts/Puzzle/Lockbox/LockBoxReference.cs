@@ -18,7 +18,6 @@ public class LockBoxReference : MonoBehaviour
             Sol sol = solution[i]; 
             foreach (int star in sol.stars)
             {
-                Debug.Log("star: " + star + " solution: " + sol.location + " star loc: " + starLocations[star]);
                 if (starLocations[star] != sol.location)
                 {
                     soFarSoGood = false;
@@ -30,7 +29,7 @@ public class LockBoxReference : MonoBehaviour
         }
         if (soFarSoGood)
             Debug.Log("you did it!");
-        else Debug.Log("sorry :(");
+        else Debug.Log("sorry not the correct solution :(");
     }
 
     //open lockbox
