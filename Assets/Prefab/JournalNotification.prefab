@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6492297603653888299}
   - component: {fileID: 2156856775793774166}
   - component: {fileID: 4514525076388483259}
+  - component: {fileID: 4282974317211112741}
   m_Layer: 5
   m_Name: JournalNotification
   m_TagString: Untagged
@@ -116,6 +117,19 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &4282974317211112741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655057924356329591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530b373aef0d12943a8d09821fd204d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  page: -1
 --- !u!1 &8119505724265028064
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +250,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2471563430307715598}
         m_MethodName: set_scaleFactor
         m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4282974317211112741}
+        m_MethodName: JumpToPage
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

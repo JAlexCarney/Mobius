@@ -35,11 +35,12 @@ public class JournalHandler : MonoBehaviour
     }
 
     // display indicator that an entry has been placed
-    public void IndicateEntry()
+    public void IndicateEntry(int page)
     {
         // Instantiate(prefab)
         soundManager.Play("penScratch");
         GameObject indicator = Instantiate(IndicatorPrefab);
+        indicator.GetComponent<PageFinder>().page = page;
         Animation anim = indicator.GetComponent<Animation>();
         anim.Play();
         Destroy(indicator, anim.GetClip("JournalEntry").averageDuration);
@@ -51,6 +52,7 @@ public class JournalHandler : MonoBehaviour
 
     public void Show(string names)
     {
+        int page = -1;
         bool newEntry = false;
         if (names.Contains("+"))
         {
@@ -61,7 +63,7 @@ public class JournalHandler : MonoBehaviour
                 {
                     showing.Add(name);
                     newEntry = true;
-                    FindNewEntry(name);
+                    page = FindNewEntry(name);
                 }
             }
             
@@ -72,13 +74,15 @@ public class JournalHandler : MonoBehaviour
             {
                 newEntry = true;
                 showing.Add(names);
-                FindNewEntry(name);
+                page = FindNewEntry(name);
             }
         }
 
+        Debug.Log("PAGE FOUND = " + page);
+
         if (newEntry == true)
         {
-            IndicateEntry();
+            IndicateEntry(page);
         }
 
         RefreshJournal();
@@ -142,7 +146,7 @@ public class JournalHandler : MonoBehaviour
         }
     }
 
-    public void FindNewEntry(string name)
+    public int FindNewEntry(string name)
     {
         Debug.Log(name);
         for (int i = 0; i < spreadCount; i++)
@@ -157,7 +161,7 @@ public class JournalHandler : MonoBehaviour
                     if (name == entry.name)
                     {
                         spreadsToSee[i] = true;
-                        return;
+                        return i;
                     }
                 }
                 Transform nonDraggable = spread.transform.GetChild(1);
@@ -167,12 +171,13 @@ public class JournalHandler : MonoBehaviour
                     if (name == entry.name)
                     {
                         spreadsToSee[i] = true;
-                        return;
+                        return i;
                     }
                 }
             }
             Util.DeactivateChildren(spread);
         }
+        return -1;
     }
 
     //update the journal to display the current page
@@ -250,6 +255,29 @@ public class JournalHandler : MonoBehaviour
     // make journal visible
     public void Open()
     {
+        Debug.Log("Journal entries showing : ");
+        foreach (string shown in showing)
+        {
+            Debug.Log(shown);
+        }
+
+        spreadsToSee[currentSpread] = false;
+
+        //RefreshJournal();
+
+        Animation anim = OpenAnim.GetComponent<Animation>();
+        anim.Play();
+        anim["journalOpen"].speed = 1;
+        anim["journalOpen"].time = 0;
+        GameObject.Find("CanvasSwapper").GetComponent<CanvasSwapper>().DisableUI();
+        Invoke("PlayOpeningSound", 0.333f);
+        Invoke("FinishOpen", 1.0f);
+    }
+
+    public void OpenToPage(int page)
+    {
+        currentSpread = page;
+
         Debug.Log("Journal entries showing : ");
         foreach (string shown in showing)
         {
