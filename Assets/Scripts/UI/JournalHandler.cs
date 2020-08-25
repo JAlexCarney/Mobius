@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -74,7 +75,7 @@ public class JournalHandler : MonoBehaviour
             {
                 newEntry = true;
                 showing.Add(names);
-                page = FindNewEntry(name);
+                page = FindNewEntry(names);
             }
         }
 
@@ -148,7 +149,8 @@ public class JournalHandler : MonoBehaviour
 
     public int FindNewEntry(string name)
     {
-        Debug.Log(name);
+        Debug.Log("Correct Name = " + name);
+        Debug.Log("spreadCount : " + spreadCount);
         for (int i = 0; i < spreadCount; i++)
         {
             GameObject spread = transform.Find("Spread" + i).gameObject;
@@ -158,9 +160,9 @@ public class JournalHandler : MonoBehaviour
                 for (int k = 0; k < draggable.childCount; k++)
                 {
                     GameObject entry = draggable.transform.GetChild(k).gameObject;
+                    Debug.Log(entry.name);
                     if (name == entry.name)
                     {
-                        spreadsToSee[i] = true;
                         return i;
                     }
                 }
@@ -168,15 +170,16 @@ public class JournalHandler : MonoBehaviour
                 for (int k = 0; k < nonDraggable.childCount; k++)
                 {
                     GameObject entry = nonDraggable.transform.GetChild(k).gameObject;
+                    Debug.Log(entry.name);
                     if (name == entry.name)
                     {
-                        spreadsToSee[i] = true;
                         return i;
                     }
                 }
             }
             Util.DeactivateChildren(spread);
         }
+        Debug.Log("ENTRY NOT FOUND");
         return -1;
     }
 

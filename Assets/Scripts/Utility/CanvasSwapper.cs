@@ -37,8 +37,11 @@ public class CanvasSwapper : MonoBehaviour
     private int count = 0;
     private bool fadingOut = false;
     private bool fadingIn = false;
+    private bool zoomingIn = false;
     private string goingTo = "";
     private bool lookingEnabledAfterFade = false;
+    private Vector3 zoomPoint = new Vector3();
+    private Vector3 preMovePosition;
     void Update()
     {
         if (fadingOut)
@@ -70,6 +73,22 @@ public class CanvasSwapper : MonoBehaviour
                 goingTo = "";
                 count = 0;
                 fade.SetActive(false);
+            }
+        }
+        else if (zoomingIn)
+        {
+            count++;
+            currentCanvas.transform.GetChild(0).localScale = new Vector3(1.0f + (float)count /delay, 1.0f + (float)count / delay, 1.0f + (float)count / delay);
+            currentCanvas.transform.GetChild(0).localPosition = Vector3.Lerp(preMovePosition, 2 * zoomPoint, (float)count/delay);
+            fadeImage.color = new Vector4(0.15f, 0.15f, 0.15f, (float)count / (delay));
+            if (count == delay)
+            {
+                zoomingIn = false;
+                count = 0;
+                currentCanvas.transform.GetChild(0).localScale = new Vector3(1.0f + (float)count / delay, 1.0f + (float)count / delay, 1.0f + (float)count / delay);
+                currentCanvas.transform.GetChild(0).localPosition = preMovePosition;
+                SwitchCanvasMaintainUIWithoutLooking(goingTo);
+                fadingIn = true;
             }
         }
     }
@@ -241,6 +260,17 @@ public class CanvasSwapper : MonoBehaviour
 
         // set looking
         movementManager.DisableLooking();
+    }
+
+    public void SwitchCanvasMaintainUIWithoutLookingAndZoomIn(string newCanvas)
+    {
+        zoomingIn = true;
+        List<string> newCanvasAndZoomPoint = Util.Split(newCanvas, '+');
+        goingTo = newCanvasAndZoomPoint[0];
+        zoomPoint = GameObject.Find(newCanvasAndZoomPoint[1]).transform.localPosition * -1f;
+        preMovePosition = currentCanvas.transform.GetChild(0).localPosition;
+        soundManager.Play("move");
+        fade.SetActive(true);
     }
 
     public void SwitchCanvasMaintainUIAndFade(string newCanvas)

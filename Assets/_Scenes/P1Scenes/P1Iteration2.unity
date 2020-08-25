@@ -439,17 +439,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3405294103926666363, guid: 9dbed222ee99d6f41ad55ca6677634ed,
         type: 3}
-    - target: {fileID: 8820583252098847587, guid: 9e3fe135db461aa43b281852c9c31bde,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8459729443244613529, guid: 9e3fe135db461aa43b281852c9c31bde,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 9089393271968083430, guid: 7bc90d151d1f8c24e86b03a00b48d029,
         type: 3}
+    - target: {fileID: 8820583252098847587, guid: 9e3fe135db461aa43b281852c9c31bde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e3fe135db461aa43b281852c9c31bde, type: 3}
 --- !u!1 &93321462 stripped
@@ -1192,14 +1192,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1399997604}
-        m_MethodName: SwitchCanvasMaintainUIWithoutLooking
+        m_MethodName: SwitchCanvasMaintainUIWithoutLookingAndZoomIn
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: BulbArea
+          m_StringArgument: BulbArea+BulbAreaButton
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 6968234014045863568}
@@ -1263,7 +1263,7 @@ GameObject:
   - component: {fileID: 204005309}
   - component: {fileID: 204005312}
   m_Layer: 5
-  m_Name: Mobuis Statue
+  m_Name: MobuisStatue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1332,14 +1332,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1399997604}
-        m_MethodName: SwitchCanvasMaintainUIWithoutLooking
+        m_MethodName: SwitchCanvasMaintainUIWithoutLookingAndZoomIn
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MobiusStatueZoom
+          m_StringArgument: MobiusStatueZoom+MobuisStatue
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &204005310
@@ -4660,7 +4660,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -217}
+  m_AnchoredPosition: {x: 0, y: -120}
   m_SizeDelta: {x: 810, y: 1338}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1195081763
@@ -5149,6 +5149,31 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
+        type: 3}
+      propertyPath: currentCanvas
+      value: 
+      objectReference: {fileID: 585397257}
+    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 93321462}
+    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
+        type: 3}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
+        type: 3}
+      propertyPath: fade
+      value: 
+      objectReference: {fileID: 581327897}
+    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
+        type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 579893115}
     - target: {fileID: 9109492722622925429, guid: 3db0d8ee10164f246b29a2b2401f6453,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5204,31 +5229,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
-        type: 3}
-      propertyPath: currentCanvas
-      value: 
-      objectReference: {fileID: 585397257}
-    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
-        type: 3}
-      propertyPath: inventory
-      value: 
-      objectReference: {fileID: 93321462}
-    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
-        type: 3}
-      propertyPath: map
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
-        type: 3}
-      propertyPath: fade
-      value: 
-      objectReference: {fileID: 581327897}
-    - target: {fileID: 9109492722622925428, guid: 3db0d8ee10164f246b29a2b2401f6453,
-        type: 3}
-      propertyPath: movement
-      value: 
-      objectReference: {fileID: 579893115}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3db0d8ee10164f246b29a2b2401f6453, type: 3}
 --- !u!4 &1399997603 stripped
@@ -7618,6 +7618,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: JournalCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2075320709392934440, guid: bdd0a2781d02fda4989a48c74670a92e,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 461175044}
+    - target: {fileID: 2075320709392934440, guid: bdd0a2781d02fda4989a48c74670a92e,
+        type: 3}
+      propertyPath: OpenAnim
+      value: 
+      objectReference: {fileID: 733202103}
+    - target: {fileID: 2075320709392934440, guid: bdd0a2781d02fda4989a48c74670a92e,
+        type: 3}
+      propertyPath: FlipAnim
+      value: 
+      objectReference: {fileID: 724358516}
     - target: {fileID: 4438851975854086548, guid: bdd0a2781d02fda4989a48c74670a92e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7723,20 +7738,5 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2075320709392934440, guid: bdd0a2781d02fda4989a48c74670a92e,
-        type: 3}
-      propertyPath: soundManager
-      value: 
-      objectReference: {fileID: 461175044}
-    - target: {fileID: 2075320709392934440, guid: bdd0a2781d02fda4989a48c74670a92e,
-        type: 3}
-      propertyPath: OpenAnim
-      value: 
-      objectReference: {fileID: 733202103}
-    - target: {fileID: 2075320709392934440, guid: bdd0a2781d02fda4989a48c74670a92e,
-        type: 3}
-      propertyPath: FlipAnim
-      value: 
-      objectReference: {fileID: 724358516}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdd0a2781d02fda4989a48c74670a92e, type: 3}
