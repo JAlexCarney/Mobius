@@ -17,6 +17,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     static public bool holding = false;
     static public string held = "";
     static public GameObject heldObj = null;
+    public bool isWire = false;
 
     private TopVisualFolllow movingVisual;
     private Transform parent;
@@ -40,14 +41,44 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
         if (isHeld)
         {
-            if (Input.touchCount == 0)
+            if (isWire)
             {
-                transform.position = Input.mousePosition;
+                if (Input.touchCount == 0)
+                {
+                    Debug.Log("Checking : " + GameObject.Find("WireMoveBox"));
+                    if (Util.CheckBounds(GameObject.Find("WireMoveBox"), Input.mousePosition))
+                    {
+                        transform.position = Input.mousePosition;
+                    }
+                    else 
+                    {
+                        transform.position = new Vector3(Input.mousePosition.x, transform.position.y, transform.position.z);
+                    }
+                }
+                else
+                {
+                    if (Util.CheckBounds(GameObject.Find("WireMoveBox"), touch.position))
+                    {
+                        transform.position = touch.position;
+                    }
+                    else
+                    {
+                        transform.position = new Vector3(touch.position.x, transform.position.y, transform.position.z);
+                    }
+                }
             }
-            else
+            else 
             {
-                transform.position = touch.position;
+                if (Input.touchCount == 0)
+                {
+                    transform.position = Input.mousePosition;
+                }
+                else
+                {
+                    transform.position = touch.position;
+                }
             }
+
         }
         else if (isGoingBack)
         {
@@ -102,7 +133,10 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             holding = true;
             held = label;
             heldObj = gameObject;
-            transform.parent = movingVisual.gameObject.transform;
+            if (!isWire)
+            {
+                transform.parent = movingVisual.gameObject.transform;
+            }
         }
     }
 

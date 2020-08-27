@@ -9,10 +9,6 @@ public class Options : MonoBehaviour
 
     private void Start()
     {
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            Destroy(GameObject.Find("QuitToDesktop"));
-        }
     }
 
     void Update()

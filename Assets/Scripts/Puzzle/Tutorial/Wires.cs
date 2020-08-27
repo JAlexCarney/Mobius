@@ -61,9 +61,9 @@ public class Wires : MonoBehaviour
 
     private void Update()
     {
-        DrawWireDynamic(source1.transform.localPosition, wireDragger1.transform.localPosition + new Vector3 (0, 85, 0), moveableWire1);
-        DrawWireDynamic(source2.transform.localPosition, wireDragger2.transform.localPosition + new Vector3(0, 85, 0), moveableWire2);
-        DrawWireDynamic(source3.transform.localPosition, wireDragger3.transform.localPosition + new Vector3(0, 85, 0), moveableWire3);
+        DrawWireDynamic(source1.transform.localPosition, wireDragger1.transform.localPosition, moveableWire1);
+        DrawWireDynamic(source2.transform.localPosition, wireDragger2.transform.localPosition, moveableWire2);
+        DrawWireDynamic(source3.transform.localPosition, wireDragger3.transform.localPosition, moveableWire3);
     }
 
     public void PlaceWire(string placeInput)
