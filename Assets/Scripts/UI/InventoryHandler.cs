@@ -98,6 +98,7 @@ public class InventoryHandler : MonoBehaviour
 
     public void CloseDelayed()
     {
+        ResetPositions();
         Util.DeactivateChildren(openedInventory);
         open = false;
         animating = false;
@@ -107,6 +108,7 @@ public class InventoryHandler : MonoBehaviour
     private Vector3[] positions = new Vector3[10]; 
     public void OpenDelayed()
     {
+        ResetPositions();
         animating = false;
         open = true;
         if (firstOpening)
@@ -119,7 +121,7 @@ public class InventoryHandler : MonoBehaviour
         }
         for (int i = 0; i < itemObjs.Length; i++)
         {
-            itemObjs[i].GetComponent<Draggable>().startPos = positions[i];
+            itemObjs[i].GetComponent<Draggable>().startPos = slots[i].transform.position;
         }
 
         if (isCollecting && GameObject.Find(collecting))
@@ -144,6 +146,13 @@ public class InventoryHandler : MonoBehaviour
         }
     }
 
+    public void ResetPositions() {
+        for (int i = 0; i < items.Length; i++)
+        {
+            itemObjs[i].transform.localPosition = new Vector3(0f, 0f, 0f);
+        }
+    }
+
     public void Remove(string objToRemove)
     {
         for (int i = 0; i < items.Length; i++)
@@ -159,7 +168,7 @@ public class InventoryHandler : MonoBehaviour
         Invoke("UpdateInventory", 0.5f);
     }
 
-    private void UpdateInventory()
+    public void UpdateInventory()
     {
         List<string> currentItems = new List<string>();
         for (int i = 0; i < items.Length; i++)
@@ -191,6 +200,7 @@ public class InventoryHandler : MonoBehaviour
         {
             Close();
         }
+        ResetPositions();
     }
 
     public bool Empty()
@@ -204,6 +214,8 @@ public class InventoryHandler : MonoBehaviour
 
     public void Collect(string labelAndObj)
     {
+        ResetPositions();
+
         // parse input
         List<string> input = Util.Split(labelAndObj, '+');
         labelToCollect = input[0];

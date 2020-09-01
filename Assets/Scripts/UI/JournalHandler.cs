@@ -258,6 +258,7 @@ public class JournalHandler : MonoBehaviour
     // make journal visible
     public void Open()
     {
+        GameObject.Find("InventoryManager").GetComponent<InventoryHandler>().ResetPositions();
         Debug.Log("Journal entries showing : ");
         foreach (string shown in showing)
         {

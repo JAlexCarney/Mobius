@@ -42,6 +42,7 @@ public class CanvasSwapper : MonoBehaviour
     private bool lookingEnabledAfterFade = false;
     private Vector3 zoomPoint = new Vector3();
     private Vector3 preMovePosition;
+    private string zoomType = "noUI";
     void Update()
     {
         if (fadingOut)
@@ -87,7 +88,15 @@ public class CanvasSwapper : MonoBehaviour
                 count = 0;
                 currentCanvas.transform.GetChild(0).localScale = new Vector3(1.0f + (float)count / delay, 1.0f + (float)count / delay, 1.0f + (float)count / delay);
                 currentCanvas.transform.GetChild(0).localPosition = preMovePosition;
-                SwitchCanvasMaintainUIWithoutLooking(goingTo);
+                if (zoomType == "noUI")
+                {
+                    SwitchCanvasNoUIWithoutLooking(goingTo);
+                }
+                else 
+                {
+                    SwitchCanvasMaintainUIWithoutLooking(goingTo);
+                }
+                
                 fadingIn = true;
             }
         }
@@ -124,6 +133,18 @@ public class CanvasSwapper : MonoBehaviour
 
         // set looking
         movementManager.DisableLooking();
+    }
+
+    public void SwitchCanvasNoUIWithoutLookingAndZoom(string newCanvas) 
+    {
+        zoomingIn = true;
+        zoomType = "noUI";
+        List<string> newCanvasAndZoomPoint = Util.Split(newCanvas, '+');
+        goingTo = newCanvasAndZoomPoint[0];
+        zoomPoint = GameObject.Find(newCanvasAndZoomPoint[1]).transform.localPosition * -1f;
+        preMovePosition = currentCanvas.transform.GetChild(0).localPosition;
+        soundManager.Play("move");
+        fade.SetActive(true);
     }
 
     public void DisableUI()
@@ -265,6 +286,7 @@ public class CanvasSwapper : MonoBehaviour
     public void SwitchCanvasMaintainUIWithoutLookingAndZoomIn(string newCanvas)
     {
         zoomingIn = true;
+        zoomType = "yesUI";
         List<string> newCanvasAndZoomPoint = Util.Split(newCanvas, '+');
         goingTo = newCanvasAndZoomPoint[0];
         zoomPoint = GameObject.Find(newCanvasAndZoomPoint[1]).transform.localPosition * -1f;

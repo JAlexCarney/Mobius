@@ -414,13 +414,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DensityBroken
       objectReference: {fileID: 0}
-    - target: {fileID: 52446065475787570, guid: b60c8db9164174b47b6f4bc6a9248e69,
-        type: 3}
-      propertyPath: m_Text
-      value: 'Somebody really went to town on this thing...
-
-'
-      objectReference: {fileID: 0}
     - target: {fileID: 4566313371085683130, guid: b60c8db9164174b47b6f4bc6a9248e69,
         type: 3}
       propertyPath: anim
@@ -535,6 +528,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 52446065475787570, guid: b60c8db9164174b47b6f4bc6a9248e69,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Somebody really went to town on this thing...
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b60c8db9164174b47b6f4bc6a9248e69, type: 3}
@@ -878,7 +878,7 @@ GameObject:
   - component: {fileID: 252250754}
   - component: {fileID: 252250757}
   m_Layer: 5
-  m_Name: Mobuis Statue
+  m_Name: MobuisStatue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -947,14 +947,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2128498594}
-        m_MethodName: SwitchCanvasMaintainUIWithoutLooking
+        m_MethodName: SwitchCanvasMaintainUIWithoutLookingAndZoomIn
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MobiusStatueZoom
+          m_StringArgument: MobiusStatueZoom+MobuisStatue
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &252250755
@@ -3833,14 +3833,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2128498594}
-        m_MethodName: SwitchCanvasMaintainUIWithoutLooking
+        m_MethodName: SwitchCanvasMaintainUIWithoutLookingAndZoomIn
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: BulbArea
+          m_StringArgument: BulbArea+BulbButton
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1139003567762253095}
@@ -4816,14 +4816,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2128498594}
-        m_MethodName: SwitchCanvasMaintainUIWithoutLooking
+        m_MethodName: SwitchCanvasMaintainUIWithoutLookingAndZoomIn
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Lab
+          m_StringArgument: Lab+LabButton
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1490646971
@@ -6143,33 +6143,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: VendingMachine
       objectReference: {fileID: 0}
-    - target: {fileID: 7259028715369302058, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7259028715369302058, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 24.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7259028715369302058, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 322.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7259028715369302058, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 353.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7259028715369302059, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
-        type: 3}
-      propertyPath: m_Text
-      value: 'Such delicious snacks, all gone to waste.
-
-'
-      objectReference: {fileID: 0}
     - target: {fileID: 7259028717004964398, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6274,6 +6247,33 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259028715369302058, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259028715369302058, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 24.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259028715369302058, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 322.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259028715369302058, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 353.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259028715369302059, guid: 5c80a4df7ce78b249b13273f5bfdb3d2,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Such delicious snacks, all gone to waste.
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c80a4df7ce78b249b13273f5bfdb3d2, type: 3}
@@ -6448,14 +6448,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2128498594}
-        m_MethodName: SwitchCanvasMaintainUIWithoutLooking
+        m_MethodName: SwitchCanvasMaintainUIWithoutLookingAndZoomIn
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: PrismsP2
+          m_StringArgument: PrismsP2+PrisimButton
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2118436175
