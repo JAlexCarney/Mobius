@@ -28,7 +28,7 @@ public class JournalHandler : MonoBehaviour
         journalButton = GameObject.Find("InventoryManager").transform.GetChild(2).gameObject;
         showing = new List<string>();
         entryObjs = new Dictionary<string, GameObject>();
-        spreadsToSee = new bool[10];
+        spreadsToSee = new bool[13];
         for (int i = 0; i < spreadsToSee.Length; i++)
         {
             spreadsToSee[i] = false;
@@ -358,7 +358,7 @@ public class JournalHandler : MonoBehaviour
             }
         }
         spreadCount = 8;
-        Show(names + "+Newspaper2");
+        Show(names);
         
     }
 
@@ -392,7 +392,7 @@ public class JournalHandler : MonoBehaviour
                 }
             }
         }
-        spreadCount = 10;
+        spreadCount = 12;
         Show(names);
     }
 }

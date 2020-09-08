@@ -79,14 +79,14 @@ public class CanvasSwapper : MonoBehaviour
         else if (zoomingIn)
         {
             count++;
-            currentCanvas.transform.GetChild(0).localScale = new Vector3(1.0f + (float)count /delay, 1.0f + (float)count / delay, 1.0f + (float)count / delay);
-            currentCanvas.transform.GetChild(0).localPosition = Vector3.Lerp(preMovePosition, 2 * zoomPoint, (float)count/delay);
+            currentCanvas.transform.GetChild(0).localScale = new Vector3(1.0f + ((float)count / delay) * 2f, 1.0f + ((float)count / delay) * 2f, 1.0f + ((float)count / delay) * 2f);
+            currentCanvas.transform.GetChild(0).localPosition = Vector3.Lerp(preMovePosition, 3 * zoomPoint, (float)count/delay);
             fadeImage.color = new Vector4(0.15f, 0.15f, 0.15f, (float)count / (delay));
             if (count == delay)
             {
                 zoomingIn = false;
                 count = 0;
-                currentCanvas.transform.GetChild(0).localScale = new Vector3(1.0f + (float)count / delay, 1.0f + (float)count / delay, 1.0f + (float)count / delay);
+                currentCanvas.transform.GetChild(0).localScale = new Vector3(1.0f + ((float)count / delay)*2f, 1.0f + ((float)count / delay) * 2f, 1.0f + ((float)count / delay) * 2f);
                 currentCanvas.transform.GetChild(0).localPosition = preMovePosition;
                 if (zoomType == "noUI")
                 {
