@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Jobs;
 using UnityEngine.UIElements;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
+
 
 public class LockBoxReference : MonoBehaviour
 {
+    // Event to invoke upon success or failure.
+    public UnityEvent winEvent;
+    public UnityEvent failEvent;
+
     public Transform[] locations;
     public Dictionary<int, int> starLocations = new Dictionary<int, int>(); //(star, location) 
     [SerializeField] public Sol[] solution; 
@@ -28,8 +35,13 @@ public class LockBoxReference : MonoBehaviour
                 break; 
         }
         if (soFarSoGood)
-            Debug.Log("you did it!");
-        else Debug.Log("sorry not the correct solution :(");
+        {
+            winEvent.Invoke();
+        }
+        else 
+        {
+            failEvent.Invoke();
+        }
     }
 
     //open lockbox

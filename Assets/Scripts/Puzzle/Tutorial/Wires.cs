@@ -45,6 +45,9 @@ public class Wires : MonoBehaviour
     public UnityEvent winEvent;
     public UnityEvent failEvent;
 
+    private SoundManager soundManager;
+    private bool loadedSounds = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,11 +59,15 @@ public class Wires : MonoBehaviour
         startPos1 = wireDragger1.transform.position;
         startPos2 = wireDragger2.transform.position;
         startPos3 = wireDragger3.transform.position;
-
     }
 
     private void Update()
     {
+        if (!loadedSounds) 
+        {
+            soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+            loadedSounds = true;
+        }
         DrawWireDynamic(source1.transform.localPosition, wireDragger1.transform.localPosition, moveableWire1);
         DrawWireDynamic(source2.transform.localPosition, wireDragger2.transform.localPosition, moveableWire2);
         DrawWireDynamic(source3.transform.localPosition, wireDragger3.transform.localPosition, moveableWire3);
@@ -84,6 +91,8 @@ public class Wires : MonoBehaviour
 
         if(socket.GetComponent<WireData>().currentSource == null)
         {
+            soundManager.Play("WirePlug");
+
             source.GetComponent<WireData>().currentSocket = socket;
             socket.GetComponent<WireData>().currentSource = source;
 
@@ -106,6 +115,8 @@ public class Wires : MonoBehaviour
         if (socketTrue)
         {
             Debug.Log("This source is currently connected to a socket. Resetting.");
+
+            soundManager.Play("WireUnplug");
 
             // Clear the socket's source.
             Debug.Log(socketTrue.GetComponent<WireData>().currentSource.name);
@@ -206,7 +217,9 @@ public class Wires : MonoBehaviour
         WireData source2Data = source2.GetComponent<WireData>();
         WireData source3Data = source3.GetComponent<WireData>();
 
-        if(source1Data.currentSocket == source1Data.correctSocket &&
+        soundManager.Play("SwitchDown");
+
+        if (source1Data.currentSocket == source1Data.correctSocket &&
             source2Data.currentSocket == source2Data.correctSocket &&
             source3Data.currentSocket == source3Data.correctSocket)
         {

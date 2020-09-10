@@ -16,7 +16,7 @@ public class IntroTransition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = transform.GetChild(1).GetComponent<Animator>();
+        animator = transform.GetChild(2).GetComponent<Animator>();
         animator.enabled = false;
         transition = GameObject.Find("Transition").GetComponent<Animator>();
         frameCount = 0;

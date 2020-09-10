@@ -11,6 +11,7 @@ public class SceneHandler : MonoBehaviour
     private bool transitioning = false;
     private int playerBeingTransitioned = -1;
     private int loopBeingEntered = -1;
+    private bool toCredits = false;
     // transition object
     public GameObject transitionObj;
     public int player = -1;
@@ -27,7 +28,15 @@ public class SceneHandler : MonoBehaviour
             if (count == sceneTransitionDelay)
             {
                 transitioning = false;
-                LoadRoom();
+                if (toCredits)
+                {
+                    string sceneName = "Credits";
+                    SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+                }
+                else 
+                {
+                    LoadRoom();
+                }
             }
             else
             {
@@ -128,6 +137,12 @@ public class SceneHandler : MonoBehaviour
     {
         playerBeingTransitioned = 2;
         loopBeingEntered = 3;
+        TransitionWithAnimation();
+    }
+
+    public void LoadCredits()
+    {
+        toCredits = true;
         TransitionWithAnimation();
     }
 
