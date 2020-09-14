@@ -25,7 +25,9 @@ public class Star : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private Transform parent;
 
     private Touch touch;
-    private LockBoxReference lockBoxReference; 
+    private LockBoxReference lockBoxReference;
+
+    private SoundManager soundManager;
 
     private void Start()
     {
@@ -34,6 +36,7 @@ public class Star : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         movingVisual = GameObject.Find("MovingVisualCanvas").GetComponent<TopVisualFolllow>();
         parent = transform.parent;
         lockBoxReference = GetComponentInParent<LockBoxReference>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         //update star w position
         lockBoxReference.starLocations.Add(starNumber, currentLoc);
@@ -104,6 +107,7 @@ public class Star : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerDown(PointerEventData d)
     {
         //Debug.Log("Clicked");
+        
         Hold();
     }
 
@@ -119,6 +123,7 @@ public class Star : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (!holding && !isGoingBack)
         {
+            soundManager.Play("crank");
             isHeld = true;
             holding = true;
             held = label;
@@ -129,6 +134,7 @@ public class Star : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void Drop()
     {
+        
         isHeld = false;
         holding = false;
         held = "";

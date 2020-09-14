@@ -15,10 +15,13 @@ public class LockBoxReference : MonoBehaviour
 
     public Transform[] locations;
     public Dictionary<int, int> starLocations = new Dictionary<int, int>(); //(star, location) 
-    [SerializeField] public Sol[] solution; 
-   
+    [SerializeField] public Sol[] solution;
+    
+
     public void CheckSolution()
     {
+
+
         bool soFarSoGood = true;
         for (int i = 0; i < solution.Length; i++)
         {
