@@ -44,7 +44,7 @@ public class JournalHandler : MonoBehaviour
         indicator.GetComponent<PageFinder>().page = page;
         Animation anim = indicator.GetComponent<Animation>();
         anim.Play();
-        Destroy(indicator, anim.GetClip("JournalEntry").averageDuration);
+        Destroy(indicator, 4f);
 
         // update journal open button to reflect new information
         journalButton.GetComponent<Image>().sprite = journalButtonNewMsgImg;

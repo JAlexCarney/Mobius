@@ -47,39 +47,7 @@ public class SceneHandler : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) 
-        {
-            if (SceneManager.GetActiveScene().name.Contains("P1")) 
-            {
-                PlayerOneStart();
-            } 
-            else 
-            {
-                PlayerTwoStart();
-            }
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            if (SceneManager.GetActiveScene().name.Contains("P1"))
-            {
-                P1EnterLoop2();
-            }
-            else
-            {
-                P2EnterLoop2();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            if (SceneManager.GetActiveScene().name.Contains("P1"))
-            {
-                P1EnterLoop3();
-            }
-            else
-            {
-                P2EnterLoop3();
-            }
-        }
+        
     }
 
     public void PlayerOneStart()
