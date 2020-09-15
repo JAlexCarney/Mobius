@@ -67,4 +67,16 @@ public class Animate : MonoBehaviour
             lastIndex = 0;
         }
     }
+
+    public void PlayAnimation() 
+    {
+        imageComponent = this.GetComponent<Image>();
+        currentFrame = -1;
+        lastIndex = 0;
+        imageComponent.sprite = frames[0]; //set image
+        imageComponent.color = new Color32(255, 255, 255, 255);
+        play = true;
+        loop = false;
+    }
+
 }

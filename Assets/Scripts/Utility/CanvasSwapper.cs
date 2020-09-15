@@ -38,6 +38,7 @@ public class CanvasSwapper : MonoBehaviour
     private bool fadingOut = false;
     private bool fadingIn = false;
     private bool zoomingIn = false;
+    private bool UiAfterFade = true;
     private string goingTo = "";
     private bool lookingEnabledAfterFade = false;
     private Vector3 zoomPoint = new Vector3();
@@ -53,13 +54,20 @@ public class CanvasSwapper : MonoBehaviour
             {
                 fadingOut = false;
                 fadingIn = true;
-                if (lookingEnabledAfterFade)
+                if (UiAfterFade)
                 {
-                    SwitchCanvasMaintainUIWithLooking(goingTo);
+                    if (lookingEnabledAfterFade)
+                    {
+                        SwitchCanvasMaintainUIWithLooking(goingTo);
+                    }
+                    else
+                    {
+                        SwitchCanvasMaintainUIWithoutLooking(goingTo);
+                    }
                 }
-                else
+                else 
                 {
-                    SwitchCanvasMaintainUIWithoutLooking(goingTo);
+                    SwitchCanvasNoUIWithoutLooking(goingTo);
                 }
                 count = 0;
             }
@@ -92,11 +100,15 @@ public class CanvasSwapper : MonoBehaviour
                 {
                     SwitchCanvasNoUIWithoutLooking(goingTo);
                 }
-                else 
+                else if (zoomType == "yesUI") 
                 {
                     SwitchCanvasMaintainUIWithoutLooking(goingTo);
                 }
-                
+                else
+                {
+                    SwitchCanvasMaintainUIWithLooking(goingTo);
+                }
+
                 fadingIn = true;
             }
         }
@@ -304,14 +316,66 @@ public class CanvasSwapper : MonoBehaviour
 
     public void SwitchCanvasMaintainUIAndFadeWithLooking(string newCanvas)
     {
+        UiAfterFade = true;
         fadingOut = true;
         goingTo = newCanvas;
         fade.SetActive(true);
         lookingEnabledAfterFade = true;
     }
 
+    public void SpaceMoveGood(string newCanvas)
+    {
+        GameObject spaceMoveGood = GameObject.Find("SpaceMoveGood");
+        spaceMoveGood.transform.GetChild(0).gameObject.SetActive(true);
+        spaceMoveGood.GetComponent<ActivateOnDelay>().Activate();
+        spaceMoveGood.transform.GetChild(0).GetComponent<Animate>().PlayAnimation();
+        List<string> newCanvasAndZoomPoint = Util.Split(newCanvas, '+');
+        goingTo = newCanvasAndZoomPoint[0];
+        zoomPoint = GameObject.Find(newCanvasAndZoomPoint[1]).transform.localPosition * -1f;
+        zoomingIn = true;
+        zoomType = "yesUIyesLook";
+        fade.SetActive(false);
+        lookingEnabledAfterFade = true;
+    }
+
+    public void SpaceMoveBad(string newCanvas)
+    {
+        GameObject spaceMoveGood = GameObject.Find("SpaceMoveBad");
+        spaceMoveGood.transform.GetChild(0).gameObject.SetActive(true);
+        spaceMoveGood.GetComponent<ActivateOnDelay>().Activate();
+        spaceMoveGood.transform.GetChild(0).GetComponent<Animate>().PlayAnimation();
+        goingTo = newCanvas;
+        UiAfterFade = true;
+        fadingOut = true;
+        fade.SetActive(true);
+        lookingEnabledAfterFade = true;
+    }
+
+    public void SpaceDeadEnd(string newCanvas)
+    {
+        GameObject spaceMoveGood = GameObject.Find("SpaceMoveBad");
+        spaceMoveGood.transform.GetChild(0).gameObject.SetActive(true);
+        spaceMoveGood.GetComponent<ActivateOnDelay>().Activate();
+        spaceMoveGood.transform.GetChild(0).GetComponent<Animate>().PlayAnimation();
+        goingTo = newCanvas;
+        UiAfterFade = true;
+        fadingOut = true;
+        fade.SetActive(true);
+        lookingEnabledAfterFade = false;
+    }
+
     public void SwitchCanvasMaintainUIAndFadeWithoutLooking(string newCanvas)
     {
+        UiAfterFade = true;
+        fadingOut = true;
+        goingTo = newCanvas;
+        fade.SetActive(true);
+        lookingEnabledAfterFade = false;
+    }
+
+    public void SwitchCanvasNoUIAndFadeWithoutLooking(string newCanvas)
+    {
+        UiAfterFade = false;
         fadingOut = true;
         goingTo = newCanvas;
         fade.SetActive(true);
